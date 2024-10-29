@@ -1,2 +1,2 @@
 <!-- resources/views/components/application-logo.blade.php -->
-<img src="{{ asset('public/assets/802-GO-LOGO.png') }}" alt="Logo" class="h-16 w-auto">
+<img src="{{ asset('/workspaces/APC-2024-2025-T1-07-802-GO-Barangay-Management-System/laravel-docker-main/SISTEM/public/assets/802-GO-LOGO.png') }}" alt="Logo" class="h-16 w-auto">
