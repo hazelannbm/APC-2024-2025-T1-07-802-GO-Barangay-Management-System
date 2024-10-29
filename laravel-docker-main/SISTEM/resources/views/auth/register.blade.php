@@ -116,3 +116,10 @@
         </div>
     </form>
 </x-guest-layout>
+
+<style>
+    .padded-form {
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+</style>
