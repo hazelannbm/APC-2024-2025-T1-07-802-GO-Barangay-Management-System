@@ -1,5 +1,5 @@
 <x-guest-layout>
-    <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data" class="padded-form">
+    <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data" style="padding-top: 20px; padding-bottom: 20px;">
         @csrf
 
         <!-- First Name -->
@@ -116,10 +116,3 @@
         </div>
     </form>
 </x-guest-layout>
-
-<style>
-    .padded-form {
-        padding-top: 20px;
-        padding-bottom: 20px;
-    }
-</style>
