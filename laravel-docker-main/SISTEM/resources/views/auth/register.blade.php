@@ -1,9 +1,9 @@
 <div style="background-color:#f3f4f6">
-    <p style="font-color:#f3f4f6">F</p>
+    <p style="opacity:0%">F</p>
 </div>
 
 <div style="background-color:#f3f4f6">
-    <p style="font-color:#f3f4f6">F</p>
+    <p style="opacity:0%">F</p>
 </div>
 
 <x-guest-layout>
@@ -154,9 +154,9 @@
 </x-guest-layout>
 
 <div style="background-color:#f3f4f6">
-    <p style="font-color:#f3f4f6">F</p>
+    <p style="opacity:0%">F</p>
 </div>
 
 <div style="background-color:#f3f4f6">
-    <p style="font-color:#f3f4f6">F</p>
+    <p style="opacity:0%">F</p>
 </div>
