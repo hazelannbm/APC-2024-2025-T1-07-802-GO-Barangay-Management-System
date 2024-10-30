@@ -1,9 +1,9 @@
-<div style="background-color:#111828">
-    <p style="font-color:#111828">Fill out the form to create a new account</p>
+<div style="background-color:#f3f4f6">
+    <p style="font-color:#f3f4f6">F</p>
 </div>
 
-<div style="background-color:#111828">
-    <p style="font-color:#111828">Fill out the form to create a new account</p>
+<div style="background-color:#f3f4f6">
+    <p style="font-color:#f3f4f6">F</p>
 </div>
 
 <x-guest-layout>
@@ -153,10 +153,10 @@
     </div>
 </x-guest-layout>
 
-<div style="background-color:#111828">
-    <p style="font-color:#111828">Fill out the form to create a new account</p>
+<div style="background-color:#f3f4f6">
+    <p style="font-color:#f3f4f6">F</p>
 </div>
 
-<div style="background-color:#111828">
-    <p style="font-color:#111828">Fill out the form to create a new account</p>
+<div style="background-color:#f3f4f6">
+    <p style="font-color:#f3f4f6">F</p>
 </div>
