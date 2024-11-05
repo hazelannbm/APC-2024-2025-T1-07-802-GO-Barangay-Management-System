@@ -229,6 +229,41 @@
     </div>
 </section>
 
+<!-- Barangay Section -->
+<section class="barangay-section bg-[#11468F] text-white py-12 px-6">
+    <div class="container mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+        <!-- Left Column: Logo and Name with Centered Alignment -->
+        <div class="flex items-center justify-center lg:justify-start gap-4">
+            <img src="{{ asset('logo/802-GO-LOGO.png') }}" alt="Barangay Logo" class="h-20 w-20 object-contain">
+            <div>
+                <div class="text-xl font-semibold">Barangay 802</div>
+                <div class="text-sm mt-1">District 5, Sta. Ana Manila City, Metro Manila, Philippines</div>
+            </div>
+        </div>
+
+        <!-- Right Column: Contact Information -->
+        <div class="contact-info text-center lg:text-right">
+            <h2 class="text-lg font-semibold">CONTACT US:</h2>
+            <div class="contact-item mt-2">
+                <span class="contact-title font-semibold">24-Hour Command Center:</span>
+                <span class="contact-detail block">8-000-0000 / 0999 123 4567</span>
+            </div>
+            <div class="contact-item mt-2">
+                <span class="contact-title font-semibold">Office of the Barangay Captain:</span>
+                <span class="contact-detail block">8-000-0000</span>
+            </div>
+            <div class="contact-item mt-2">
+                <span class="contact-title font-semibold">Email:</span>
+                <span class="contact-detail block">email@gmail.com</span>
+            </div>
+            <div class="contact-item mt-2">
+                <span class="contact-title font-semibold">Address:</span>
+                <span class="contact-detail block">District 5, Sta. Ana Manila City, Metro Manila, Philippines</span>
+            </div>
+        </div>
+    </div>
+</section>
+
 <footer style="text-align: center; padding: 30px; background-color: #f8f9fa; border-top: 1px solid #e9ecef; height: 100px; opacity: 0.5;">
     <p style="margin: 0; font-size: 12px;">Copyright &copy; {{ date('Y') }} Barangay 802, Manila City</p>
     <p style="margin: 0; font-size: 12px;">Designed by SISTEM</p>
