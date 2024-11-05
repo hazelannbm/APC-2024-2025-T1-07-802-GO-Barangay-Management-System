@@ -198,6 +198,37 @@
     </a>
 </section>
 
+
+<!-- About us Section -->
+<section class="flex justify-center py-16 px-6">
+    <!-- About Us Card centered on the screen -->
+    <div
+        class="w-full max-w-screen-xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6 overflow-hidden rounded-lg bg-white pt-16 pb-16 px-6 shadow-[0px_14px_34px_0px_rgba(0,0,0,0.08)] ring-1 ring-white/[0.05] transition duration-300 hover:text-black/70 hover:ring-black/20 focus:outline-none focus-visible:ring-[#FF2D20] lg:p-10 lg:pb-10 dark:bg-zinc-900 dark:ring-zinc-800 dark:hover:text-white/70 dark:hover:ring-zinc-700 dark:focus-visible:ring-[#FF2D20]"
+    >
+        <!-- About Us Content -->
+        <div class="flex flex-col gap-6 justify-center text-center lg:text-left">
+            <h2 style="font-size: 30px; font-weight: bold;" class="text-2xl font-semibold text-black dark:text-white">About Us</h2>
+            <p class="text-sm/relaxed text-gray-700 dark:text-gray-300">
+            Barangay 802, District 5, Sta. Ana, Manila City, Metro Manila, Philippines, is a peaceful, progressive, and highly-urbanized community. It consists of cooperative and morally upright residents, ambitious and responsive business owners and corporate managers, and committed and visionary leaders. Barangay 802 works hand in hand with its constituents to sustain a clean, green, safe, and healthy environment, fostering both physical and economic growth.
+            </p>
+            <a href="#"
+               class="mt-4 inline-block px-6 py-3 bg-green-500 text-white font-semibold rounded-md transition hover:bg-green-600">
+                Read More
+            </a>
+        </div>
+
+        <!-- About Us Image -->
+        <div class="relative flex items-center">
+            <img
+                src="{{ asset('background/brgy.jpg') }}"
+                alt="Barangay 802 Officials"
+                class="w-full h-full object-cover rounded-[10px] drop-shadow-[0px_4px_34px_rgba(0,0,0,0.06)]"
+            />
+            <div class="absolute inset-0 banner-overlay"></div>
+        </div>
+    </div>
+</section>
+
 <footer style="text-align: center; padding: 30px; background-color: #f8f9fa; border-top: 1px solid #e9ecef; height: 100px; opacity: 0.5;">
     <p style="margin: 0; font-size: 12px;">Copyright &copy; {{ date('Y') }} Barangay 802, Manila City</p>
     <p style="margin: 0; font-size: 12px;">Designed by SISTEM</p>
