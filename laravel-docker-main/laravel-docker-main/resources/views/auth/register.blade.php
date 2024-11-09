@@ -7,7 +7,7 @@
 </div>
 
 <x-guest-layout>
-    <div class="my-8"> <!-- Adds top and bottom margin -->
+    <div class="my-8">
         <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
             @csrf
 
@@ -106,11 +106,14 @@
                 <x-input-error :messages="$errors->get('children_name')" class="mt-2" />
             </div>
 
-            <!-- Valid ID Attachment -->
+            <!-- Valid ID Attachment with Preview -->
             <div class="mt-4">
                 <x-input-label for="valid_id" :value="__('Valid ID (jpg or png)')" />
                 <x-text-input id="valid_id" class="block mt-1 w-full" type="file" name="valid_id" accept=".jpg, .jpeg, .png" required />
                 <x-input-error :messages="$errors->get('valid_id')" class="mt-2" />
+
+                <!-- Image Preview -->
+                <img id="id_preview" class="mt-4 max-w-xs rounded-lg" src="#" alt="ID preview" style="display: none;" />
             </div>
 
             <!-- Email Address -->
@@ -134,21 +137,19 @@
                 <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
             </div>
 
-
             <!-- Register Button -->
             <div class="flex justify-between mt-6">
                 <div class="flex items-center">
                     <a href="{{ route('login') }}" class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800">
-                    {{ __('Already registered?') }}
+                        {{ __('Already registered?') }}
                     </a>
                 </div>
-
                 <div>
                     <x-primary-button>
                         {{ __('Register') }}
                     </x-primary-button>
                 </div>
-</div>
+            </div>
         </form>
     </div>
 </x-guest-layout>
@@ -160,3 +161,23 @@
 <div style="background-color:#f3f4f6">
     <p style="opacity:0%">Fill out the form to create a new account</p>
 </div>
+
+<script>
+    // JavaScript to handle image preview
+    document.getElementById('valid_id').addEventListener('change', function (event) {
+        const file = event.target.files[0];
+        const preview = document.getElementById('id_preview');
+        
+        if (file && file.type.startsWith('image/')) {
+            const reader = new FileReader();
+            reader.onload = function () {
+                preview.src = reader.result;
+                preview.style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+        } else {
+            preview.style.display = 'none';
+            preview.src = "#"; // Reset the source if file is not valid
+        }
+    });
+</script>
