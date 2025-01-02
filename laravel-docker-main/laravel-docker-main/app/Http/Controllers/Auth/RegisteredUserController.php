@@ -30,13 +30,40 @@ class RegisteredUserController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
+            'first_name' => ['required', 'string', 'max:255'],
+            'middle_name' => ['nullable', 'string', 'max:255'],
+            'last_name' => ['required', 'string', 'max:255'],
+            'gender' => ['required', 'string', 'in:male,female,other'],
+            'age' => ['required', 'integer', 'min:0'],
+            'birthdate' => ['required', 'date'],
+            'address' => ['required', 'string', 'max:255'],
+            'civil_status' => ['required', 'string', 'in:single,married,widowed,divorced'],
+            'religion' => ['nullable', 'string', 'max:255'],
+            'spouse_name' => ['nullable', 'string', 'max:255'],
+            'siblings_name' => ['nullable', 'string', 'max:255'],
+            'children_name' => ['nullable', 'string', 'max:255'],
+            'valid_id' => ['required', 'image', 'mimes:jpg,jpeg,png', 'max:2048'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
+        // Handle the file upload
+        $validIdPath = $request->file('valid_id')->store('valid-ids', 'public');
+
         $user = User::create([
-            'name' => $request->name,
+            'first_name' => $request->first_name,
+            'middle_name' => $request->middle_name,
+            'last_name' => $request->last_name,
+            'gender' => $request->gender,
+            'age' => $request->age,
+            'birthdate' => $request->birthdate,
+            'address' => $request->address,
+            'civil_status' => $request->civil_status,
+            'religion' => $request->religion,
+            'spouse_name' => $request->spouse_name,
+            'siblings_name' => $request->siblings_name,
+            'children_name' => $request->children_name,
+            'valid_id' => $validIdPath,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
@@ -44,12 +71,6 @@ class RegisteredUserController extends Controller
         event(new Registered($user));
 
         Auth::login($user);
-
-        return response()->json([
-            'status' => 'success',
-            'message' => 'User registered successfully',
-            'user' => $user
-        ], 201);
 
         return redirect(route('dashboard', absolute: false));
     }
