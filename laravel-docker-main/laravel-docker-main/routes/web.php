@@ -3,9 +3,12 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\URL;
+use App\Http\Controllers\Auth\RegisteredUserController;
 
 $url = config('app.url');
 URL::forceRootUrl($url);
+
+Route::post('/register', [RegisteredUserController::class, 'store'])->name('register');
 
 Route::get('/', function () {
     return view('welcome');
