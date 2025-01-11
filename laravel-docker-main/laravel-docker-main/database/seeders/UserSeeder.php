@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Faker\Factory as Faker;
 use Carbon\Carbon;
 
 class UserSeeder extends Seeder
@@ -15,13 +14,11 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        // Create an instance of Faker to generate fake data
-        $faker = Faker::create();
-        
-        // Get the current timestamp using Carbon (used for created_at and updated_at)
+        // Create an instance of Carbon to get the current timestamp
+        // Carbon is used for date/time handling, especially for created_at and updated_at fields
         $currentTimestamp = Carbon::now();
 
-        // Insert two records into the 'users' table
+        // Insert two records into the 'users' table using static data (no Faker)
         DB::table('users')->insert([
             [
                 // The 'name' field is manually populated for clarity
@@ -42,7 +39,7 @@ class UserSeeder extends Seeder
                 'children_name' => null,     // No children
                 'valid_id' => 'ID123456',    // Example valid ID
                 'password' => Hash::make('password123'), // Hashing the password for security
-                'email' => $faker->unique()->safeEmail,  // Generating a unique email using Faker
+                'email' => 'john.doe@example.com',  // Static email
 
                 // Timestamps for record creation and update
                 'created_at' => $currentTimestamp,  // Timestamp for creation
@@ -66,7 +63,7 @@ class UserSeeder extends Seeder
                 'children_name' => 'Anna Smith, Emily Smith', // Children’s names
                 'valid_id' => 'ID789012',  // Example valid ID
                 'password' => Hash::make('password456'), // Hashing the password for security
-                'email' => $faker->unique()->safeEmail,  // Generating a unique email using Faker
+                'email' => 'jane.smith@example.com',  // Static email
 
                 // Timestamps for record creation and update
                 'created_at' => $currentTimestamp,  // Timestamp for creation
