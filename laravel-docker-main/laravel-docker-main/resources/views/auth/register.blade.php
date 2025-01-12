@@ -11,6 +11,11 @@
         <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
             @csrf
 
+            <!-- Login Heading -->
+            <div class="mt-6 mb-4 text-center text-lg font-semibold text-gray-700 dark:text-gray-300">
+                {{ __('Register to your account') }}
+            </div>
+
             <!-- First Name -->
             <div>
                 <x-input-label for="first_name" :value="__('First Name')" />
