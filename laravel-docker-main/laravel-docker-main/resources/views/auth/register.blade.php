@@ -1,3 +1,6 @@
+<title>802-GO: Register</title>
+<link rel="icon" href="{{ asset('logo/802-GO-LOGO.png') }}" type="image/x-icon">
+
 <div style="background-color:#f3f4f6">
     <p style="opacity:0%">Fill out the form to create a new account</p>
 </div>
