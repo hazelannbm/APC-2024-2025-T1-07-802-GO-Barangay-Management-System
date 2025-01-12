@@ -1,3 +1,6 @@
+<title>802-GO: Register</title>
+<link rel="icon" href="{{ asset('logo/802-GO-LOGO.png') }}" type="image/x-icon">
+
 <div style="background-color:#f3f4f6">
     <p style="opacity:0%">Fill out the form to create a new account</p>
 </div>
@@ -10,6 +13,11 @@
     <div class="my-8">
         <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
             @csrf
+
+            <!-- Login Heading -->
+            <div class="mt-6 mb-4 text-center text-lg font-semibold text-gray-700 dark:text-gray-300">
+                {{ __('Register to your account') }}
+            </div>
 
             <!-- First Name -->
             <div>

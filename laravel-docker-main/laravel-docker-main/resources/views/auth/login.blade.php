@@ -1,9 +1,17 @@
+<title>802-GO: Log In</title>
+<link rel="icon" href="{{ asset('logo/802-GO-LOGO.png') }}" type="image/x-icon">
+
 <x-guest-layout>
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
     <form method="POST" action="{{ route('login') }}">
         @csrf
+
+        <!-- Login Heading -->
+        <div class="mt-6 mb-4 text-center text-lg font-semibold text-gray-700 dark:text-gray-300">
+            {{ __('Log in to your account') }}
+        </div>
 
         <!-- Email Address -->
         <div>
