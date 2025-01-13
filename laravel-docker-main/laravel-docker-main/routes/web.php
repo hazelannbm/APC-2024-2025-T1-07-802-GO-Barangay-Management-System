@@ -23,10 +23,6 @@ Route::get('/sample-news-3', function () {
     return view('news.sample-news-3');
 })->name('sample-news-3');
 
-Route::get('/news', function () {
-    return view('news.news');
-})->name('news');
-
 Route::get('/welcome', function () {
     return view('welcome');
 })->name('welcome');
