@@ -1,13 +1,5 @@
-<div style="background-color:#111828">
-    <p style="font-color:#111828">Fill out the form to create a new account</p>
-</div>
-
-<div style="background-color:#111828">
-    <p style="font-color:#111828">Fill out the form to create a new account</p>
-</div>
-
 <x-guest-layout>
-    <div class="my-8"> <!-- Adds top and bottom margin -->
+    <div class="my-8" style="background-color: white; padding: 20px; border-radius: 8px;"> <!-- Adds top and bottom margin -->
         <form method="POST" action="{{ route('document-request') }}">
             @csrf
 
@@ -74,11 +66,3 @@
         </form>
     </div>
 </x-guest-layout>
-
-<div style="background-color:#111828">
-    <p style="font-color:#111828">Fill out the form to create a new account</p>
-</div>
-
-<div style="background-color:#111828">
-    <p style="font-color:#111828">Fill out the form to create a new account</p>
-</div>
