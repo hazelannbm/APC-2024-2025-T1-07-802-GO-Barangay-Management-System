@@ -165,13 +165,28 @@
         margin: 0 auto; /* Centers the section horizontally */
             }
             h1 {
-                color: #11468F;
+                color: #9dc0f1;
                 font-size: 3em;
             }
             p {
                 margin: 10px 0 30px;
                 font-size: 1.2em;
             }
+            .video-container {
+  max-width: 800px; /* Adjust as needed */
+  margin: 20px auto; /* Center the video on the page */
+  text-align: center;
+}
+
+video {
+  border-radius: 8px; /* Optional: Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional: Add a shadow */
+  
+}
+.community-health-header {
+        font-size: 2.5rem; /* Adjust font size for header */
+        font-weight: bold; /* Ensure header remains bold */
+    }
             .service {
                 background: #fff;
                 padding: 20px;
@@ -231,7 +246,7 @@
                         <a href="{{ route('news-page') }}" class="rounded-md px-3 py-2 text-white bg-[#FF2D20] ring-1 ring-transparent transition hover:text-white/70 focus:outline-none focus-visible:ring-[#FF2D20] active">
                             News
                         </a>
-                        <a href="#" class="rounded-md px-3 py-2 text-white ring-1 ring-transparent transition hover:text-white/70 focus:outline-none focus-visible:ring-[#FF2D20]">
+                        <a href="{{ route('document-request') }}" class="rounded-md px-3 py-2 text-white ring-1 ring-transparent transition hover:text-white/70 focus:outline-none focus-visible:ring-[#FF2D20]">
                             Document Request
                         </a>
                     </nav>
@@ -265,28 +280,83 @@
        
 
 <div class="text-section">
-        <h1>802-GO: Barangay Management System</h1>
-        <p>District 5, Sta. Ana Manila City, Metro Manila, Philippines</p>
+        <h1>LATEST NEWS</h1>
+        <p>Keep up to date with the latest news about Barangay 802</p>
     </div>
 
     
 
 
-<!-- News Title Section -->
-<section class="flex justify-center p-6">
-    <!-- Main Banner Card with "Latest News" Title -->
-    <div
-        style=" width: 100%; max-width: var(--max-screen-xl); display: flex; align-items: center; justify-content: center; overflow: hidden; border-radius: 0.5rem; background-color: white; padding: 1.5rem; box-shadow: 0px 14px 34px 0px rgba(0, 0, 0, 0.08); border: 2px solid rgba(255, 255, 255, 0.05); transition: border-color 0.3s, border-width 0.3s;" 
-        onmouseover="this.style.borderColor='#11468F'; this.style.borderWidth='4px';" 
-        onmouseout="this.style.borderColor='rgba(255, 255, 255, 0.05)'; this.style.borderWidth='2px';"
-    >
-        <h1 style="font-size: 30px; font-weight: bold;" class="text-8xl font-extrabold text-black dark:text-white">Barangay News</h1>
+<!-- News Main Article Section -->
+
+<section class="flex flex-col items-center bg-white p-6 rounded-lg shadow-md ring-1 ring-black/[0.05] dark:bg-zinc-900 dark:ring-zinc-800 mb-8">
+    <!-- Title -->
+    <h2 class="text-4xl font-semibold text-black dark:text-white mb-4">Community Health Outreach Brings Medical Assistance to Families</h2>
+    
+    <!-- Video -->
+    <div class="video-container">
+            <video width="100%" height="auto" controls>
+            <source src="{{ asset('images/course-video.mp4') }}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+   
+    <!-- Read More Button -->
+    <div class="mt-4">
+        <a href="{{ route('sample-news-1') }}">
+            <button style="border: 2px solid #11468F; padding: 10px 20px; background-color: #11468F; color: white; border-radius: 5px;">Read More</button>
+        </a>
     </div>
 </section>
-
+</section>
 
 <!-- News Articles Section -->
 <section class="grid gap-6 lg:grid-cols-3 lg:gap-8 p-6">
+    <!-- News Article Card 1 -->
+    <a href="{{ route('sample-news-1') }}" class="flex flex-col items-start gap-6 overflow-hidden rounded-lg bg-white p-6 shadow-[0px_14px_34px_0px_rgba(0,0,0,0.08)] ring-1 ring-white/[0.05] transition duration-300 hover:text-black/70 hover:ring-black/20 focus:outline-none focus-visible:ring-[#FF2D20] dark:bg-zinc-900 dark:ring-zinc-800 dark:hover:text-white/70 dark:hover:ring-zinc-700 dark:focus-visible:ring-[#FF2D20]">
+        <div class="relative flex w-full items-stretch">
+            <img src="{{ asset('background/news-1.png') }}" alt="News Image 1" class="aspect-video w-full h-full object-cover rounded-[10px] drop-shadow-[0px_4px_34px_rgba(0,0,0,0.06)] dark:hidden">
+            <div class="absolute -bottom-16 -left-16 h-40 w-[calc(100%+8rem)] bg-gradient-to-b from-transparent via-white to-white dark:via-zinc-900 dark:to-zinc-900"></div>
+        </div>
+        <div class="relative">
+            <h2 class="text-xl font-semibold text-black dark:text-white">Community Health Outreach Brings Medical Assistance to Families</h2>
+            <p class="mt-2 text-sm/relaxed" style="margin-bottom: 8px;">Health workers provide free check-ups and medical assistance to families in underserved areas, focusing on young children and elderly residents...</p>
+        </div>
+        <div>
+        <button style="border: 2px solid #11468F; padding: 10px 20px; background-color: #11468F; color: white; border-radius: 5px;">Read More</button>
+        </div>
+    </a>
+
+    <!-- News Article Card 2 -->
+    <a href="{{ route('sample-news-2') }}" class="flex flex-col items-start gap-6 overflow-hidden rounded-lg bg-white p-6 shadow-[0px_14px_34px_0px_rgba(0,0,0,0.08)] ring-1 ring-white/[0.05] transition duration-300 hover:text-black/70 hover:ring-black/20 focus:outline-none focus-visible:ring-[#FF2D20] dark:bg-zinc-900 dark:ring-zinc-800 dark:hover:text-white/70 dark:hover:ring-zinc-700 dark:focus-visible:ring-[#FF2D20]">
+        <div class="relative flex w-full items-stretch">
+            <img src="{{ asset('background/news-2.png') }}" alt="News Image 2" class="aspect-video w-full h-full object-cover rounded-[10px] drop-shadow-[0px_4px_34px_rgba(0,0,0,0.06)] dark:hidden">
+            <div class="absolute -bottom-16 -left-16 h-40 w-[calc(100%+8rem)] bg-gradient-to-b from-transparent via-white to-white dark:via-zinc-900 dark:to-zinc-900"></div>
+        </div>
+        <div class="relative">
+            <h2 class="text-xl font-semibold text-black dark:text-white">Storytelling Session Inspires Young Minds in Local Outreach Program</h2>
+            <p class="mt-2 text-sm/relaxed" style="margin-bottom: 8px;">Volunteers engage children in an educational storytelling session, aiming to foster a love for reading and learning in a friendly outdoor setting...</p>
+        </div>
+        <div>
+        <button style="border: 2px solid #11468F; padding: 10px 20px; background-color: #11468F; color: white; border-radius: 5px;">Read More</button>
+        </div>
+    </a>
+
+    <!-- News Article Card 3 -->
+    <a href="{{ route('sample-news-3') }}" class="flex flex-col items-start gap-6 overflow-hidden rounded-lg bg-white p-6 shadow-[0px_14px_34px_0px_rgba(0,0,0,0.08)] ring-1 ring-white/[0.05] transition duration-300 hover:text-black/70 hover:ring-black/20 focus:outline-none focus-visible:ring-[#FF2D20] dark:bg-zinc-900 dark:ring-zinc-800 dark:hover:text-white/70 dark:hover:ring-zinc-700 dark:focus-visible:ring-[#FF2D20]">
+        <div class="relative flex w-full items-stretch">
+            <img src="{{ asset('background/news-3.png') }}" alt="News Image 3" class="aspect-video w-full h-full object-cover rounded-[10px] drop-shadow-[0px_4px_34px_rgba(0,0,0,0.06)] dark:hidden">
+            <div class="absolute -bottom-16 -left-16 h-40 w-[calc(100%+8rem)] bg-gradient-to-b from-transparent via-white to-white dark:via-zinc-900 dark:to-zinc-900"></div>
+        </div>
+        <div class="relative">
+            <h2 class="text-xl font-semibold text-black dark:text-white">Community Effort Enhances Road Safety with New Repairs </h2>
+            <p class="mt-2 text-sm/relaxed" style="margin-bottom: 8px;">Local workers join forces to repair and improve road infrastructure, enhancing safety for pedestrians and drivers in the community...</p>
+        </div>
+        <div>
+        <button style="border: 2px solid #11468F; padding: 10px 20px; background-color: #11468F; color: white; border-radius: 5px;">Read More</button>
+        </div>
+    </a>
+
     <!-- News Article Card 1 -->
     <a href="{{ route('sample-news-1') }}" class="flex flex-col items-start gap-6 overflow-hidden rounded-lg bg-white p-6 shadow-[0px_14px_34px_0px_rgba(0,0,0,0.08)] ring-1 ring-white/[0.05] transition duration-300 hover:text-black/70 hover:ring-black/20 focus:outline-none focus-visible:ring-[#FF2D20] dark:bg-zinc-900 dark:ring-zinc-800 dark:hover:text-white/70 dark:hover:ring-zinc-700 dark:focus-visible:ring-[#FF2D20]">
         <div class="relative flex w-full items-stretch">
