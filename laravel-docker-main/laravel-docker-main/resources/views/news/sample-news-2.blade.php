@@ -315,7 +315,7 @@
             <p class="text-sm text-gray-700" style="margin-bottom: 10px;">Health workers provide free check-ups and medical assistance to families in underserved areas, focusing on young children and elderly residents...</p>
             <!-- Centered Button with Link -->
             <div style="display: flex; justify-content: center; margin-top: 15px;">
-                <a href="#" style="text-decoration: none;">
+                <a href="{{ route('sample-news-1') }}" style="text-decoration: none;">
                     <button style="border: 2px solid #11468F; padding: 10px 20px; background-color: #11468F; color: white; border-radius: 5px;">Read More</button>
                 </a>
             </div>
@@ -329,7 +329,7 @@
             <p class="text-sm text-gray-700" style="margin-bottom: 10px;">Local workers join forces to repair and improve road infrastructure, enhancing safety for pedestrians and drivers in the community...</p>
             <!-- Centered Button with Link -->
             <div style="display: flex; justify-content: center; margin-top: 15px;">
-                <a href="#" style="text-decoration: none;">
+                <a href="{{ route('sample-news-3') }}" style="text-decoration: none;">
                     <button style="border: 2px solid #11468F; padding: 10px 20px; background-color: #11468F; color: white; border-radius: 5px;">Read More</button>
                 </a>
             </div>
