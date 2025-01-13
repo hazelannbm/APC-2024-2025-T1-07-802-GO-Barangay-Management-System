@@ -111,124 +111,136 @@
                 @endif
             </header>
 
-<section class="flex justify-center p-6">
-    <!-- Main Banner Card that spans across the screen -->
-    <div
-        class="w-full max-w-screen-xl flex flex-col items-start gap-6 overflow-hidden rounded-lg bg-white p-6 shadow-[0px_14px_34px_0px_rgba(0,0,0,0.08)] ring-1 ring-white/[0.05] transition duration-300 hover:text-black/70 hover:ring-black/20 focus:outline-none focus-visible:ring-[#FF2D20] lg:p-10 lg:pb-10 dark:bg-zinc-900 dark:ring-zinc-800 dark:hover:text-white/70 dark:hover:ring-zinc-700 dark:focus-visible:ring-[#FF2D20]"
-    >
-        <!-- Banner Image with Overlay -->
-        <div class="relative flex w-full items-stretch">
-            <img
-                src="{{ asset('background/main-banner.jpg') }}"
-                alt="Main Banner Image"
-                class="aspect-video h-full w-full object-cover rounded-[10px] drop-shadow-[0px_4px_34px_rgba(0,0,0,0.06)] dark:hidden"
-            />
-            <div class="absolute inset-0 banner-overlay"></div>
-        </div>
-
-        <!-- Banner Content -->
-        <div class="relative flex items-center gap-6">
-            <!-- Icon Section -->
-            <div class="flex size-12 shrink-0 items-center justify-center rounded-full bg-transparent sm:size-16">
-                <svg class="size-5 sm:size-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                    <path fill="#11468F" d="M12 2L2 12h3v8h5v-5h4v5h5v-8h3L12 2z"/>
-                </svg>
-            </div>
-
-            <!-- Text Content -->
-            <div>
-                <h2 class="text-xl font-semibold text-black dark:text-white">802-GO: Barangay 802 Management System</h2>
-                <p class="mt-4 text-sm/relaxed">
-                802-GO is a comprehensive management system designed for Barangay 802, District 5, Sta. Ana, Manila City. This platform allows users to stay updated with the latest news about their barangay and Manila. Residents can easily request important documents and access various services, ensuring a seamless and efficient community experience.
-                </p>
-                <a href="#section" class="mt-6 inline-block px-6 py-3 bg-red-600 text-white font-semibold rounded-md transition hover:bg-red-700">
-                    Get Started
-                </a>
-            </div>
-        </div>
+            <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News Article</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            background-color: white;
+            border-bottom: 1px solid #ddd;
+        }
+        header img {
+            width: 50px;
+        }
+        header nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: black;
+        }
+        .content {
+            max-width: 800px;
+            margin: 30px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .content img {
+            width: 100%;
+            border-radius: 8px;
+        }
+        .content h1 {
+            font-size: 24px;
+            margin: 20px 0;
+        }
+        .content p {
+            line-height: 1.6;
+            margin: 15px 0;
+        }
+        .related-news {
+            max-width: 800px;
+            margin: 30px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .related-news h2 {
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+        .related-news .card {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        .related-news .card img {
+            width: 100px;
+            height: 100px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+        .related-news .card div {
+            flex-grow: 1;
+        }
+        .related-news .card a {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 8px 12px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #f1f1f1;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="content">
+        <img src="{{ asset('news/sample-news-1.png') }}" alt="Health Center">
+        <h1><strong>Health Center Receives New Equipment</strong></h1>
+        <p>The [Insert Health Center Name Here] proudly announces the arrival of new medical equipment that will significantly enhance patient care and service quality. The newly acquired equipment includes a state-of-the-art ultrasound machine, digital X-ray system, and a vital signs monitoring device, all of which will help streamline diagnostic processes and improve accuracy in medical assessments. This advancement is part of the center’s ongoing commitment to providing accessible, high-quality healthcare for the community.</p>
+        <p>The ultrasound machine will assist healthcare professionals in conducting non-invasive examinations, allowing for more detailed imaging that can aid in detecting a range of health issues, from abdominal concerns to cardiovascular problems. This addition is especially beneficial for expectant mothers, enabling more comprehensive prenatal care right in the community. Meanwhile, th digital X-ray system will help in faster imaging, reducing wait times and providing instant feedback for various conditions, including fractures and respiratory illnesses.</p>
+        <p>The new equipment arrives as part of a broader initiative to upgrade healthcare services and support the center’s dedicated staff, who strive to meet the evolving health needs of the community. The Health Center’s Director, [Insert Name Here], expressed gratitude for the acquisition, saying, "This new equipment is a game-changer for us. It allows us to deliver more efficient and thorough medical evaluations, which will undoubtedly benefit our patients."</p>
+        <p>Community members have welcomed the upgrade, with many expressing relief at having access to advanced healthcare without needing to travel to larger hospitals. Local officials and stakeholders who advocated for the funding of this equipment believe this is an important step toward enhancing public health and making comprehensive care more accessible for everyone.</p>
+        <p>The health center’s staff has received training on the new machines, ensuring that patients receive accurate, safe, and timely diagnoses. With these additions, the [Health Center Name] is excited to set a new standard for primary care in the region, reaffirming its commitment to health and well-being.</p>
     </div>
-</section>
 
-<!-- News Title Section -->
-<section id="news"; class="flex justify-center p-6">
-    <!-- Main Banner Card with "Latest News" Title -->
-    <div
-        class="w-full max-w-screen-xl flex items-center justify-center overflow-hidden rounded-lg bg-white p-6 shadow-[0px_14px_34px_0px_rgba(0,0,0,0.08)] ring-1 ring-white/[0.05] transition duration-300 hover:text-black/70 hover:ring-black/20 focus:outline-none focus-visible:ring-[#FF2D20] lg:p-10 lg:pb-10 dark:bg-zinc-900 dark:ring-zinc-800 dark:hover:text-white/70 dark:hover:ring-zinc-700 dark:focus-visible:ring-[#FF2D20]"
-    >
-        <h1 style="font-size: 30px; font-weight: bold;" class="text-8xl font-extrabold text-black dark:text-white">Latest News</h1>
+
+    <h2 style="text-align: center; font-size: 2em; margin-bottom: 24px;"><strong>Related News</strong></h2>
+        <div class="related-news" style="display: flex; gap: 16px;, padding: 5px">
+        <div class="news-item" style="flex: 1; border: 1px solid #ccc; padding: 16px;">
+            <img src="{{ asset('news/sample-news-2.png') }}" alt="News 1 Image" style="width: 100%; height: auto; margin-bottom: 16px;">
+            <h3><strong>Barangay 802 Launches Literacy Program</strong></h3>
+                <p>Short descrfoription  the first news item. This is where the summary or snippet goes.</p>
+                <a href="#" style="display: inline-block; margin-top: 8px; padding: 8px 16px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 4px;">Read More</a>
+        </div>
+        <div class="news-item" style="flex: 1; border: 1px solid #ccc; padding: 16px;">
+            <img src="{{ asset('news/sample-news-3.png') }}" alt="News 1 Image" style="width: 100%; height: auto; margin-bottom: 16px;">
+            <h3><strong>New Road Project to Ease Traffic in Barangay 802</strong></h3>
+                <p>Short description for the second news item. This is where the summary or snippet goes.</p>
+                <a href="#" style="display: inline-block; margin-top: 8px; padding: 8px 16px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 4px;">Read More</a>
+        </div>
+</div>
+
     </div>
-</section>
 
+    <footer>
+        <p>© 2025 Your Organization. All rights reserved.</p>
+    </footer>
+</body>
+</html>
 
-<!-- News Articles Section -->
-<section class="grid gap-6 lg:grid-cols-3 lg:gap-8 p-6">
-    <!-- News Article Card 1 -->
-    <a href="{{ route('sample-news-1') }}" class="flex flex-col items-start gap-6 overflow-hidden rounded-lg bg-white p-6 shadow-[0px_14px_34px_0px_rgba(0,0,0,0.08)] ring-1 ring-white/[0.05] transition duration-300 hover:text-black/70 hover:ring-black/20 focus:outline-none focus-visible:ring-[#FF2D20] dark:bg-zinc-900 dark:ring-zinc-800 dark:hover:text-white/70 dark:hover:ring-zinc-700 dark:focus-visible:ring-[#FF2D20]">
-        <div class="relative flex w-full items-stretch">
-            <img src="{{ asset('background/news-1.png') }}" alt="News Image 1" class="aspect-video w-full h-full object-cover rounded-[10px] drop-shadow-[0px_4px_34px_rgba(0,0,0,0.06)] dark:hidden">
-            <div class="absolute -bottom-16 -left-16 h-40 w-[calc(100%+8rem)] bg-gradient-to-b from-transparent via-white to-white dark:via-zinc-900 dark:to-zinc-900"></div>
-        </div>
-        <div class="relative">
-            <h2 class="text-xl font-semibold text-black dark:text-white">Community Health Outreach Brings Medical Assistance to Families</h2>
-            <p class="mt-4 text-sm/relaxed">Health workers provide free check-ups and medical assistance to families in underserved areas, focusing on young children and elderly residents.</p>
-        </div>
-    </a>
-
-    <!-- News Article Card 2 -->
-    <a href="{{ route('sample-news-2') }}" class="flex flex-col items-start gap-6 overflow-hidden rounded-lg bg-white p-6 shadow-[0px_14px_34px_0px_rgba(0,0,0,0.08)] ring-1 ring-white/[0.05] transition duration-300 hover:text-black/70 hover:ring-black/20 focus:outline-none focus-visible:ring-[#FF2D20] dark:bg-zinc-900 dark:ring-zinc-800 dark:hover:text-white/70 dark:hover:ring-zinc-700 dark:focus-visible:ring-[#FF2D20]">
-        <div class="relative flex w-full items-stretch">
-            <img src="{{ asset('background/news-2.png') }}" alt="News Image 2" class="aspect-video w-full h-full object-cover rounded-[10px] drop-shadow-[0px_4px_34px_rgba(0,0,0,0.06)] dark:hidden">
-            <div class="absolute -bottom-16 -left-16 h-40 w-[calc(100%+8rem)] bg-gradient-to-b from-transparent via-white to-white dark:via-zinc-900 dark:to-zinc-900"></div>
-        </div>
-        <div class="relative">
-            <h2 class="text-xl font-semibold text-black dark:text-white">Storytelling Session Inspires Young Minds in Local Outreach Program</h2>
-            <p class="mt-4 text-sm/relaxed">Volunteers engage children in an educational storytelling session, aiming to foster a love for reading and learning in a friendly outdoor setting.</p>
-        </div>
-    </a>
-
-    <!-- News Article Card 3 -->
-    <a href="" class="flex flex-col items-start gap-6 overflow-hidden rounded-lg bg-white p-6 shadow-[0px_14px_34px_0px_rgba(0,0,0,0.08)] ring-1 ring-white/[0.05] transition duration-300 hover:text-black/70 hover:ring-black/20 focus:outline-none focus-visible:ring-[#FF2D20] dark:bg-zinc-900 dark:ring-zinc-800 dark:hover:text-white/70 dark:hover:ring-zinc-700 dark:focus-visible:ring-[#FF2D20]">
-        <div class="relative flex w-full items-stretch">
-            <img src="{{ asset('background/news-3.png') }}" alt="News Image 3" class="aspect-video w-full h-full object-cover rounded-[10px] drop-shadow-[0px_4px_34px_rgba(0,0,0,0.06)] dark:hidden">
-            <div class="absolute -bottom-16 -left-16 h-40 w-[calc(100%+8rem)] bg-gradient-to-b from-transparent via-white to-white dark:via-zinc-900 dark:to-zinc-900"></div>
-        </div>
-        <div class="relative">
-            <h2 class="text-xl font-semibold text-black dark:text-white">Community Effort Enhances Road Safety with New Repairs </h2>
-            <p class="mt-4 text-sm/relaxed">Local workers join forces to repair and improve road infrastructure, enhancing safety for pedestrians and drivers in the community.</p>
-        </div>
-    </a>
-</section>
-
-
-<!-- About us Section -->
-<section class="flex justify-center py-16 px-6">
-    <!-- About Us Card centered on the screen -->
-    <div
-        class="w-full max-w-screen-xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6 overflow-hidden rounded-lg bg-white pt-16 pb-16 px-6 shadow-[0px_14px_34px_0px_rgba(0,0,0,0.08)] ring-1 ring-white/[0.05] transition duration-300 hover:text-black/70 hover:ring-black/20 focus:outline-none focus-visible:ring-[#FF2D20] lg:p-10 lg:pb-10 dark:bg-zinc-900 dark:ring-zinc-800 dark:hover:text-white/70 dark:hover:ring-zinc-700 dark:focus-visible:ring-[#FF2D20]"
-    >
-        <!-- About Us Content -->
-        <div class="flex flex-col gap-6 justify-center text-center lg:text-left">
-            <h2 style="font-size: 30px; font-weight: bold;" class="text-2xl font-semibold text-black dark:text-white">About Us</h2>
-            <p class="text-sm/relaxed text-gray-700 dark:text-gray-300">
-            Barangay 802, District 5, Sta. Ana, Manila City, Metro Manila, Philippines, is a peaceful, progressive, and highly-urbanized community. It consists of cooperative and morally upright residents, ambitious and responsive business owners and corporate managers, and committed and visionary leaders. Barangay 802 works hand in hand with its constituents to sustain a clean, green, safe, and healthy environment, fostering both physical and economic growth.
-            </p>
-            <a href="#"
-               class="mt-4 inline-block px-6 py-3 bg-green-500 text-white font-semibold rounded-md transition hover:bg-green-600">
-                Read More
-            </a>
-        </div>
-
-        <!-- About Us Image -->
-        <div class="relative flex items-center">
-            <img
-                src="{{ asset('background/brgy.jpg') }}"
-                alt="Barangay 802 Officials"
-                class="w-full h-full object-cover rounded-[10px] drop-shadow-[0px_4px_34px_rgba(0,0,0,0.06)]"
-            />
-            <div class="absolute inset-0 banner-overlay"></div>
-        </div>
-    </div>
-</section>
 
 <!-- Barangay Section -->
 <section class="barangay-section bg-[#11468F] text-white py-12 px-6">
