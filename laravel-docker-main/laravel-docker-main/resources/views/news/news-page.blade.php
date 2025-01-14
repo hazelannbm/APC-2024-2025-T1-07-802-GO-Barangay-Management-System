@@ -403,6 +403,18 @@ video {
     </a>
 </section>
 
+<!-- Back to Top Button -->
+<button class="back-to-top" onclick="scrollToTop()">Back to Top</button>
+<script>
+// Scroll to Top Function
+function scrollToTop() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
+</script>
+
 <!-- Barangay Section -->
 <section class="barangay-section bg-[#11468F] text-white py-12 px-6">
     <div class="container mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">

@@ -270,41 +270,19 @@
             <a href="{{ route('business-permit') }}">Click to Apply</a>
         </div>
     </div>
-<!-- Map Section -->
-<section class="flex justify-center py-5 ">
-    
-    <!-- Back to Top Button -->
-    <button class="back-to-top" onclick="scrollToTop()">Back to Top</button>
-    <script>
-    // Initialize the map
-    const map = L.map('map').setView([14.572701489536044, 121.00241131326865], 100); // Latitude, Longitude, Zoom Level
 
-    // Add OpenStreetMap tiles
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '© OpenStreetMap contributors'
-    }).addTo(map);
-
-    // Add a marker with a custom popup
-    const popupContent = `
-      <div class="custom-popup">
-        <img src="{{ asset('images/map_brgy.jpg') }}" alt="Location Photo">
-        <h4>Barangay 802</h4>
-        <p>District 5, Sta. Ana Manila City, Metro Manila, Philippines</p>
-        <a href="https://www.google.com/maps/place/Barangay+802+Zone+87+District+V+Manila/@14.57304,120.9936437,16z/data=!4m10!1m2!2m1!1sBrgy.+802+District+5,+Sta.+Ana+Manila+City,+Metro+Manila,+Philippines!3m6!1s0x3397c99ba4d6d167:0x9ee46b591523041a!8m2!3d14.57304!4d121.0026559!15sCkVCcmd5LiA4MDIgRGlzdHJpY3QgNSwgU3RhLiBBbmEgTWFuaWxhIENpdHksIE1ldHJvIE1hbmlsYSwgUGhpbGlwcGluZXOSARpkaXN0cmljdF9nb3Zlcm5tZW50X29mZmljZeABAA!16s%2Fg%2F11bwny0638?entry=ttu&g_ep=EgoyMDI1MDEwOC4wIKXMDSoASAFQAw%3D%3D" target="_blank">Directions</a>
-      </div>
-    `;
-
-    L.marker([14.572701489536044, 121.00241131326865]).addTo(map)
-      .bindPopup(popupContent);
-    // Scroll to Top Function
-    function scrollToTop() {
+<!-- Back to Top Button -->
+<button class="back-to-top" onclick="scrollToTop()">Back to Top</button>
+<script>
+// Scroll to Top Function
+function scrollToTop() {
       window.scrollTo({
         top: 0,
         behavior: 'smooth'
       });
     }
-  </script>
-</section>
+</script>
+
 <!-- Barangay Section -->
 <section class="barangay-section bg-[#11468F] text-white py-12 px-6">
     <div class="container mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
