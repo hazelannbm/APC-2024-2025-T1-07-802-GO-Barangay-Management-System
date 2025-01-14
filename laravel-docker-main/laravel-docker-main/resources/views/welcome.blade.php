@@ -269,27 +269,6 @@
         <p>District 5, Sta. Ana Manila City, Metro Manila, Philippines</p>
     </div>
 
-    <div class="container">
-        <div class="service">
-            <h3>Barangay Clearance</h3>
-            <p>A general document certifying that you are a resident of the barangay.</p>
-            <a href="">Click to Apply</a>
-        </div>
-
-        <div class="service">
-            <h3>Certificate of Residency</h3>
-            <p>This document proves that you are currently residing in the barangay.</p>
-            <a href=" }}">Click to Apply</a>
-        </div>
-
-        <div class="service">
-            <h3>Indigency Certificate</h3>
-            <p>This document certifies that you are indigent or belong to a low-income household.</p>
-            <a href="">Click to Apply</a>
-        </div>
-    </div>
-
-
 <!-- News Title Section -->
 <section class="flex justify-center p-6">
     <!-- Main Banner Card with "Latest News" Title -->
