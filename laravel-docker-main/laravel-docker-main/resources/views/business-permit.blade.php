@@ -3,7 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Barangay Indigency Certificate</title>
+
+    <title>Barangay Permit Request Form</title>
+    <link rel="icon" href="{{ asset('logo/802-GO-LOGO.png') }}" type="image/x-icon">
+
     @vite('resources/css/app.css')
     <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
@@ -161,7 +164,7 @@
                         <a href="{{ route('welcome') }}" class="rounded-md px-3 py-2 text-white ring-1 ring-transparent transition hover:text-white/70 focus:outline-none focus-visible:ring-[#FF2D20]">
                             Home
                         </a>
-                        <a href="{{ route('newspage') }}" class="rounded-md px-3 py-2 text-white ring-1 ring-transparent transition hover:text-white/70 focus:outline-none focus-visible:ring-[#FF2D20]">
+                        <a href="{{ route('news-page') }}" class="rounded-md px-3 py-2 text-white ring-1 ring-transparent transition hover:text-white/70 focus:outline-none focus-visible:ring-[#FF2D20]">
                             News
                         </a>
                         <a href="{{ route('document-request') }}" class="rounded-md px-3 py-2 text-white ring-1 ring-transparent transition hover:text-white/70 focus:outline-none focus-visible:ring-[#FF2D20]">

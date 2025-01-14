@@ -3,7 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Barangay Indigency Certificate</title>
+
+    <title>Barangay Clearance Request Form</title>
+    <link rel="icon" href="{{ asset('logo/802-GO-LOGO.png') }}" type="image/x-icon">
+
     @vite('resources/css/app.css')
     <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
