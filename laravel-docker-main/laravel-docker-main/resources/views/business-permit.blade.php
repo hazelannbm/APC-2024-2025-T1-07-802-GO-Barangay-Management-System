@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <title>Laravel</title>
-
-        <!-- Fonts -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barangay Indigency Certificate</title>
+    @vite('resources/css/app.css')
+    <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
-
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
         <!-- Styles -->
         <style>
             ::before,
@@ -55,9 +55,6 @@
             .right-section {
                 justify-self: end; /* Aligns to the right */
             }
-            .banner-overlay {
-                background: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
-            }
             .barangay-section {
                 width: 100%; /* Ensures full-width spanning */
                 padding-top: 2rem; /* Add space at the top */
@@ -82,110 +79,78 @@
                 font-size: 0.875rem;
                 color: #e0e0e0; /* Slightly lighter color for contrast */
             }
-            .back-to-top {
-                position: fixed;
-                bottom: 20px;
-                right: 20px; /* Adjusted to the right side */
-                padding: 10px 20px;
-                font-size: 14px;
-                background-color: #11468F;
-                color: white;
-                border: none;
-                border-radius: 5px;
-                cursor: pointer;
-                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-                z-index: 1000;
-                transition: background-color 0.3s ease;
-            }
-            .back-to-top:hover {
-                background-color: #092d5a;
-            }
-            body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f9f9f9;
-            color: #333;
-        }
-        .container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            max-width: 1200px;
-            margin: 50px auto;
-            gap: 20px;
-        }
-        .text-section {
-            background-image: url("{{ asset('background/header_brgy.png') }}"); /* Replace with the path to your background image */
-                background-size: cover; /* Ensures the image covers the entire section */
-        background-position: center; /* Centers the image */
-        background-repeat: no-repeat; /* Prevents the image from repeating */
-        width: 100%; /* Makes the section span the full width of the viewport */
-        max-width: 1920px; /* Ensures it doesn't exceed the image's width */
-        height: auto; /* Automatically adjusts height based on the image's aspect ratio */
-        aspect-ratio: 1920 / 500; /* Ensures the aspect ratio is maintained */
-        display: flex; /* Enables flexbox for centering */
-        flex-direction: column; /* Stacks text vertically */
-        justify-content: center; /* Vertically centers content */
-        align-items: center; /* Horizontally centers content */
-        color: white; /* Makes the text visible on the image */
-        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7); /* Improves text readability */
-        font-weight: bold; /* Makes the font bolder */
-        }
-        h1 {
-            color:#9dc0f1;
-            font-size: 3em;
-        }
-        p {
-            margin: 10px 0 30px;
-            font-size: 1.2em;
-        }
-        .service {
-            background: #fff;
-            padding: 20px;
-            border: 1px solid transparent;
-            border-radius: 10px;
-            width: 30%;
+        .form-container {
+            width: 100%;
+            max-width: 400px;
+            margin: 2rem auto;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff;
+            overflow-y: auto;
+        }
+
+        .form-container h1 {
+            margin-bottom: 1rem;
             text-align: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            height: 250px;
-            transition: border-color 0.3s, box-shadow 0.3s;
+            color: #1E40AF; /* Updated blue color */
+            font-size: 1.5rem;
+            font-weight: bold;
         }
-        .service:hover {
-            border-color: #11468F;
-            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+
+        .form-container label {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #1E40AF; /* Updated blue color */
         }
-        .service h3 {
-            color: #11468F;
-            font-size: 1.4em;
-            margin-bottom: 10px;
+
+        .form-container input,
+        .form-container textarea {
+            margin-top: 0.25rem;
+            margin-bottom: 1rem;
+            padding: 0.5rem;
+            width: 100%;
+            border: 1px solid #d1d5db;
+            border-radius: 0.375rem;
+            box-sizing: border-box;
         }
-        .service p {
-            margin-bottom: 15px;
-            font-size: 1em;
-            flex-grow: 1;
+
+        .form-container input:focus,
+        .form-container textarea:focus {
+            border-color: #1E40AF; /* Updated blue border on focus */
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.3); /* Soft blue glow */
         }
-        .service a {
-            display: inline-block;
-            text-decoration: none;
-            background-color: #11468F;
-            color: #fff;
-            padding: 10px 20px;
-            font-size: 1em;
-            border-radius: 5px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+        .form-container button {
+            width: 100%;
+            padding: 0.75rem;
+            border: none;
+            border-radius: 0.375rem;
+            background-color: #1E40AF; /* Updated blue color */
+            color: #ffffff;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
             transition: background-color 0.3s;
-            margin-top: 15px;
         }
-        .service a:hover {
-            background-color: #0d3570;
+
+        .form-container button:hover {
+            background-color: #1E3A8A; /* Slightly darker blue for hover */
         }
-        </style>
-    </head>
-    <body class="font-sans antialiased dark:bg-black dark:text-white/50">
+
+        .form-container .g-recaptcha {
+            margin: 1rem 0;
+        }
+
+        .logo {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased dark:bg-black dark:text-white/50">
         <div class="bg-gray-50 text-black/50 dark:bg-black dark:text-white/50 relative">
             <img id="background" class="absolute inset-0 w-full h-full object-cover" src="{{ asset('') }}" alt="Background" />
             <div class="relative min-h-screen flex flex-col items-center justify-center selection:bg-[#FF2D20] selection:text-white">
@@ -196,10 +161,10 @@
                         <a href="{{ route('welcome') }}" class="rounded-md px-3 py-2 text-white ring-1 ring-transparent transition hover:text-white/70 focus:outline-none focus-visible:ring-[#FF2D20]">
                             Home
                         </a>
-                        <a href="{{ route('news-page') }}" class="rounded-md px-3 py-2 text-white ring-1 ring-transparent transition hover:text-white/70 focus:outline-none focus-visible:ring-[#FF2D20]">
+                        <a href="{{ route('newspage') }}" class="rounded-md px-3 py-2 text-white ring-1 ring-transparent transition hover:text-white/70 focus:outline-none focus-visible:ring-[#FF2D20]">
                             News
                         </a>
-                        <a href="{{ route('document-request') }}" class="rounded-md px-3 py-2 text-white bg-[#FF2D20] ring-1 ring-transparent transition hover:text-white/70 focus:outline-none focus-visible:ring-[#FF2D20] active">
+                        <a href="{{ route('document-request') }}" class="rounded-md px-3 py-2 text-white ring-1 ring-transparent transition hover:text-white/70 focus:outline-none focus-visible:ring-[#FF2D20]">
                             Document Request
                         </a>
                     </nav>
@@ -231,80 +196,60 @@
                 @endif
             </header>
 
+    <div class="form-container">
 
-<!-- Document Request -->
-<div class="text-section">
-        <h1>Document Request</h1>
-        <p>Here are the documents you can easily request online:</p>
+        <!-- Title -->
+        <h1>Barangay Business Permit</h1>
+
+        <!-- Form -->
+        <form action="{{ route('submit-business-permits') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            <label for="reference_number">Reference Number</label>
+            <input id="reference_number" type="text" value="{{ uniqid('BRGY-BP-') }}" readonly>
+
+            <label for="business_name">Business Name</label>
+            <input id="business_name" name="business_name" type="text" required>
+
+            <label for="business_address">Business Address</label>
+            <textarea id="business_address" name="business_address" rows="3" required></textarea>
+
+            <label for="owner_name">Owner’s Full Name</label>
+            <input id="owner_name" name="owner_name" type="text" required>
+
+            <label for="business_nature">Nature of Business</label>
+            <input id="business_nature" name="business_nature" type="text" required>
+
+            <label for="contact_number">Contact Number</label>
+            <input id="contact_number" name="contact_number" type="text" required>
+
+            <label for="tin">Tax Identification Number (TIN)</label>
+            <input id="tin" name="tin" type="text" required>
+
+            <label for="dti_sec_registration">DTI/SEC Registration</label>
+            <input id="dti_sec_registration" name="dti_sec_registration" type="file" required>
+
+            <label for="lease_contract">Lease Contract or Proof of Ownership of Business Location</label>
+            <input id="lease_contract" name="lease_contract" type="file" required>
+
+            <label for="business_application_form">Business Permit Application Form (if applicable)</label>
+            <input id="business_application_form" name="business_application_form" type="file">
+
+            <label for="valid_id_owner">Valid ID of Business Owner</label>
+            <input id="valid_id_owner" name="valid_id_owner" type="file" required>
+
+            <label for="signature">Signature</label>
+            <input id="signature" name="signature" type="file" required>
+
+            <!-- Captcha -->
+            <div class="g-recaptcha" data-sitekey="{{ config('captcha.site_key') }}"></div>
+
+            <!-- Submit Button -->
+            <button type="submit">Submit</button>
+        </form>
     </div>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script> <!-- Captcha Script -->
 
-    <div class="container">
-        <div class="service">
-            <h3>Barangay Clearance</h3>
-            <p>A general document certifying that you are a resident of the barangay.</p>
-            <a href="{{ route('barangay-clearance') }}">Click to Apply</a>
-        </div>
-
-        <div class="service">
-            <h3>Certificate of Residency</h3>
-            <p>This document proves that you are currently residing in the barangay.</p>
-            <a href="{{ route('certificate-of-residency') }}">Click to Apply</a>
-        </div>
-
-        <div class="service">
-            <h3>Indigency Certificate</h3>
-            <p>This document certifies that you are indigent or belong to a low-income household.</p>
-            <a href="{{ route('indigency-certificate') }}">Click to Apply</a>
-        </div>
-
-        <div class="service">
-            <h3>Barangay Identification Card</h3>
-            <p>Some barangays issue their own identification cards to residents.</p>
-            <a href="{{ route('barangay-id') }}">Click to Apply</a>
-        </div>
-
-        <div class="service">
-            <h3>Business Permit</h3>
-            <p>If you plan to operate a business within the barangay, you may need to secure the necessary permits from the barangay office.</p>
-            <a href="{{ route('business-permit') }}">Click to Apply</a>
-        </div>
-    </div>
-<!-- Map Section -->
-<section class="flex justify-center py-5 ">
-    
-    <!-- Back to Top Button -->
-    <button class="back-to-top" onclick="scrollToTop()">Back to Top</button>
-    <script>
-    // Initialize the map
-    const map = L.map('map').setView([14.572701489536044, 121.00241131326865], 100); // Latitude, Longitude, Zoom Level
-
-    // Add OpenStreetMap tiles
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '© OpenStreetMap contributors'
-    }).addTo(map);
-
-    // Add a marker with a custom popup
-    const popupContent = `
-      <div class="custom-popup">
-        <img src="{{ asset('images/map_brgy.jpg') }}" alt="Location Photo">
-        <h4>Barangay 802</h4>
-        <p>District 5, Sta. Ana Manila City, Metro Manila, Philippines</p>
-        <a href="https://www.google.com/maps/place/Barangay+802+Zone+87+District+V+Manila/@14.57304,120.9936437,16z/data=!4m10!1m2!2m1!1sBrgy.+802+District+5,+Sta.+Ana+Manila+City,+Metro+Manila,+Philippines!3m6!1s0x3397c99ba4d6d167:0x9ee46b591523041a!8m2!3d14.57304!4d121.0026559!15sCkVCcmd5LiA4MDIgRGlzdHJpY3QgNSwgU3RhLiBBbmEgTWFuaWxhIENpdHksIE1ldHJvIE1hbmlsYSwgUGhpbGlwcGluZXOSARpkaXN0cmljdF9nb3Zlcm5tZW50X29mZmljZeABAA!16s%2Fg%2F11bwny0638?entry=ttu&g_ep=EgoyMDI1MDEwOC4wIKXMDSoASAFQAw%3D%3D" target="_blank">Directions</a>
-      </div>
-    `;
-
-    L.marker([14.572701489536044, 121.00241131326865]).addTo(map)
-      .bindPopup(popupContent);
-    // Scroll to Top Function
-    function scrollToTop() {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-    }
-  </script>
-</section>
-<!-- Barangay Section -->
+    <!-- Barangay Section -->
 <section class="barangay-section bg-[#11468F] text-white py-12 px-6">
     <div class="container mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
         <!-- Left Column: Logo and Name with Centered Alignment -->
@@ -344,8 +289,5 @@
     <p style="margin: 0; font-size: 12px;">Designed by SISTEM</p>
 </footer>
 
-                </div>
-            </div>
-        </div>
-    </body>
+</body>
 </html>
