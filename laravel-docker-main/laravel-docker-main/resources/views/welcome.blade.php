@@ -269,6 +269,21 @@
         <p>District 5, Sta. Ana Manila City, Metro Manila, Philippines</p>
     </div>
 
+    <div class="container">
+    
+    <div class="service">
+        <h3>News Page</h3>
+        <p>A page where users can find the latest updates, announcements, and news related to the barangay.</p>
+        <a href="{{ route('news-page') }}">Click to View News</a>
+    </div>
+
+    <div class="service">
+        <h3>Document Request Page</h3>
+        <p>This page allows users to request various official documents such as clearances and certificates.</p>
+        <a href="{{ route('document-request') }}">Click to Apply for Documents</a>
+    </div>
+</div>
+
 <!-- News Title Section -->
 <section class="flex justify-center p-6">
     <!-- Main Banner Card with "Latest News" Title -->
