@@ -68,10 +68,10 @@ class RegisteredUserController extends Controller
             'gender' => $validated['gender'],
             'age' => $validated['age'],
             'birthdate' => $validated['birthdate'],
-            'street' => $validated['street']
-            'city' => $validated['city']
-            'barangay' => $validated['barangay']
-            'zip_code' => $validated['zip_code']
+            'street' => $validated['street'],
+            'city' => $validated ['city'],
+            'barangay' => $validated['barangay'],
+            'zip_code' => $validated['zip_code'],
             'civil_status' => $validated['civil_status'],
             'religion' => $validated['religion'],
             'spouse_name' => $validated['spouse_name'],
