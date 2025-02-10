@@ -66,10 +66,38 @@
                 <x-input-error :messages="$errors->get('birthdate')" class="mt-2" />
             </div>
 
-            <!-- Permanent Address -->
+           {{--  <!-- Permanent Address --> you can make this as the house number nad bldg number
             <div class="mt-4">
                 <x-input-label for="address" :value="__('Permanent Address')" />
                 <x-text-input id="address" class="block mt-1 w-full" type="text" name="address" :value="old('address')" required />
+                <x-input-error :messages="$errors->get('address')" class="mt-2" />
+            </div> --}}
+
+            <!-- Street -->
+            <div class="mt-4">
+                <x-input-label for="street" :value="__('Permanent Address')" />
+                <x-text-input id="street" class="block mt-1 w-full" type="text" name="street" :value="old('street')" required />
+                <x-input-error :messages="$errors->get('address')" class="mt-2" />
+            </div>
+
+            <!-- City -->
+            <div class="mt-4">
+                <x-input-label for="city" :value="__('Permanent Address')" />
+                <x-text-input id="city" class="block mt-1 w-full" type="text" name="city" :value="old('city')" required />
+                <x-input-error :messages="$errors->get('address')" class="mt-2" />
+            </div>
+
+            <!-- City -->
+            <div class="mt-4">
+                <x-input-label for="barangay" :value="__('Permanent Address')" />
+                <x-text-input id="barangay" class="block mt-1 w-full" type="text" name="barangay" :value="old('barangay')" required />
+                <x-input-error :messages="$errors->get('address')" class="mt-2" />
+            </div>
+
+            <!-- City -->
+            <div class="mt-4">
+                <x-input-label for="zip_code" :value="__('Permanent Address')" />
+                <x-text-input id="zip_code" class="block mt-1 w-full" type="text" name="zip_code" :value="old('zip_code')" required />
                 <x-input-error :messages="$errors->get('address')" class="mt-2" />
             </div>
 
@@ -171,7 +199,7 @@
 </div>
 
 <script>
-    // JavaScript to handle image preview
+    // JavaScript to hbarangayle image preview
     document.getElementById('valid_id').addEventListener('change', function (event) {
         const file = event.target.files[0];
         const preview = document.getElementById('id_preview');
