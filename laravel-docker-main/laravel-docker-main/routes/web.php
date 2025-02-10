@@ -4,6 +4,9 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DocumentRequestController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\URL;
+use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController; // Add AuthenticatedSessionController
+use App\Http\Controllers\Auth\VerifyEmailController;
 
 Route::get('/document-request', [DocumentRequestController::class, 'index'])->name('document-request');
 
@@ -16,6 +19,21 @@ Route::get('/business-permit', [DocumentRequestController::class, 'businessPermi
 $url = config('app.url');
 URL::forceRootUrl($url);
 
+// Registration routes (no middleware, accessible to guests)
+Route::get('register', [RegisteredUserController::class, 'create'])->name('register'); // Show registration form
+Route::post('register', [RegisteredUserController::class, 'store'])->name('register.store'); // Handle registration form submission
+
+// Login routes (no middleware, accessible to guests)
+Route::get('login', [AuthenticatedSessionController::class, 'create'])->name('login'); // Show login form
+Route::post('login', [AuthenticatedSessionController::class, 'store'])->name('login.store'); // Handle login form submission
+
+// Logout route (auth middleware to ensure only authenticated users can log out)
+Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->middleware('auth')->name('logout'); // Handle logout
+
+// Email Verification Route
+Route::get('email/verify/{id}/{hash}', VerifyEmailController::class)->name('verification.verify');
+
+// Existing routes
 Route::get('/', function () {
     return view('welcome');
 });
@@ -35,6 +53,7 @@ Route::get('/sample-news-3', function () {
 Route::get('/welcome', function () {
     return view('welcome');
 })->name('welcome');
+
 
 Route::get('/news-page', function () {
     return view('news.news-page');
