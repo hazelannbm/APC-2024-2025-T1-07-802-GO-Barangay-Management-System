@@ -27,8 +27,11 @@ class AddFieldsToUsersTable extends Migration
             if (!Schema::hasColumn('users', 'birthdate')) {
                 $table->date('birthdate');
             }
-            if (!Schema::hasColumn('users', 'street')) {
-                $table->string('street');
+            if (!Schema::hasColumn('users', 'address_line_1')) {
+                $table->string('address_line_1');
+            }
+            if (!Schema::hasColumn('users', 'address_line_2')) {
+                $table->string('address_line_2');
             }
             if (!Schema::hasColumn('users', 'city')) {
                 $table->string('city');
@@ -84,7 +87,8 @@ class AddFieldsToUsersTable extends Migration
                 'gender',
                 'age',
                 'birthdate',
-                'street',
+                'address_line_1',
+                'address_line_2',
                 'city',
                 'barangay',
                 'zip_code',

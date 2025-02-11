@@ -43,10 +43,11 @@ class RegisteredUserController extends Controller
             'gender' => ['required', 'string', 'in:male,female,other'], // Gender selection
             'age' => ['required', 'integer', 'min:0'], // Valid age (non-negative)
             'birthdate' => ['required', 'date'], // Valid birthdate
-            'street' => ['required|string|max:255'], // Valid street
-            'city' => ['required|string|max:255'], // Valid city
-            'barangay' => ['required|string|max:255'], // Valid State
-            'zip_code' => ['required|string|max:10'], // Valid Zip code
+            'address_line_1' => ['required', 'string', 'max:255'], // address line 1 Street address, P.O. Box, Company name, c/o
+            'address_line_2' => ['required', 'string', 'max:255'], // address line 2 Apartment, suite, unit, building, floor, etc.
+            'city' => ['required', 'string', 'max:255'], // Valid city
+            'barangay' => ['required', 'string', 'max:255'], // Valid State
+            'zip_code' =>['required', 'string', 'max:255'], // Valid Zip code
             'civil_status' => ['required', 'string', 'in:single,married,widowed,divorced'], // Civil status
             'religion' => ['nullable', 'string', 'max:255'], // Optional religion
             'spouse_name' => ['nullable', 'string', 'max:255'], // Optional spouse name
@@ -68,7 +69,8 @@ class RegisteredUserController extends Controller
             'gender' => $validated['gender'],
             'age' => $validated['age'],
             'birthdate' => $validated['birthdate'],
-            'street' => $validated['street'],
+            'address_line_1' => $validated['address_line_1'],
+            'address_line_2' => $validated['address_line_2'],
             'city' => $validated ['city'],
             'barangay' => $validated['barangay'],
             'zip_code' => $validated['zip_code'],

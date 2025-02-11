@@ -65,19 +65,20 @@
                 <x-text-input id="birthdate" class="block mt-1 w-full" type="date" name="birthdate" :value="old('birthdate')" required />
                 <x-input-error :messages="$errors->get('birthdate')" class="mt-2" />
             </div>
-
-           {{--  <!-- Permanent Address --> you can make this as the house number nad bldg number
+            
+            <!-- address line 1 -->
             <div class="mt-4">
-                <x-input-label for="address" :value="__('Permanent Address')" />
-                <x-text-input id="address" class="block mt-1 w-full" type="text" name="address" :value="old('address')" required />
-                <x-input-error :messages="$errors->get('address')" class="mt-2" />
-            </div> --}}
+                <x-input-label for="address_line_1" :value="__('Address Line 1')" />
+                <x-text-input id="address_line_1" class="block mt-1 w-full" type="text" name="address_line_1" :value="old('address_line_1')" required />
+                <x-input-error :messages="$errors->get('address_line_1')" class="mt-2" />
 
-            <!-- Street -->
+            </div>
+
+            <!-- address line 2 -->
             <div class="mt-4">
-                <x-input-label for="street" :value="__('Permanent Address')" />
-                <x-text-input id="street" class="block mt-1 w-full" type="text" name="street" :value="old('street')" required />
-                <x-input-error :messages="$errors->get('address')" class="mt-2" />
+                <x-input-label for="address_line_2" :value="__('Address Line 2')" />
+                <x-text-input id="address_line_2" class="block mt-1 w-full" type="text" name="address_line_2" :value="old('address_line_2')" required />
+                <x-input-error :messages="$errors->get('address_line_2')" class="mt-2" />
             </div>
 
             <!-- City -->
@@ -199,7 +200,7 @@
 </div>
 
 <script>
-    // JavaScript to hbarangayle image preview
+    // JavaScript to handle image preview
     document.getElementById('valid_id').addEventListener('change', function (event) {
         const file = event.target.files[0];
         const preview = document.getElementById('id_preview');
