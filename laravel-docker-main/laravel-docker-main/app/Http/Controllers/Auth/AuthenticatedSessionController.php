@@ -30,17 +30,16 @@ class AuthenticatedSessionController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(LoginRequest $request): RedirectResponse
-    {
-        // The LoginRequest is used for validating the incoming login credentials
-        // If validation fails, it will automatically redirect back with errors
-        $request->authenticate();
-
-        // After successful login, regenerate the session to prevent session fixation attacks
-        $request->session()->regenerate();
-
-        // Redirect the user to their intended page, or to the dashboard if none is specified
-        return redirect()->intended(route('dashboard'));
+{
+    // Check if the provided credentials are correct
+    if (!Auth::attempt($request->only('email', 'password'))) {
+        // If login fails, return to the login page with an error message
+        return back()->withErrors(['email' => 'Invalid email or password.']);
     }
+
+    // Redirect to the intended page (dashboard) upon successful login
+    return redirect()->intended(route('dashboard'))->with('success', 'Login successful!');
+}
 
     /**
      * Destroy an authenticated session (logout).
