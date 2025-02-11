@@ -31,7 +31,11 @@ class UserSeeder extends Seeder
                 'gender' => 'Male',      // Gender
                 'age' => 30,             // Age
                 'birthdate' => '1993-01-15', // Birthdate
-                'address' => '123 Main St',  // Address
+                'address line 1' => '123 Main St',  // Address line 1
+                'address line 2' => 'Unit 456',  // Address line 2
+                'city' => 'Metropolis',  // City
+                'barangay' => 'Uptown',  // Barangay
+                'zip_code' => '54321',  // Zip code
                 'civil_status' => 'Single',  // Civil status
                 'religion' => 'Christian',  // Religion
                 'spouse_name' => null,       // No spouse name
@@ -55,7 +59,11 @@ class UserSeeder extends Seeder
                 'gender' => 'Female',    // Gender
                 'age' => 28,             // Age
                 'birthdate' => '1995-03-10', // Birthdate
-                'address' => '456 Elm St',  // Address
+                'address line 1' => '456 Elm St',  // Address line 1
+                'address line 2' => 'Apt 789',  // Address line 2
+                'city' => 'Springfield',  // City
+                'barangay' => 'Downtown',  // Barangay
+                'zip_code' => '12345',  // Zip code
                 'civil_status' => 'Married', // Civil status
                 'religion' => 'Catholic',  // Religion
                 'spouse_name' => 'John Smith',  // Spouse name
