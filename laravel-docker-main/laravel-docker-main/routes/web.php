@@ -5,20 +5,32 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\URL;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController; // Add AuthenticatedSessionController
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\DocumentRequestController;
 
 $url = config('app.url');
 URL::forceRootUrl($url);
 
 // Registration routes (no middleware, accessible to guests)
-Route::get('register', [RegisteredUserController::class, 'create'])->name('register'); // Show registration form
-Route::post('register', [RegisteredUserController::class, 'store']); // Handle registration form submission
+Route::get('register', [RegisterController::class, 'showRegistrationForm'])->name('register'); // Show registration form
+Route::post('register', [RegisterController::class, 'register']); // Handle registration form submission
 
 // Login routes (no middleware, accessible to guests)
-Route::get('login', [AuthenticatedSessionController::class, 'create'])->name('login'); // Show login form
-Route::post('login', [AuthenticatedSessionController::class, 'store']); // Handle login form submission
+Route::get('login', [LoginController::class, 'showLoginForm'])->name('login'); // Show login form
+Route::post('login', [LoginController::class, 'login']); // Handle login form submission
 
 // Logout route (auth middleware to ensure only authenticated users can log out)
 Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->middleware('auth')->name('logout'); // Handle logout
+
+// Password reset routes
+Route::get('password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
+Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+
+// Document request routes
+Route::get('document-request', [DocumentRequestController::class, 'showRequestForm'])->name('document-request');
+Route::post('document-request', [DocumentRequestController::class, 'submitRequest']);
 
 // Existing routes
 Route::get('/', function () {
