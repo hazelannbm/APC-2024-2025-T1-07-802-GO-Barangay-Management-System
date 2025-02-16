@@ -60,4 +60,16 @@ class AuthenticatedSessionController extends Controller
         // Redirect the user to the homepage
         return redirect('/');
     }
+    
+    /**
+     * Assign a QUALITY role to the authenticated user.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return void
+     */
+    public function assignQualityRole(Request $request): void
+    {
+        $user = Auth::user();
+        $user->assignRole('QUALITY');
+    }
 }
