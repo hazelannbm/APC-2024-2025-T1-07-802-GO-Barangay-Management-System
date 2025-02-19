@@ -7,6 +7,9 @@ use Illuminate\Support\Facades\URL;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController; // Add AuthenticatedSessionController
 use App\Http\Controllers\Auth\VerifyEmailController;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+
+// ...existing code...
 
 Route::get('/document-request', [DocumentRequestController::class, 'index'])->name('document-request');
 
@@ -28,10 +31,24 @@ Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('l
 Route::post('/login', [AuthenticatedSessionController::class, 'store'])->name('login.store'); // Handle login form submission
 
 // Logout route (auth middleware to ensure only authenticated users can log out)
-Route::post('/  logout', [AuthenticatedSessionController::class, 'destroy'])->middleware('auth')->name('logout'); // Handle logout
+Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->middleware('auth')->name('logout'); // Handle logout
 
 // Email Verification Route
 Route::get('email/verify/{id}/{hash}', VerifyEmailController::class)->name('verification.verify');
+
+Route::get('/email/verify', function () {
+    return view('auth.verify-email');
+})->middleware('auth')->name('verification.notice');
+
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+    return redirect('/home');
+})->middleware(['auth', 'signed'])->name('verification.verify');
+
+Route::post('/email/verification-notification', function (Request $request) {
+    $request->user()->sendEmailVerificationNotification();
+    return back()->with('status', 'verification-link-sent');
+})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
 // Existing routes
 Route::get('/', function () {
