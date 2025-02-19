@@ -5,10 +5,10 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 
@@ -35,8 +35,8 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        // Validate the incoming request data
-        $validated = $request->validate([
+        // Validate the registration request
+        $validator = Validator::make($request->all(), [
             'first_name' => ['required', 'string', 'max:255'], // Required first name
             'middle_name' => ['nullable', 'string', 'max:255'], // Optional middle name
             'last_name' => ['required', 'string', 'max:255'], // Required last name
@@ -58,30 +58,34 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()], // Secure password
         ]);
 
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
+
         // Handle file upload for the valid ID and store it in the 'public/valid-ids' directory
         $validIdPath = $request->file('valid_id')->store('valid-ids', 'public');
 
         // Create a new user record in the database
         $user = User::create([
-            'first_name' => $validated['first_name'],
-            'middle_name' => $validated['middle_name'],
-            'last_name' => $validated['last_name'],
-            'gender' => $validated['gender'],
-            'age' => $validated['age'],
-            'birthdate' => $validated['birthdate'],
-            'address_line_1' => $validated['address_line_1'],
-            'address_line_2' => $validated['address_line_2'],
-            'city' => $validated ['city'],
-            'barangay' => $validated['barangay'],
-            'zip_code' => $validated['zip_code'],
-            'civil_status' => $validated['civil_status'],
-            'religion' => $validated['religion'],
-            'spouse_name' => $validated['spouse_name'],
-            'siblings_name' => $validated['siblings_name'],
-            'children_name' => $validated['children_name'],
+            'first_name' => $request->first_name,
+            'middle_name' => $request->middle_name,
+            'last_name' => $request->last_name,
+            'gender' => $request->gender,
+            'age' => $request->age,
+            'birthdate' => $request->birthdate,
+            'address_line_1' => $request->address_line_1,
+            'address_line_2' => $request->address_line_2,
+            'city' => $request->city,
+            'barangay' => $request->barangay,
+            'zip_code' => $request->zip_code,
+            'civil_status' => $request->civil_status,
+            'religion' => $request->religion,
+            'spouse_name' => $request->spouse_name,
+            'siblings_name' => $request->siblings_name,
+            'children_name' => $request->children_name,
             'valid_id' => $validIdPath,
-            'email' => $validated['email'],
-            'password' => Hash::make($validated['password']), // Hash the password before storing
+            'email' => $request->email,
+            'password' => Hash::make($request->password), // Hash the password before storing
         ]);
 
         // Dispatch the Registered event (e.g., for sending welcome emails)
