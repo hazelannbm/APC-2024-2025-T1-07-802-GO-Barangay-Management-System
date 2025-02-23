@@ -9,6 +9,9 @@ class AddFieldsToUsersTable extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
+            if (!Schema::hasColumn('users', 'name')) {
+                $table->string('name');
+            }
             if (!Schema::hasColumn('users', 'first_name')) {
                 $table->string('first_name');
             }
@@ -78,6 +81,7 @@ class AddFieldsToUsersTable extends Migration
         // Remove the fields we added in the up method
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn([
+                'name',
                 'first_name',
                 'middle_name',
                 'last_name',
