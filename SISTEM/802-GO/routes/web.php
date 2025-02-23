@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DocumentRequestController;
 use App\Http\Controllers\DocumentController;
+use App\Http\Controllers\ResidentController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\URL;
 
@@ -61,6 +62,15 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    
+    // Resident Management Routes
+    Route::get('/residents', [ResidentController::class, 'index'])->name('residents.index');
+    Route::get('/residents/create', [ResidentController::class, 'create'])->name('residents.create');
+    Route::post('/residents', [ResidentController::class, 'store'])->name('residents.store');
+    Route::get('/residents/{resident}', [ResidentController::class, 'show'])->name('residents.show');
+    Route::get('/residents/{resident}/edit', [ResidentController::class, 'edit'])->name('residents.edit');
+    Route::patch('/residents/{resident}', [ResidentController::class, 'update'])->name('residents.update');
+    Route::delete('/residents/{resident}', [ResidentController::class, 'destroy'])->name('residents.destroy');
 });
 
 require __DIR__.'/auth.php';
