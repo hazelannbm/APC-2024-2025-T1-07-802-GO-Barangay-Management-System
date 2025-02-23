@@ -13,38 +13,36 @@ class DocumentRequestController extends Controller
      */
     public function index()
     {
-        // Return the view for the document request page
-        return view('document-request'); // Blade file: resources/views/document-request.blade.php
+        return view('document-request'); // Updated path
     }
 
     public function barangayClearance()
     {
-        return view('barangay-clearance');
+        return view('document forms.barangay-clearance'); // Updated path
     }
 
     public function certificateOfResidency()
     {
-        return view('certificate-of-residency');
+        return view('document forms.certificate-of-residency'); // Updated path
     }
 
     public function indigencyCertificate()
     {
-        return view('indigency-certificate');
+        return view('document forms.indigency-certificate'); // Updated path
     }
 
     public function barangayID()
     {
-        return view('barangay-id');
+        return view('document forms.barangay-id'); // Updated path
     }
 
     public function businessPermit()
     {
-        return view('business-permit');
+        return view('document forms.business-permit'); // Updated path
     }
 
     public function cedula()
     {
-        return view('cedula');
+        return view('document forms.cedula'); // Updated path
     }
-
 }
