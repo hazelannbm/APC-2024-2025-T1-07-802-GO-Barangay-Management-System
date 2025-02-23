@@ -51,6 +51,7 @@ class RegisteredUserController extends Controller
     $validIdPath = $request->file('valid_id')->store('valid_ids', 'public');
 
     $user = User::create([
+        'name' => $request->first_name . ' ' . $request->middle_name . ' ' . $request->last_name, // Concatenate name fields
         'first_name' => $request->first_name,
         'middle_name' => $request->middle_name,
         'last_name' => $request->last_name,
