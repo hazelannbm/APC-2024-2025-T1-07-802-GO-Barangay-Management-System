@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Indigency Certificate Request Form</title>
+    <title>Barangay Clearance Request Form</title>
     <link rel="icon" href="{{ asset('logo/802-GO-LOGO.png') }}" type="image/x-icon">
 
     <script>
@@ -241,7 +241,6 @@ button:hover {
 #other_purpose {
     display: none;
 }
-
     </style>
 </head>
 <body class="font-sans antialiased dark:bg-black dark:text-white/50">
@@ -289,22 +288,25 @@ button:hover {
                     </nav>
                 @endif
             </header>
-
-            <div class="form-container">
+<body>
+<div class="form-container">
     
-    <h1>Barangay Indigency Certificate</h1>
+    <h1>Community Tax Certificate (Cedula)</h1>
 
-    <form action="{{ route('submit-indigency-certificate') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('submit-cedula') }}" method="POST" enctype="multipart/form-data">
         @csrf
 
         <label class="form-label">Reference Number</label>
-        <input id="reference_number" type="text" value="{{ uniqid('BRGY-') }}" readonly class="input-field bg-gray-200">
+        <input id="reference_number" type="text" value="{{ uniqid('CTC-') }}" readonly class="input-field bg-gray-200">
 
         <label class="form-label">Full Name <span class="text-red-500">*</span></label>
         <input id="full_name" name="full_name" type="text" class="input-field required" required>
 
         <label class="form-label">Date of Birth <span class="text-red-500">*</span></label>
         <input id="dob" name="dob" type="date" class="input-field required" required>
+
+        <label class="form-label">Place of Birth <span class="text-red-500">*</span></label>
+        <input id="place_of_birth" name="place_of_birth" type="text" class="input-field required" required>
 
         <!-- Address Fields -->
         <label class="form-label">Complete Address <span class="text-red-500">*</span></label>
@@ -317,26 +319,38 @@ button:hover {
         <label class="form-label">Contact Number <span class="text-red-500">*</span></label>
         <input id="contact_number" name="contact_number" type="text" class="input-field required" required>
 
-        <label class="form-label">Purpose of Request <span class="text-red-500">*</span></label>
+        <label class="form-label">Citizenship <span class="text-red-500">*</span></label>
+        <input id="citizenship" name="citizenship" type="text" class="input-field required" required>
+
+        <label class="form-label">Civil Status <span class="text-red-500">*</span></label>
+        <select id="civil_status" name="civil_status" class="input-field required" required>
+            <option value="">Select Civil Status</option>
+            <option value="Single">Single</option>
+            <option value="Married">Married</option>
+            <option value="Widowed">Widowed</option>
+            <option value="Separated">Separated</option>
+        </select>
+
+        <label class="form-label">Occupation <span class="text-red-500">*</span></label>
+        <input id="occupation" name="occupation" type="text" class="input-field required" required>
+
+        <label class="form-label">Annual Income <span class="text-red-500">*</span></label>
+        <input id="annual_income" name="annual_income" type="number" class="input-field required" required>
+
+        <label class="form-label">Purpose of Cedula <span class="text-red-500">*</span></label>
         <select id="purpose" name="purpose" class="input-field required" required onchange="toggleOtherPurpose()">
             <option value="">Select Purpose</option>
-            <option value="Medical Assistance">Medical Assistance</option>
-            <option value="Scholarship Application">Scholarship Application</option>
-            <option value="Financial Assistance">Financial Assistance</option>
-            <option value="Legal Aid">Legal Aid</option>
+            <option value="General Identification">General Identification</option>
+            <option value="Legal Transactions">Legal Transactions</option>
+            <option value="Government Transactions">Government Transactions</option>
+            <option value="Employment Requirement">Employment Requirement</option>
             <option value="Other">Other (Specify)</option>
         </select>
         <input id="other_purpose" name="other_purpose" type="text" class="input-field mt-2" placeholder="Specify Other Purpose" style="display: none;">
 
 
-        <label class="form-label">Proof of Income/No Income (Upload)</label>
-        <input id="proof_of_income" type="file" name="proof_of_income" accept="image/*,application/pdf" class="input-field">
-
         <label class="form-label">Valid ID (Upload) <span class="text-red-500">*</span></label>
         <input id="valid_id" type="file" name="valid_id" accept="image/*" class="input-field required" required>
-
-        <label class="form-label">Barangay Clearance (Upload)</label>
-        <input id="barangay_clearance" type="file" name="barangay_clearance" accept="image/*,application/pdf" class="input-field">
 
         <label class="form-label">Signature (Upload) <span class="text-red-500">*</span></label>
         <input id="signature" type="file" name="signature" accept="image/*,application/pdf" class="input-field required" required>
@@ -351,8 +365,8 @@ button:hover {
     </form>
 </div>
 
-<!-- Barangay Section -->
-<section class="barangay-section bg-[#11468F] text-white py-12 px-6">
+    <!-- Barangay Section -->
+    <section class="barangay-section bg-[#11468F] text-white py-12 px-6">
     <div class="container mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
         <!-- Left Column: Logo and Name with Centered Alignment -->
         <div class="flex items-center justify-center lg:justify-start gap-4">

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DocumentRequestController;
+use App\Http\Controllers\DocumentController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\URL;
 
@@ -12,6 +13,7 @@ Route::get('/certificate-of-residency', [DocumentRequestController::class, 'cert
 Route::get('/indigency-certificate', [DocumentRequestController::class, 'indigencyCertificate'])->name('indigency-certificate');
 Route::get('/barangay-id', [DocumentRequestController::class, 'barangayID'])->name('barangay-id');
 Route::get('/business-permit', [DocumentRequestController::class, 'businessPermit'])->name('business-permit');
+Route::get('/cedula', [DocumentRequestController::class, 'cedula'])->name('cedula'); // ✅ Added Cedula Route
 
 $url = config('app.url');
 URL::forceRootUrl($url);
@@ -53,6 +55,7 @@ Route::post('/submit-certificate-of-residency', [DocumentController::class, 'sub
 Route::post('/submit-indigency-certificate', [DocumentController::class, 'submitIndigencyCertificate'])->name('submit-indigency-certificate');
 Route::post('/submit-barangay-id', [DocumentController::class, 'submitBarangayId'])->name('submit-barangay-id');
 Route::post('/submit-business-permits', [DocumentController::class, 'submitBusinessPermits'])->name('submit-business-permits');
+Route::post('/submit-cedula', [DocumentController::class, 'submitCedula'])->name('submit-cedula'); // ✅ Added Cedula Submission Route
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

@@ -41,4 +41,10 @@ class DocumentRequestController extends Controller
     {
         return view('business-permit');
     }
+
+    public function cedula()
+    {
+        return view('cedula');
+    }
+
 }
