@@ -16,6 +16,7 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         DB::table('users')->insert([
+            'name' => 'John Doe Smith', // Provide a value for the 'name' field
             'first_name' => 'John',
             'middle_name' => 'Doe',
             'last_name' => 'Smith',
