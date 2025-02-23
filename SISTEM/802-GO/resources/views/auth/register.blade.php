@@ -6,6 +6,59 @@
         content: " *";
         color: red;
     }
+
+    /* Modal Styles */
+    .modal {
+    display: none; /* Ensure the modal is hidden on page load */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Dark overlay */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Modal Content */
+.modal-content {
+    background: white; /* ✅ Set modal background to white */
+    padding: 20px;
+    border-radius: 8px; /* ✅ Rounded corners */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* ✅ Subtle shadow */
+    width: 90%;
+    max-width: 400px; /* ✅ Restrict max width */
+    text-align: center;
+}
+
+/* Modal Buttons */
+.modal-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+
+#cancelButton, #proceedButton {
+    flex: 1;
+    margin: 5px;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+#cancelButton {
+    background-color: #6b7280; /* ✅ Gray */
+    color: white;
+}
+
+#proceedButton {
+    background-color: #10b981; /* ✅ Green */
+    color: white;
+}
+
 </style>
 
 <div style="background-color:#f3f4f6">
@@ -18,8 +71,9 @@
 
 <x-guest-layout>
     <div class="my-8">
-        <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
+        <form id="registerForm" method="POST" action="{{ route('register') }}" enctype="multipart/form-data"> 
             @csrf
+
 
             <!-- Login Heading -->
             <div class="mt-6 mb-4 text-center text-lg font-semibold text-gray-700 dark:text-gray-300">
@@ -35,7 +89,7 @@
 
             <!-- Middle Name -->
             <div class="mt-4">
-                <x-input-label for="middle_name" :value="__('Middle Name')" class="required-label"/>
+                <x-input-label for="middle_name" :value="__('Middle Name')"/>
                 <x-text-input id="middle_name" class="block mt-1 w-full" type="text" name="middle_name" :value="old('middle_name')" autocomplete="middle_name" />
                 <x-input-error :messages="$errors->get('middle_name')" class="mt-2" />
             </div>
@@ -81,31 +135,32 @@
             </div>
 
             <!-- Barangay -->
-            <div class="mt-4">
-                <x-input-label for="barangay" :value="__('Barangay')" class="required-label"/>
-                <select id="barangay" name="barangay" class="block mt-1 w-full" required>
-                    <option value="">{{ __('Barangay 802') }}</option>
-                </select>
-                <x-input-error :messages="$errors->get('barangay')" class="mt-2" />
-            </div>
+<div class="mt-4">
+    <x-input-label for="barangay" :value="__('Barangay')" class="required-label"/>
+    <select id="barangay" name="barangay" class="block mt-1 w-full" required>
+        <option value="Barangay 802" selected>Barangay 802</option>
+    </select>
+    <x-input-error :messages="$errors->get('barangay')" class="mt-2" />
+</div>
 
-            <!-- District -->
-            <div class="mt-4">
-                <x-input-label for="district" :value="__('District')" class="required-label"/>
-                <select id="district" name="district" class="block mt-1 w-full" required>
-                    <option value="">{{ __('Sta Ana') }}</option>
-                </select>
-                <x-input-error :messages="$errors->get('district')" class="mt-2" />
-            </div>
+<!-- District -->
+<div class="mt-4">
+    <x-input-label for="district" :value="__('District')" class="required-label"/>
+    <select id="district" name="district" class="block mt-1 w-full" required>
+        <option value="Sta Ana" selected>Sta Ana</option>
+    </select>
+    <x-input-error :messages="$errors->get('district')" class="mt-2" />
+</div>
 
-            <!-- City -->
-            <div class="mt-4">
-                <x-input-label for="city" :value="__('City')" class="required-label"/>
-                <select id="city" name="city" class="block mt-1 w-full" required>
-                    <option value="">{{ __('Manila') }}</option>
-                </select>
-                <x-input-error :messages="$errors->get('city')" class="mt-2" />
-            </div>
+<!-- City -->
+<div class="mt-4">
+    <x-input-label for="city" :value="__('City')" class="required-label"/>
+    <select id="city" name="city" class="block mt-1 w-full" required>
+        <option value="Manila" selected>Manila</option>
+    </select>
+    <x-input-error :messages="$errors->get('city')" class="mt-2" />
+</div>
+
 
             <!-- Civil Status -->
             <div class="mt-4">
@@ -166,9 +221,9 @@
                     </a>
                 </div>
                 <div>
-                    <x-primary-button>
-                        {{ __('Register') }}
-                    </x-primary-button>
+                <x-primary-button id="registerButton">
+                    {{ __('Register') }}
+                </x-primary-button>
                 </div>
             </div>
         </form>
@@ -182,6 +237,87 @@
 <div style="background-color:#f3f4f6">
     <p style="opacity:0%">Fill out the form to create a new account</p>
 </div>
+
+<!-- Privacy Policy Modal -->
+<div id="privacyModal" class="modal">
+<div class="modal-content">
+        <h2 style="font-size: 1.5rem; font-weight: bold; text-align: center;">Data Privacy Policy</h2>
+        <p style="text-align: justify; margin-top: 10px;">
+            By proceeding with registration, you acknowledge and agree to the following terms regarding the collection and use of your personal data:
+        </p>
+        
+        <ul style="text-align: justify; margin-top: 10px; padding-left: 20px; list-style-type: disc;">
+            <li>Your data will be used solely for registration and identification.</li>
+            <li>We do not share your personal data without your consent.</li>
+            <li>You can request access or deletion of your data at any time.</li>
+        </ul>
+
+
+        <!-- Checkbox for agreement -->
+        <div class="modal-buttons" style="margin-top: 15px; display: flex; justify-content: center; align-items: center;">
+            <input type="checkbox" id="agreeCheckbox" style="margin-right: 6px; width: 16px; height: 16px;">
+            <label for="agreeCheckbox" style="font-size: 0.9rem;"><b>I have read and agree to the Data Privacy Policy</b></label>
+        </div>
+
+
+
+
+        <div class="modal-buttons">
+            <button id="cancelButton" class="px-4 py-2 bg-gray-500 text-white rounded">Cancel</button>
+            <button id="proceedButton" class="px-4 py-2 text-white rounded" style="background-color: #6b7280;" disabled>Proceed</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Get elements
+    const registerButton = document.getElementById("registerButton");
+    const privacyModal = document.getElementById("privacyModal");
+    const cancelButton = document.getElementById("cancelButton");
+    const proceedButton = document.getElementById("proceedButton");
+    const registerForm = document.getElementById("registerForm");
+    const agreeCheckbox = document.getElementById("agreeCheckbox");
+
+    // Ensure modal is hidden on page load
+    document.addEventListener("DOMContentLoaded", function() {
+        privacyModal.style.display = "none"; 
+    });
+
+    // Show modal when Register button is clicked
+    registerButton.addEventListener("click", function(event) {
+        event.preventDefault(); // Prevent form from submitting immediately
+        privacyModal.style.display = "flex"; 
+    });
+
+    // Close modal on Cancel
+    cancelButton.addEventListener("click", function() {
+        privacyModal.style.display = "none";
+    });
+
+    // Enable Proceed button when checkbox is checked
+    agreeCheckbox.addEventListener("change", function() {
+        if (this.checked) {
+            proceedButton.style.backgroundColor = "#11468F"; // Change to blue
+            proceedButton.disabled = false;
+        } else {
+            proceedButton.style.backgroundColor = "#6b7280"; // Keep it gray
+            proceedButton.disabled = true;
+        }
+    });
+
+    // Proceed with form submission
+    proceedButton.addEventListener("click", function() {
+        registerForm.submit(); // Submit the form after accepting privacy policy
+    });
+
+    // Close modal when clicking outside of it
+    window.addEventListener("click", function(event) {
+        if (event.target === privacyModal) {
+            privacyModal.style.display = "none";
+        }
+    });
+</script>
+
 
 <script>
     // JavaScript to handle image preview
