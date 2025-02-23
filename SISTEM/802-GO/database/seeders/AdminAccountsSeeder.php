@@ -15,12 +15,17 @@ class AdminAccountsSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('admin_accounts')->insert([
-            'name' => 'Admin User',
-            'email' => 'admin@example.com',
-            'password' => Hash::make('password'),
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
+        // Check if the admin user already exists
+        $admin = DB::table('admin_accounts')->where('email', 'admin@example.com')->first();
+
+        if (!$admin) {
+            DB::table('admin_accounts')->insert([
+                'name' => 'Admin User',
+                'email' => 'admin@example.com',
+                'password' => Hash::make('password'),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        }
     }
 }
