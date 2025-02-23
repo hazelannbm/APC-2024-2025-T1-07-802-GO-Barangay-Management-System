@@ -418,7 +418,17 @@ document.addEventListener("DOMContentLoaded", function() {
             <input id="reference_number" type="text" value="{{ uniqid('BRGY-ID-') }}" readonly class="input-field bg-gray-200">
 
             <label class="form-label">Full Name <span class="text-red-500">*</span></label>
-            <input id="full_name" name="full_name" type="text" class="input-field required" required>
+            <input id="first_name" name="first_name" type="text" placeholder="First Name" class="input-field required" required>
+            <input id="middle_name" name="middle_name" type="text" placeholder="Middle Name (Optional)" class="input-field">
+            <input id="last_name" name="last_name" type="text" placeholder="Last Name" class="input-field required" required>
+
+            <label class="form-label">Gender <span class="text-red-500">*</span></label>
+            <select id="gender" name="gender" class="input-field required" required>
+                <option value="">Select Gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+            </select>
 
             <label class="form-label">Date of Birth <span class="text-red-500">*</span></label>
             <input id="dob" name="dob" type="date" class="input-field required" required>
@@ -433,12 +443,17 @@ document.addEventListener("DOMContentLoaded", function() {
             </select>
 
             <!-- Address Fields -->
-            <label class="form-label">Complete Address <span class="text-red-500">*</span></label>
-            <input id="street" name="street" type="text" placeholder="Street" class="input-field required" required>
-            <input id="barangay" name="barangay" type="text" placeholder="Barangay" class="input-field required mt-2" required>
-            <input id="city" name="city" type="text" placeholder="City" class="input-field required mt-2" required>
-            <input id="province" name="province" type="text" placeholder="Province" class="input-field required mt-2" required>
-            <input id="zip_code" name="zip_code" type="text" placeholder="ZIP Code" class="input-field required mt-2" required>
+            <label class="form-label">Address <span class="text-red-500">*</span></label>
+            <input id="street" name="street" type="text" placeholder="Block/Street" class="input-field required" required>
+
+            <label class="form-label">Barangay</label>
+            <input id="barangay" name="barangay" type="text" value="802" class="input-field bg-gray-200" readonly>
+
+            <label class="form-label">District</label>
+            <input id="district" name="district" type="text" value="Sta. Ana" class="input-field bg-gray-200" readonly>
+
+            <label class="form-label">City</label>
+            <input id="city" name="city" type="text" value="Manila" class="input-field bg-gray-200" readonly>
 
             <label class="form-label">Contact Number <span class="text-red-500">*</span></label>
             <input id="contact_number" name="contact_number" type="text" class="input-field required" required>
@@ -452,7 +467,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 <option value="Other">Other (Specify)</option>
             </select>
             <input id="other_purpose" name="other_purpose" type="text" class="input-field mt-2" placeholder="Specify Other Purpose" style="display: none;">
-
 
             <label class="form-label">Valid ID (Upload) <span class="text-red-500">*</span></label>
             <input id="valid_id" name="valid_id" type="file" accept="image/*" class="input-field required" required>
