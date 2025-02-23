@@ -29,9 +29,6 @@ class User extends Authenticatable implements MustVerifyEmail
         'city',
         'civil_status',
         'religion',
-        'spouse_name',
-        'siblings_name',
-        'children_name',
         'valid_id',
         'email',
         'password',
@@ -50,13 +47,10 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * The attributes that should be cast.
      *
-     * @return array<string, string>
+     * @var array<string, string>
      */
-    protected function casts(): array
-    {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
-    }
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+        'password' => 'hashed',
+    ];
 }
