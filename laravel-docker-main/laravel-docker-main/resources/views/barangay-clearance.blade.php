@@ -14,6 +14,22 @@
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
         <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
         <!-- Styles -->
+
+        <script>
+    function toggleOtherPurpose() {
+        let selectElement = document.getElementById("purpose");
+        let otherPurposeField = document.getElementById("other_purpose");
+
+        if (selectElement.value === "Other") {
+            otherPurposeField.style.display = "block";
+            otherPurposeField.required = true;
+        } else {
+            otherPurposeField.style.display = "none";
+            otherPurposeField.required = false;
+        }
+    }
+</script>
+
         <style>
             ::before,
             ::after {
@@ -151,6 +167,82 @@
             justify-content: center;
             margin-bottom: 1.5rem;
         }
+
+/* Style for required field asterisks */
+.text-red-500 {
+    color: red;
+    font-weight: bold;
+}
+
+/* Style for form fields */
+.input-field {
+    display: block;
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Add spacing between stacked address fields */
+.mt-2 {
+    margin-top: 10px;
+}
+
+/* Proper spacing for the checkbox */
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 1.5rem; /* More space above */
+    margin-bottom: 1.5rem; /* More space below */
+}
+
+/* Checkbox size */
+.checkbox-container input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    margin: 0;
+    vertical-align: middle;
+}
+
+/* Submit button styling */
+button {
+    width: 100%;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 0.375rem;
+    background-color: #1E40AF; /* Blue color */
+    color: #ffffff;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #102A72;
+}
+
+/* Dropdown Styling */
+.form-container select {
+    appearance: none;
+    background-color: #fff;
+    cursor: pointer;
+    font-size: 0.875rem;
+    padding-right: 2rem;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='black'><path d='M7 10l5 5 5-5z'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 16px;
+}
+
+/* Hide "Other Purpose" by default */
+#other_purpose {
+    display: none;
+}
+
     </style>
 </head>
 <body class="font-sans antialiased dark:bg-black dark:text-white/50">
@@ -198,46 +290,70 @@
                     </nav>
                 @endif
             </header>
-
 <body>
-    <div class="form-container">
-        
-        <h1>Barangay Clearance</h1>
+            <div class="form-container">
+    
+    <h1>Barangay Clearance</h1>
 
-        <form action="{{ route('submit-barangay-clearance') }}" method="POST" enctype="multipart/form-data">
-            @csrf
-            <label for="purpose">Purpose of Request</label>
-            <input id="purpose" name="purpose" type="text" required>
+    <form action="{{ route('submit-barangay-clearance') }}" method="POST" enctype="multipart/form-data">
+        @csrf
 
-            <label for="full_name">Full Name</label>
-            <input id="full_name" name="full_name" type="text" required>
 
-            <label for="dob">Date of Birth</label>
-            <input id="dob" name="dob" type="date" required>
+        <label class="form-label">Full Name <span class="text-red-500">*</span></label>
+        <input id="full_name" name="full_name" type="text" class="input-field required" required>
 
-            <label for="address">Address</label>
-            <textarea id="address" name="address" rows="3" required></textarea>
+        <label class="form-label">Date of Birth <span class="text-red-500">*</span></label>
+        <input id="dob" name="dob" type="date" class="input-field required" required>
 
-            <label for="contact_number">Contact Number</label>
-            <input id="contact_number" name="contact_number" type="text" required>
+        <!-- Address Fields -->
+        <label class="form-label">Complete Address <span class="text-red-500">*</span></label>
+        <input id="street" name="street" type="text" placeholder="Street" class="input-field required" required>
+        <input id="barangay" name="barangay" type="text" placeholder="Barangay" class="input-field required mt-2" required>
+        <input id="city" name="city" type="text" placeholder="City" class="input-field required mt-2" required>
+        <input id="province" name="province" type="text" placeholder="Province" class="input-field required mt-2" required>
+        <input id="zip_code" name="zip_code" type="text" placeholder="ZIP Code" class="input-field required mt-2" required>
 
-            <label for="valid_id">Valid ID (Upload)</label>
-            <input id="valid_id" type="file" name="valid_id" accept="image/*" required>
+        <label class="form-label">Contact Number <span class="text-red-500">*</span></label>
+        <input id="contact_number" name="contact_number" type="text" class="input-field required" required>
 
-            <label for="proof_of_residency">Proof of Residency (Upload)</label>
-            <input id="proof_of_residency" type="file" name="proof_of_residency" accept="image/*,application/pdf" required>
+        <label class="form-label">Purpose of Request <span class="text-red-500">*</span></label>
+        <select id="purpose" name="purpose" class="input-field required" required onchange="toggleOtherPurpose()">
+        <option value="">Select Purpose</option>
+        <option value="Employment">Employment</option>
+        <option value="Travel">Travel</option>
+        <option value="Identification Requirement">Identification Requirement</option>
+        <option value="Legal Matters">Legal Matters</option>
+        <option value="School Requirement">School Requirement</option>
+        <option value="Loan Application">Loan Application</option>
+        <option value="Other">Other (Specify)</option>
+        </select>
+        <input id="other_purpose" name="other_purpose" type="text" class="input-field mt-2" placeholder="Specify Other Purpose" style="display: none;">
 
-            <label for="recent_photo">Recent Photo (Upload)</label>
-            <input id="recent_photo" type="file" name="recent_photo" accept="image/*" required>
+        <label class="form-label">Valid ID (Upload) <span class="text-red-500">*</span></label>
+        <input id="valid_id" type="file" name="valid_id" accept="image/*" class="input-field required" required>
 
-            <label for="signature">Signature (Upload)</label>
-            <input id="signature" type="file" name="signature" accept="image/*,application/pdf" required>
+        <label class="form-label">Proof of Residency (Upload) <span class="text-red-500">*</span></label>
+        <input id="proof_of_residency" type="file" name="proof_of_residency" accept="image/*,application/pdf" class="input-field required" required>
 
-            <div class="g-recaptcha" data-sitekey="your-site-key"></div>
+        <label class="form-label">Recent Photo (Upload) <span class="text-red-500">*</span></label>
+        <input id="recent_photo" type="file" name="recent_photo" accept="image/*" class="input-field required" required>
 
-            <button type="submit">Submit</button>
-        </form>
-       
+        <label class="form-label">Signature (Upload) <span class="text-red-500">*</span></label>
+        <input id="signature" type="file" name="signature" accept="image/*,application/pdf" class="input-field required" required>
+
+        <div class="g-recaptcha" data-sitekey="your-site-key"></div>
+
+        <!-- Declaration Checkbox -->
+        <div class="checkbox-container">
+            <input type="checkbox" id="declaration" required>
+            <label for="declaration">I declare that the information provided is true and correct.</label>
+        </div>
+
+        <button type="submit">Submit</button>
+    </form>
+</div>
+</body>
+
     </div>
     <!-- Barangay Section -->
     <section class="barangay-section bg-[#11468F] text-white py-12 px-6">

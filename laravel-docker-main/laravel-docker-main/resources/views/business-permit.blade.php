@@ -7,6 +7,21 @@
     <title>Barangay Permit Request Form</title>
     <link rel="icon" href="{{ asset('logo/802-GO-LOGO.png') }}" type="image/x-icon">
 
+    <script>
+    function toggleOtherPurpose() {
+        let selectElement = document.getElementById("purpose");
+        let otherPurposeField = document.getElementById("other_purpose");
+
+        if (selectElement.value === "Other") {
+            otherPurposeField.style.display = "block";
+            otherPurposeField.required = true;
+        } else {
+            otherPurposeField.style.display = "none";
+            otherPurposeField.required = false;
+        }
+    }
+</script>
+
     @vite('resources/css/app.css')
     <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
@@ -151,6 +166,82 @@
             justify-content: center;
             margin-bottom: 1.5rem;
         }
+
+/* Style for required field asterisks */
+.text-red-500 {
+    color: red;
+    font-weight: bold;
+}
+
+/* Style for form fields */
+.input-field {
+    display: block;
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Add spacing between stacked address fields */
+.mt-2 {
+    margin-top: 10px;
+}
+
+/* Proper spacing for the checkbox */
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 1.5rem; /* More space above */
+    margin-bottom: 1.5rem; /* More space below */
+}
+
+/* Checkbox size */
+.checkbox-container input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    margin: 0;
+    vertical-align: middle;
+}
+
+/* Submit button styling */
+button {
+    width: 100%;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 0.375rem;
+    background-color: #1E40AF; /* Blue color */
+    color: #ffffff;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #102A72;
+}
+
+/* Dropdown Styling */
+.form-container select {
+    appearance: none;
+    background-color: #fff;
+    cursor: pointer;
+    font-size: 0.875rem;
+    padding-right: 2rem;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='black'><path d='M7 10l5 5 5-5z'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 16px;
+}
+
+/* Hide "Other Purpose" by default */
+#other_purpose {
+    display: none;
+}
+        
     </style>
 </head>
 <body class="font-sans antialiased dark:bg-black dark:text-white/50">
@@ -199,58 +290,81 @@
                 @endif
             </header>
 
-    <div class="form-container">
+            <div class="form-container">
 
-        <!-- Title -->
-        <h1>Barangay Business Permit</h1>
+<!-- Title -->
+<h1>Barangay Business Permit</h1>
 
-        <!-- Form -->
-        <form action="{{ route('submit-business-permits') }}" method="POST" enctype="multipart/form-data">
-            @csrf
-            <label for="reference_number">Reference Number</label>
-            <input id="reference_number" type="text" value="{{ uniqid('BRGY-BP-') }}" readonly>
+<!-- Form -->
+<form action="{{ route('submit-business-permits') }}" method="POST" enctype="multipart/form-data">
+    @csrf
 
-            <label for="business_name">Business Name</label>
-            <input id="business_name" name="business_name" type="text" required>
+    <label class="form-label">Reference Number</label>
+    <input id="reference_number" type="text" value="{{ uniqid('BRGY-BP-') }}" readonly class="input-field bg-gray-200">
 
-            <label for="business_address">Business Address</label>
-            <textarea id="business_address" name="business_address" rows="3" required></textarea>
+    <label class="form-label">Business Name <span class="text-red-500">*</span></label>
+    <input id="business_name" name="business_name" type="text" class="input-field required" required>
 
-            <label for="owner_name">Owner’s Full Name</label>
-            <input id="owner_name" name="owner_name" type="text" required>
+    <!-- Business Address Fields -->
+    <label class="form-label">Business Address <span class="text-red-500">*</span></label>
+    <input id="street" name="street" type="text" placeholder="Street" class="input-field required" required>
+    <input id="barangay" name="barangay" type="text" placeholder="Barangay" class="input-field required mt-2" required>
+    <input id="city" name="city" type="text" placeholder="City" class="input-field required mt-2" required>
+    <input id="province" name="province" type="text" placeholder="Province" class="input-field required mt-2" required>
+    <input id="zip_code" name="zip_code" type="text" placeholder="ZIP Code" class="input-field required mt-2" required>
 
-            <label for="business_nature">Nature of Business</label>
-            <input id="business_nature" name="business_nature" type="text" required>
+    <label class="form-label">Owner’s Full Name <span class="text-red-500">*</span></label>
+    <input id="owner_name" name="owner_name" type="text" class="input-field required" required>
 
-            <label for="contact_number">Contact Number</label>
-            <input id="contact_number" name="contact_number" type="text" required>
+    <label class="form-label">Nature of Business <span class="text-red-500">*</span></label>
+    <input id="business_nature" name="business_nature" type="text" class="input-field required" required>
 
-            <label for="tin">Tax Identification Number (TIN)</label>
-            <input id="tin" name="tin" type="text" required>
+    <label class="form-label">Contact Number <span class="text-red-500">*</span></label>
+    <input id="contact_number" name="contact_number" type="text" class="input-field required" required>
 
-            <label for="dti_sec_registration">DTI/SEC Registration</label>
-            <input id="dti_sec_registration" name="dti_sec_registration" type="file" required>
+    <label class="form-label">Tax Identification Number (TIN) <span class="text-red-500">*</span></label>
+    <input id="tin" name="tin" type="text" class="input-field required" required>
 
-            <label for="lease_contract">Lease Contract or Proof of Ownership of Business Location</label>
-            <input id="lease_contract" name="lease_contract" type="file" required>
+    <label class="form-label">Purpose of Request <span class="text-red-500">*</span></label>
+    <select id="purpose" name="purpose" class="input-field required" required onchange="toggleOtherPurpose()">
+        <option value="">Select Purpose</option>
+        <option value="New Business Registration">New Business Registration</option>
+        <option value="Renewal of Business Permit">Renewal of Business Permit</option>
+        <option value="Government Compliance">Government Compliance</option>
+        <option value="Loan Application">Loan Application</option>
+        <option value="Other">Other (Specify)</option>
+    </select>
+    <input id="other_purpose" name="other_purpose" type="text" class="input-field mt-2" placeholder="Specify Other Purpose" style="display: none;">
 
-            <label for="business_application_form">Business Permit Application Form (if applicable)</label>
-            <input id="business_application_form" name="business_application_form" type="file">
 
-            <label for="valid_id_owner">Valid ID of Business Owner</label>
-            <input id="valid_id_owner" name="valid_id_owner" type="file" required>
+    <label class="form-label">DTI/SEC Registration <span class="text-red-500">*</span></label>
+    <input id="dti_sec_registration" name="dti_sec_registration" type="file" class="input-field required" required>
 
-            <label for="signature">Signature</label>
-            <input id="signature" name="signature" type="file" required>
+    <label class="form-label">Lease Contract or Proof of Ownership of Business Location <span class="text-red-500">*</span></label>
+    <input id="lease_contract" name="lease_contract" type="file" class="input-field required" required>
 
-            <!-- Captcha -->
-            <div class="g-recaptcha" data-sitekey="{{ config('captcha.site_key') }}"></div>
+    <label class="form-label">Business Permit Application Form (if applicable)</label>
+    <input id="business_application_form" name="business_application_form" type="file" class="input-field">
 
-            <!-- Submit Button -->
-            <button type="submit">Submit</button>
-        </form>
+    <label class="form-label">Valid ID of Business Owner <span class="text-red-500">*</span></label>
+    <input id="valid_id_owner" name="valid_id_owner" type="file" class="input-field required" required>
+
+    <label class="form-label">Signature <span class="text-red-500">*</span></label>
+    <input id="signature" name="signature" type="file" class="input-field required" required>
+
+    <!-- Captcha -->
+    <div class="g-recaptcha" data-sitekey="{{ config('captcha.site_key') }}"></div>
+
+    <!-- Declaration Checkbox -->
+    <div class="checkbox-container">
+        <input type="checkbox" id="declaration" required>
+        <label for="declaration">I declare that the information provided is true and correct.</label>
     </div>
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script> <!-- Captcha Script -->
+
+    <!-- Submit Button -->
+    <button type="submit">Submit</button>
+</form>
+</div>
 
     <!-- Barangay Section -->
 <section class="barangay-section bg-[#11468F] text-white py-12 px-6">
