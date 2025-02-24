@@ -2,31 +2,25 @@
     <!-- Custom Full-Width Header -->
     <header class="bg-[#11468F] text-white py-4 px-6">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <!-- Profile Text on the Left -->
-            <h2 style="font-size: 1.5rem; font-weight: bold;">
-                Profile
-            </h2>
-
-            <!-- Centered Logo -->
-            <div class="flex-1 flex justify-center">
+            <!-- Logo on the Left -->
+            <div class="flex items-center">
                 <a href="{{ route('dashboard') }}">
-                <img src="{{ asset('logo/802-GO-LOGO.png') }}" 
-                alt="Logo" 
-                style="height: 80px; width: auto; cursor: pointer;">
+                    <img src="{{ asset('logo/802-GO-LOGO.png') }}" 
+                        alt="Logo" 
+                        style="height: 80px; width: auto; cursor: pointer;">
                 </a>
             </div>
 
             <!-- Logout Button on the Right -->
             <form method="POST" action="{{ route('logout') }}">
-    @csrf
-    <button type="submit" 
-        style="color: white; padding: 8px 16px; border-radius: 6px; background-color: transparent; transition: background-color 0.3s, color 0.3s, font-weight 0.3s;"
-        onmouseover="this.style.backgroundColor='white'; this.style.color='#11468F'; this.style.fontWeight='bold'" 
-        onmouseout="this.style.backgroundColor='transparent'; this.style.color='white'; this.style.fontWeight='normal'">
-        Logout
-    </button>
-</form>
-
+                @csrf
+                <button type="submit" 
+                    style="color: white; padding: 8px 16px; border-radius: 6px; background-color: transparent; transition: background-color 0.3s, color 0.3s, font-weight 0.3s;"
+                    onmouseover="this.style.backgroundColor='white'; this.style.color='#11468F'; this.style.fontWeight='bold'" 
+                    onmouseout="this.style.backgroundColor='transparent'; this.style.color='white'; this.style.fontWeight='normal'">
+                    Logout
+                </button>
+            </form>
         </div>
     </header>
 
