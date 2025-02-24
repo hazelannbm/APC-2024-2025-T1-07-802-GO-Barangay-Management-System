@@ -27,24 +27,47 @@ class RegisteredUserController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request): RedirectResponse
-    {
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        ]);
+    public function store(Request $request)
+{
+    $request->validate([
+        'first_name' => ['required', 'string', 'max:255'],
+        'middle_name' => ['nullable', 'string', 'max:255'],
+        'last_name' => ['required', 'string', 'max:255'],
+        'gender' => ['required', 'in:male,female,other'],
+        'age' => ['required', 'integer', 'min:1'],
+        'birthdate' => ['required', 'date'],
+        'block_street' => ['required', 'string', 'max:255'],
+        'barangay' => ['required', 'string'],
+        'district' => ['required', 'string'],
+        'city' => ['required', 'string'],
+        'civil_status' => ['required', 'in:single,married,widowed,divorced'],
+        'religion' => ['nullable', 'string', 'max:255'],
+        'valid_id' => ['required', 'image', 'mimes:jpg,jpeg,png', 'max:2048'], // 2MB max size
+        'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+        'password' => ['required', 'confirmed', Rules\Password::defaults()],
+    ]);
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
+    // Handle file upload
+    $validIdPath = $request->file('valid_id')->store('valid_ids', 'public');
 
-        event(new Registered($user));
+    $user = User::create([
+        'first_name' => $request->first_name,
+        'middle_name' => $request->middle_name,
+        'last_name' => $request->last_name,
+        'gender' => $request->gender,
+        'age' => $request->age,
+        'birthdate' => $request->birthdate,
+        'block_street' => $request->block_street,
+        'barangay' => $request->barangay,
+        'district' => $request->district,
+        'city' => $request->city,
+        'civil_status' => $request->civil_status,
+        'religion' => $request->religion,
+        'valid_id' => $validIdPath,
+        'email' => $request->email,
+        'password' => Hash::make($request->password),
+    ]);
 
-        Auth::login($user);
-
-        return redirect(route('dashboard', absolute: false));
-    }
+    return redirect()->route('dashboard')->with('success', 'Registration successful!');
+}
 }
