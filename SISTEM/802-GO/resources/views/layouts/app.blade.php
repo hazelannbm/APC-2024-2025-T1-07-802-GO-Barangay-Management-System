@@ -26,10 +26,19 @@
                     </div>
                 </header>
             @endisset
-
+        <nav class="main-nav">
+            <div class="container">
+             <a href="{{ route('dashboard') }}" class="brand">802-GO</a>
+                <div class="nav-links">
+                    <a href="{{ route('manageresident') }}">Residents</a>
+                    <a href="#">News</a>
+                    <a href="#">Documents</a>
+                </div>
+             </div>
+         </nav>
             <!-- Page Content -->
-            <main>
-                {{ $slot }}
+            <main class="main-content">
+            @yield('content')
             </main>
         </div>
     </body>
