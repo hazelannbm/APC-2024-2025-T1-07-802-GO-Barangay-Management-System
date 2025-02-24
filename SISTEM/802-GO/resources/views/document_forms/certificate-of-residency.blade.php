@@ -4,18 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Barangay Clearance Request Form</title>
+    <title>Certificate of Residency Request Form</title>
     <link rel="icon" href="{{ asset('logo/802-GO-LOGO.png') }}" type="image/x-icon">
 
-    @vite('resources/css/app.css')
-    <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
-        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-        <!-- Styles -->
-
-        <script>
+    <script>
     function toggleOtherPurpose() {
         let selectElement = document.getElementById("purpose");
         let otherPurposeField = document.getElementById("other_purpose");
@@ -30,6 +22,14 @@
     }
 </script>
 
+
+    @vite('resources/css/app.css')
+    <!-- Fonts -->
+        <link rel="preconnect" href="https://fonts.bunny.net">
+        <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+        <!-- Styles -->
         <style>
             ::before,
             ::after {
@@ -254,7 +254,7 @@
             margin-bottom: 1.5rem;
         }
 
-/* Style for required field asterisks */
+        /* Style for required field asterisks */
 .text-red-500 {
     color: red;
     font-weight: bold;
@@ -366,8 +366,8 @@ button:hover {
                     <!-- Right-aligned Authentication Links -->
                     <nav class="right-section flex space-x-4">
                     @auth
-                        <a href="{{ url('/dashboard') }}" class="rounded-md px-3 py-2 text-white ring-1 ring-transparent transition hover:text-white/70 focus:outline-none focus-visible:ring-[#FF2D20]">
-                            {{ Auth::user()->name }}
+                        <a href="{{ route('profile.edit') }}" class="rounded-md px-3 py-2 text-white ring-1 ring-transparent transition hover:text-white/70 focus:outline-none focus-visible:ring-[#FF2D20]">
+                            My Account
                         </a>
                     @else
                         <a href="{{ route('login') }}" class="rounded-md px-3 py-2 text-white ring-1 ring-transparent transition hover:text-white/70 focus:outline-none focus-visible:ring-[#FF2D20]">
@@ -403,86 +403,85 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 </script>
+<div class="form-container">
 
-<body>
-            <div class="form-container">
-    
-            <h1>Barangay Clearance</h1>
+    <h1>Barangay Certificate of Residency</h1>
 
-<form action="{{ route('submit-barangay-clearance') }}" method="POST" enctype="multipart/form-data">
-    @csrf
+    <form action="{{ route('submit-certificate-of-residency') }}" method="POST" enctype="multipart/form-data">
+        @csrf
 
-    <!-- Name Fields -->
-    <label class="form-label">Full Name <span class="text-red-500">*</span></label>
+        <label class="form-label">Reference Number</label>
+        <input id="reference_number" type="text" value="{{ uniqid('BRGY-') }}" readonly class="input-field bg-gray-200">
+
+        <!-- Name Fields -->
+        <label class="form-label">Full Name <span class="text-red-500">*</span></label>
         <input id="first_name" name="first_name" type="text" placeholder="First Name" class="input-field required" required>
         <input id="middle_name" name="middle_name" type="text" placeholder="Middle Name (Optional)" class="input-field">
         <input id="last_name" name="last_name" type="text" placeholder="Last Name" class="input-field required" required>
 
-    <label class="form-label">Gender <span class="text-red-500">*</span></label>
-    <select id="gender" name="gender" class="input-field required" required>
-        <option value="">Select Gender</option>
-        <option value="Male">Male</option>
-        <option value="Female">Female</option>
-        <option value="Other">Other</option>
-    </select>
+        <label class="form-label">Gender <span class="text-red-500">*</span></label>
+        <select id="gender" name="gender" class="input-field required" required>
+            <option value="">Select Gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
+        </select>
 
-    <label class="form-label">Date of Birth <span class="text-red-500">*</span></label>
-    <input id="dob" name="dob" type="date" class="input-field required" required>
+        <label class="form-label">Date of Birth <span class="text-red-500">*</span></label>
+        <input id="dob" type="date" name="dob" class="input-field required" required>
 
-    <!-- Address Fields -->
-    <label class="form-label">Address <span class="text-red-500">*</span></label>
-    <input id="street" name="street" type="text" placeholder="Block/Street" class="input-field required" required>
+        <!-- Address Fields -->
+        <label class="form-label">Address <span class="text-red-500">*</span></label>
+        <input id="street" name="street" type="text" placeholder="Block/Street" class="input-field required" required>
 
-    <label class="form-label">Barangay</label>
-    <input id="barangay" name="barangay" type="text" value="802" class="input-field bg-gray-200" readonly>
+        <label class="form-label">Barangay</label>
+        <input id="barangay" name="barangay" type="text" value="802" class="input-field bg-gray-200" readonly>
 
-    <label class="form-label">District</label>
-    <input id="district" name="district" type="text" value="Sta. Ana" class="input-field bg-gray-200" readonly>
+        <label class="form-label">District</label>
+        <input id="district" name="district" type="text" value="Sta. Ana" class="input-field bg-gray-200" readonly>
 
-    <label class="form-label">City</label>
-    <input id="city" name="city" type="text" value="Manila" class="input-field bg-gray-200" readonly>
+        <label class="form-label">City</label>
+        <input id="city" name="city" type="text" value="Manila" class="input-field bg-gray-200" readonly>
 
-    <label class="form-label">Contact Number <span class="text-red-500">*</span></label>
-    <input id="contact_number" name="contact_number" type="text" class="input-field required" required>
+        <label class="form-label">Length of Stay in Barangay <span class="text-red-500">*</span></label>
+        <input id="length_of_stay" type="text" name="length_of_stay" class="input-field required" required>
 
-    <label class="form-label">Purpose of Request <span class="text-red-500">*</span></label>
-    <select id="purpose" name="purpose" class="input-field required" required onchange="toggleOtherPurpose()">
-        <option value="">Select Purpose</option>
-        <option value="Employment">Employment</option>
-        <option value="Travel">Travel</option>
-        <option value="Identification Requirement">Identification Requirement</option>
-        <option value="Legal Matters">Legal Matters</option>
-        <option value="School Requirement">School Requirement</option>
-        <option value="Loan Application">Loan Application</option>
-        <option value="Other">Other (Specify)</option>
-    </select>
-    <input id="other_purpose" name="other_purpose" type="text" class="input-field mt-2" placeholder="Specify Other Purpose" style="display: none;">
+        <label class="form-label">Contact Number <span class="text-red-500">*</span></label>
+        <input id="contact_number" type="text" name="contact_number" class="input-field required" required>
 
-    <label class="form-label">Valid ID (Upload) <span class="text-red-500">*</span></label>
-    <input id="valid_id" type="file" name="valid_id" accept="image/*" class="input-field required" required>
+        <label class="form-label">Purpose of Request <span class="text-red-500">*</span></label>
+        <select id="purpose" name="purpose" class="input-field required" required onchange="toggleOtherPurpose()">
+            <option value="">Select Purpose</option>
+            <option value="Proof of Residency">Proof of Residency</option>
+            <option value="School Requirement">School Requirement</option>
+            <option value="Employment Requirement">Employment Requirement</option>
+            <option value="Loan Application">Loan Application</option>
+            <option value="Other">Other (Specify)</option>
+        </select>
+        <input id="other_purpose" name="other_purpose" type="text" class="input-field mt-2" placeholder="Specify Other Purpose" style="display: none;">
 
-    <label class="form-label">Proof of Residency (Upload) <span class="text-red-500">*</span></label>
-    <input id="proof_of_residency" type="file" name="proof_of_residency" accept="image/*,application/pdf" class="input-field required" required>
+        <label class="form-label">Valid ID (Upload) <span class="text-red-500">*</span></label>
+        <input id="valid_id" type="file" name="valid_id" accept="image/*" class="input-field required" required>
 
-    <label class="form-label">Recent Photo (Upload) <span class="text-red-500">*</span></label>
-    <input id="recent_photo" type="file" name="recent_photo" accept="image/*" class="input-field required" required>
+        <label class="form-label">Proof of Residency (Upload) <span class="text-red-500">*</span></label>
+        <input id="proof_of_residency" type="file" name="proof_of_residency" accept="image/*,application/pdf" class="input-field required" required>
 
-    <label class="form-label">Signature (Upload) <span class="text-red-500">*</span></label>
-    <input id="signature" type="file" name="signature" accept="image/*,application/pdf" class="input-field required" required>
+        <label class="form-label">Signature (Upload) <span class="text-red-500">*</span></label>
+        <input id="signature" type="file" name="signature" accept="image/*,application/pdf" class="input-field required" required>
 
-    <div class="g-recaptcha" data-sitekey="your-site-key"></div>
+        <div class="g-recaptcha" data-sitekey="your-site-key"></div>
 
-    <!-- Declaration Checkbox -->
-    <div class="checkbox-container">
-        <input type="checkbox" id="declaration" required>
-        <label for="declaration">I declare that the information provided is true and correct.</label>
-    </div>
+        <!-- Declaration Checkbox -->
+        <div class="checkbox-container">
+            <input type="checkbox" id="declaration" required>
+            <label for="declaration">I declare that the information provided is true and correct.</label>
+        </div>
 
-    <button type="submit">Submit</button>
-</form>
+        <button type="submit">Submit</button>
+    </form>
+</div>
 
-
-    </div>
+    
 <!-- Barangay Section -->
 <section class="barangay-section bg-[#11468F] text-white py-8 lg:py-12 px-4 lg:px-6">
     <div class="container mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 items-center">

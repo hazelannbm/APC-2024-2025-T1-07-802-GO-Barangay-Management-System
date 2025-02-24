@@ -47,9 +47,15 @@ class RegisteredUserController extends Controller
         'password' => ['required', 'confirmed', Rules\Password::defaults()],
     ]);
 
-    // Handle file upload
-    $validIdPath = $request->file('valid_id')->store('valid_ids', 'public');
+    // Ensure file is uploaded
+    if ($request->hasFile('valid_id')) {
+        // Store file and get its path
+        $validIdPath = $request->file('valid_id')->store('valid_ids', 'public');
+    } else {
+        return back()->withErrors(['valid_id' => 'File upload failed. Please try again.']);
+    }
 
+    // Create new user
     $user = User::create([
         'first_name' => $request->first_name,
         'middle_name' => $request->middle_name,
@@ -63,7 +69,7 @@ class RegisteredUserController extends Controller
         'city' => $request->city,
         'civil_status' => $request->civil_status,
         'religion' => $request->religion,
-        'valid_id' => $validIdPath,
+        'valid_id' => $validIdPath, // Store file path in DB
         'email' => $request->email,
         'password' => Hash::make($request->password),
     ]);

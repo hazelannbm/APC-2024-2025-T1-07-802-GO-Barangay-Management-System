@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Indigency Certificate Request Form</title>
+    <title>Barangay ID Request Form</title>
     <link rel="icon" href="{{ asset('logo/802-GO-LOGO.png') }}" type="image/x-icon">
 
     <script>
@@ -310,6 +310,7 @@ button {
 button:hover {
     background-color: #102A72;
 }
+
 /* Dropdown Styling */
 .form-container select {
     appearance: none;
@@ -365,8 +366,8 @@ button:hover {
                     <!-- Right-aligned Authentication Links -->
                     <nav class="right-section flex space-x-4">
                     @auth
-                        <a href="{{ url('/dashboard') }}" class="rounded-md px-3 py-2 text-white ring-1 ring-transparent transition hover:text-white/70 focus:outline-none focus-visible:ring-[#FF2D20]">
-                            {{ Auth::user()->name }}
+                        <a href="{{ route('profile.edit') }}" class="rounded-md px-3 py-2 text-white ring-1 ring-transparent transition hover:text-white/70 focus:outline-none focus-visible:ring-[#FF2D20]">
+                            My Account
                         </a>
                     @else
                         <a href="{{ route('login') }}" class="rounded-md px-3 py-2 text-white ring-1 ring-transparent transition hover:text-white/70 focus:outline-none focus-visible:ring-[#FF2D20]">
@@ -403,82 +404,96 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 </script>
 
-<div class="form-container">
+<body>
+    <div class="form-container">
+        
+        <!-- Title -->
+        <h1>Barangay ID</h1>
 
-    <h1>Barangay Indigency Certificate</h1>
+        <!-- Form -->
+        <form action="{{ route('submit-barangay-id') }}" method="POST" enctype="multipart/form-data">
+            @csrf
 
-    <form action="{{ route('submit-indigency-certificate') }}" method="POST" enctype="multipart/form-data">
-        @csrf
+            <label class="form-label">Reference Number</label>
+            <input id="reference_number" type="text" value="{{ uniqid('BRGY-ID-') }}" readonly class="input-field bg-gray-200">
 
-        <label class="form-label">Reference Number</label>
-        <input id="reference_number" type="text" value="{{ uniqid('BRGY-') }}" readonly class="input-field bg-gray-200">
+            <label class="form-label">Full Name <span class="text-red-500">*</span></label>
+            <input id="first_name" name="first_name" type="text" placeholder="First Name" class="input-field required" required>
+            <input id="middle_name" name="middle_name" type="text" placeholder="Middle Name (Optional)" class="input-field">
+            <input id="last_name" name="last_name" type="text" placeholder="Last Name" class="input-field required" required>
 
-       <!-- Name Fields -->
-        <label class="form-label">Full Name <span class="text-red-500">*</span></label>
-        <input id="first_name" name="first_name" type="text" placeholder="First Name" class="input-field required" required>
-        <input id="middle_name" name="middle_name" type="text" placeholder="Middle Name (Optional)" class="input-field">
-        <input id="last_name" name="last_name" type="text" placeholder="Last Name" class="input-field required" required>
+            <label class="form-label">Gender <span class="text-red-500">*</span></label>
+            <select id="gender" name="gender" class="input-field required" required>
+                <option value="">Select Gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+            </select>
 
-        <label class="form-label">Gender <span class="text-red-500">*</span></label>
-        <select id="gender" name="gender" class="input-field required" required>
-            <option value="">Select Gender</option>
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
-            <option value="Other">Other</option>
-        </select>
+            <label class="form-label">Date of Birth <span class="text-red-500">*</span></label>
+            <input id="dob" name="dob" type="date" class="input-field required" required>
 
-        <label class="form-label">Date of Birth <span class="text-red-500">*</span></label>
-        <input id="dob" name="dob" type="date" class="input-field required" required>
+            <label class="form-label">Civil Status <span class="text-red-500">*</span></label>
+            <select id="civil_status" name="civil_status" class="input-field required" required>
+                <option value="">Select Civil Status</option>
+                <option value="Single">Single</option>
+                <option value="Married">Married</option>
+                <option value="Widowed">Widowed</option>
+                <option value="Separated">Separated</option>
+            </select>
 
-        <!-- Address Fields -->
-        <label class="form-label">Address <span class="text-red-500">*</span></label>
-        <input id="street" name="street" type="text" placeholder="Block/Street" class="input-field required" required>
+            <!-- Address Fields -->
+            <label class="form-label">Address <span class="text-red-500">*</span></label>
+            <input id="street" name="street" type="text" placeholder="Block/Street" class="input-field required" required>
 
-        <label class="form-label">Barangay</label>
-        <input id="barangay" name="barangay" type="text" value="802" class="input-field bg-gray-200" readonly>
+            <label class="form-label">Barangay</label>
+            <input id="barangay" name="barangay" type="text" value="802" class="input-field bg-gray-200" readonly>
 
-        <label class="form-label">District</label>
-        <input id="district" name="district" type="text" value="Sta. Ana" class="input-field bg-gray-200" readonly>
+            <label class="form-label">District</label>
+            <input id="district" name="district" type="text" value="Sta. Ana" class="input-field bg-gray-200" readonly>
 
-        <label class="form-label">City</label>
-        <input id="city" name="city" type="text" value="Manila" class="input-field bg-gray-200" readonly>
+            <label class="form-label">City</label>
+            <input id="city" name="city" type="text" value="Manila" class="input-field bg-gray-200" readonly>
 
-        <label class="form-label">Contact Number <span class="text-red-500">*</span></label>
-        <input id="contact_number" name="contact_number" type="text" class="input-field required" required>
+            <label class="form-label">Contact Number <span class="text-red-500">*</span></label>
+            <input id="contact_number" name="contact_number" type="text" class="input-field required" required>
 
-        <label class="form-label">Purpose of Request <span class="text-red-500">*</span></label>
-        <select id="purpose" name="purpose" class="input-field required" required onchange="toggleOtherPurpose()">
-            <option value="">Select Purpose</option>
-            <option value="Medical Assistance">Medical Assistance</option>
-            <option value="Scholarship Application">Scholarship Application</option>
-            <option value="Financial Assistance">Financial Assistance</option>
-            <option value="Legal Aid">Legal Aid</option>
-            <option value="Other">Other (Specify)</option>
-        </select>
-        <input id="other_purpose" name="other_purpose" type="text" class="input-field mt-2" placeholder="Specify Other Purpose" style="display: none;">
+            <label class="form-label">Purpose of Request <span class="text-red-500">*</span></label>
+            <select id="purpose" name="purpose" class="input-field required" required onchange="toggleOtherPurpose()">
+                <option value="">Select Purpose</option>
+                <option value="Personal Identification">Personal Identification</option>
+                <option value="Employment Requirement">Employment Requirement</option>
+                <option value="Government Transactions">Government Transactions</option>
+                <option value="Other">Other (Specify)</option>
+            </select>
+            <input id="other_purpose" name="other_purpose" type="text" class="input-field mt-2" placeholder="Specify Other Purpose" style="display: none;">
 
-        <label class="form-label">Proof of Income/No Income (Upload)</label>
-        <input id="proof_of_income" type="file" name="proof_of_income" accept="image/*,application/pdf" class="input-field">
+            <label class="form-label">Valid ID (Upload) <span class="text-red-500">*</span></label>
+            <input id="valid_id" name="valid_id" type="file" accept="image/*" class="input-field required" required>
 
-        <label class="form-label">Valid ID (Upload) <span class="text-red-500">*</span></label>
-        <input id="valid_id" type="file" name="valid_id" accept="image/*" class="input-field required" required>
+            <label class="form-label">Recent Photo (Upload) <span class="text-red-500">*</span></label>
+            <input id="recent_photo" name="recent_photo" type="file" accept="image/*" class="input-field required" required>
 
-        <label class="form-label">Barangay Clearance (Upload)</label>
-        <input id="barangay_clearance" type="file" name="barangay_clearance" accept="image/*,application/pdf" class="input-field">
+            <label class="form-label">Proof of Residency (Upload) <span class="text-red-500">*</span></label>
+            <input id="proof_of_residency" name="proof_of_residency" type="file" accept="image/*,application/pdf" class="input-field required" required>
 
-        <label class="form-label">Signature (Upload) <span class="text-red-500">*</span></label>
-        <input id="signature" type="file" name="signature" accept="image/*,application/pdf" class="input-field required" required>
+            <label class="form-label">Signature (Upload) <span class="text-red-500">*</span></label>
+            <input id="signature" name="signature" type="file" accept="image/*,application/pdf" class="input-field required" required>
 
-        <!-- Declaration Checkbox -->
-        <div class="checkbox-container">
-            <input type="checkbox" id="declaration" required>
-            <label for="declaration">I declare that the information provided is true and correct.</label>
-        </div>
+            <!-- Captcha -->
+            <div class="g-recaptcha" data-sitekey="{{ config('captcha.site_key') }}"></div>
 
-        <button type="submit">Submit</button>
-    </form>
-</div>
+            <!-- Declaration Checkbox -->
+            <div class="checkbox-container">
+                <input type="checkbox" id="declaration" required>
+                <label for="declaration">I declare that the information provided is true and correct.</label>
+            </div>
 
+            <!-- Submit Button -->
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</body>
 
 <!-- Barangay Section -->
 <section class="barangay-section bg-[#11468F] text-white py-8 lg:py-12 px-4 lg:px-6">
