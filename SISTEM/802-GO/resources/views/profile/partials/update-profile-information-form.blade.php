@@ -116,12 +116,24 @@
             <x-input-error class="mt-2" :messages="$errors->get('religion')" />
         </div>
 
-        <!-- Valid ID Upload -->
-        <div>
-            <x-input-label for="valid_id" :value="__('Upload Valid ID')" />
-            <input id="valid_id" name="valid_id" type="file" class="mt-1 block w-full" />
-            <x-input-error class="mt-2" :messages="$errors->get('valid_id')" />
-        </div>
+        <!-- Display Current Valid ID -->
+<div>
+    <x-input-label for="valid_id" :value="__('Current Valid ID')" />
+
+    @if ($user->valid_id)
+        <img src="{{ asset('storage/' . $user->valid_id) }}" alt="Valid ID" class="mt-2 w-48 border rounded">
+    @else
+        <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">No valid ID uploaded.</p>
+    @endif
+</div>
+
+<!-- Upload New Valid ID -->
+<div>
+    <x-input-label for="valid_id" :value="__('Upload New Valid ID')" />
+    <input id="valid_id" name="valid_id" type="file" class="mt-1 block w-full" />
+    <x-input-error class="mt-2" :messages="$errors->get('valid_id')" />
+</div>
+
 
         <div class="flex items-center gap-4">
             <x-primary-button>{{ __('Save') }}</x-primary-button>
