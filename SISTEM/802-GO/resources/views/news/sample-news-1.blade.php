@@ -223,44 +223,44 @@
             <div class="relative min-h-screen flex flex-col items-center justify-center selection:bg-[#FF2D20] selection:text-white">
                 <div class="relative w-full ">
                 <header class="header-grid">
-                    <!-- Left-aligned Navigation Links -->
-                    <nav class="left-section flex space-x-4">
-                        <a href="{{ route('welcome') }}" class="rounded-md px-3 py-2 text-white ring-1 ring-transparent transition hover:text-white/70 focus:outline-none focus-visible:ring-[#FF2D20]">
-                            Home
-                        </a>
-                        <a href="{{ route('news-page') }}" class="rounded-md px-3 py-2 text-white bg-[#FF2D20] ring-1 ring-transparent transition hover:text-white/70 focus:outline-none focus-visible:ring-[#FF2D20] active">
-                            News
-                        </a>
-                        <a href="#" class="rounded-md px-3 py-2 text-white ring-1 ring-transparent transition hover:text-white/70 focus:outline-none focus-visible:ring-[#FF2D20]">
-                            Document Request
-                        </a>
-                    </nav>
+                <!-- Left-aligned Navigation Links -->
+                <nav class="left-section flex space-x-4">
+                    <a href="{{ route('welcome') }}" class="rounded-md px-3 py-2 text-white ring-1 ring-transparent transition hover:text-white/70 focus:outline-none focus-visible:ring-[#FF2D20]">
+                        Home
+                    </a>
+                    <a href="{{ route('news-page') }}" class="rounded-md px-3 py-2 text-white bg-[#FF2D20] ring-1 ring-transparent transition hover:text-white/70 focus:outline-none focus-visible:ring-[#FF2D20] active">
+                        News
+                    </a>
+                    <a href="{{ route('document-request') }}" class="rounded-md px-3 py-2 text-white ring-1 ring-transparent transition hover:text-white/70 focus:outline-none focus-visible:ring-[#FF2D20]">
+                        Document Request
+                    </a>
+                </nav>
 
-                    <!-- Centered Logo -->
-                    <div class="center-section">
-                        <img src="{{ asset('logo/802-GO-LOGO.png') }}" alt="Logo" class="h-16 w-auto">
-                    </div>
+                <!-- Centered Logo -->
+                <div class="center-section">
+                    <img src="{{ asset('logo/802-GO-LOGO.png') }}" alt="Logo" class="h-16 w-auto">
+                </div>
 
-                    @if (Route::has('login'))
-                        <!-- Right-aligned Authentication Links -->
-                        <nav class="right-section flex space-x-4">
-                        @auth
-                            <a href="{{ url('/dashboard') }}" class="rounded-md px-3 py-2 text-white ring-1 ring-transparent transition hover:text-white/70 focus:outline-none focus-visible:ring-[#FF2D20]">
-                                {{ Auth::user()->name }}
+                @if (Route::has('login'))
+                    <!-- Right-aligned Authentication Links -->
+                    <nav class="right-section flex space-x-4">
+                    @auth
+                        <a href="{{ url('/dashboard') }}" class="rounded-md px-3 py-2 text-white ring-1 ring-transparent transition hover:text-white/70 focus:outline-none focus-visible:ring-[#FF2D20]">
+                            My Account
+                        </a>
+                    @else
+                        <a href="{{ route('login') }}" class="rounded-md px-3 py-2 text-white ring-1 ring-transparent transition hover:text-white/70 focus:outline-none focus-visible:ring-[#FF2D20]">
+                            Log in
+                        </a>
+
+                        @if (Route::has('register'))
+                            <a href="{{ route('register') }}" class="rounded-md px-3 py-2 text-white ring-1 ring-transparent transition hover:text-white/70 focus:outline-none focus-visible:ring-[#FF2D20]">
+                                Register
                             </a>
-                        @else
-                            <a href="{{ route('login') }}" class="rounded-md px-3 py-2 text-white ring-1 ring-transparent transition hover:text-white/70 focus:outline-none focus-visible:ring-[#FF2D20]">
-                                Log in
-                            </a>
-
-                            @if (Route::has('register'))
-                                <a href="{{ route('register') }}" class="rounded-md px-3 py-2 text-white ring-1 ring-transparent transition hover:text-white/70 focus:outline-none focus-visible:ring-[#FF2D20]">
-                                    Register
-                                </a>
-                            @endif
-                        @endauth
-                    </nav>
-                @endif
+                        @endif
+                    @endauth
+                </nav>
+            @endif
             </header>
        
 

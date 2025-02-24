@@ -18,31 +18,31 @@ class DocumentRequestController extends Controller
 
     public function barangayClearance()
     {
-        return view('document forms.barangay-clearance'); // Updated path
+        return view('document_forms.barangay-clearance'); // Updated path
     }
 
     public function certificateOfResidency()
     {
-        return view('document forms.certificate-of-residency'); // Updated path
+        return view('document_forms.certificate-of-residency'); // Updated path
     }
 
     public function indigencyCertificate()
     {
-        return view('document forms.indigency-certificate'); // Updated path
+        return view('document_forms.indigency-certificate'); // Updated path
     }
 
     public function barangayID()
     {
-        return view('document forms.barangay-id'); // Updated path
+        return view('document_forms.barangay-id'); // Updated path
     }
 
     public function businessPermit()
     {
-        return view('document forms.business-permit'); // Updated path
+        return view('document_forms.business-permit'); // Updated path
     }
 
     public function cedula()
     {
-        return view('document forms.cedula'); // Updated path
+        return view('document_forms.cedula'); // Updated path
     }
 }
