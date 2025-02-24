@@ -10,7 +10,9 @@
             <!-- Centered Logo -->
             <div class="flex-1 flex justify-center">
                 <a href="{{ route('dashboard') }}">
-                    <img src="{{ asset('logo/802-GO-LOGO.png') }}" alt="Logo" class="h-10 cursor-pointer">
+                <img src="{{ asset('logo/802-GO-LOGO.png') }}" 
+                alt="Logo" 
+                style="height: 80px; width: auto; cursor: pointer;">
                 </a>
             </div>
 
