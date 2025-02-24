@@ -365,47 +365,30 @@ document.addEventListener("DOMContentLoaded", function() {
 
 <!-- Document Request -->
 <div class="text-section">
-        <h1>Document Request</h1>
-        <p>Here are the documents you can easily request online:</p>
-    </div>
+    <h1>Document Request</h1>
+    <p>Here are the documents you can easily request online:</p>
+</div>
 
-    <div class="container">
-        <div class="service">
-            <h3>Barangay Clearance</h3>
-            <p>A general document certifying that you are a resident of the barangay.</p>
-            <a href="{{ route('barangay-clearance') }}">Click to Apply</a>
-        </div>
+<div class="container">
+    @php
+        $documents = [
+            ['name' => 'Barangay Clearance', 'desc' => 'A general document certifying that you are a resident of the barangay.', 'route' => 'barangay-clearance'],
+            ['name' => 'Certificate of Residency', 'desc' => 'This document proves that you are currently residing in the barangay.', 'route' => 'certificate-of-residency'],
+            ['name' => 'Indigency Certificate', 'desc' => 'This document certifies that you are indigent or belong to a low-income household.', 'route' => 'indigency-certificate'],
+            ['name' => 'Barangay Identification Card', 'desc' => 'Some barangays issue their own identification cards to residents.', 'route' => 'barangay-id'],
+            ['name' => 'Business Permit', 'desc' => 'If you plan to operate a business within the barangay, you may need to secure the necessary permits from the barangay office.', 'route' => 'business-permit'],
+            ['name' => 'Community Tax Certificate (Cedula)', 'desc' => 'A Community Tax Certificate (Cedula) is required for various official transactions.', 'route' => 'cedula']
+        ];
+    @endphp
 
+    @foreach ($documents as $doc)
         <div class="service">
-            <h3>Certificate of Residency</h3>
-            <p>This document proves that you are currently residing in the barangay.</p>
-            <a href="{{ route('certificate-of-residency') }}">Click to Apply</a>
+            <h3>{{ $doc['name'] }}</h3>
+            <p>{{ $doc['desc'] }}</p>
+            <a href="{{ auth()->check() ? route($doc['route']) : route('login') }}">Click to Apply</a>
         </div>
-
-        <div class="service">
-            <h3>Indigency Certificate</h3>
-            <p>This document certifies that you are indigent or belong to a low-income household.</p>
-            <a href="{{ route('indigency-certificate') }}">Click to Apply</a>
-        </div>
-
-        <div class="service">
-            <h3>Barangay Identification Card</h3>
-            <p>Some barangays issue their own identification cards to residents.</p>
-            <a href="{{ route('barangay-id') }}">Click to Apply</a>
-        </div>
-
-        <div class="service">
-            <h3>Business Permit</h3>
-            <p>If you plan to operate a business within the barangay, you may need to secure the necessary permits from the barangay office.</p>
-            <a href="{{ route('business-permit') }}">Click to Apply</a>
-        </div>
-
-        <div class="service">
-            <h3>Community Tax Certificate (Cedula)</h3>
-            <p>A Community Tax Certificate (Cedula) is required for various official transactions.</p>
-            <a href="{{ route('cedula') }}">Click to Apply</a>
-        </div>
-    </div>
+    @endforeach
+</div>
 
 <!-- Back to Top Button -->
 <button class="back-to-top" onclick="scrollToTop()">Back to Top</button>
