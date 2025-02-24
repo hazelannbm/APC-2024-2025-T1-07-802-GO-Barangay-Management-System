@@ -72,6 +72,15 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/dashboard', function () {
         return view('admin.dashboard');
     })->name('admin.dashboard');
+
+    // Resident Management Routes
+    Route::get('/admin/residents', [ResidentController::class, 'index'])->name('admin.residents.index');
+    Route::get('/admin/residents/create', [ResidentController::class, 'create'])->name('admin.residents.create');
+    Route::post('/admin/residents', [ResidentController::class, 'store'])->name('admin.residents.store');
+    Route::get('/admin/residents/{resident}', [ResidentController::class, 'show'])->name('admin.residents.show');
+    Route::get('/admin/residents/{resident}/edit', [ResidentController::class, 'edit'])->name('admin.residents.edit');
+    Route::patch('/admin/residents/{resident}', [ResidentController::class, 'update'])->name('admin.residents.update');
+    Route::delete('/admin/residents/{resident}', [ResidentController::class, 'destroy'])->name('admin.residents.destroy');
 });
 
 Route::get('/email/verify', function () {

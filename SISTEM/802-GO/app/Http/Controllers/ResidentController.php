@@ -10,12 +10,12 @@ class ResidentController extends Controller
     public function index()
     {
         $residents = Resident::all();
-        return view('admindashboard.manageresident', compact('admindashboard'));
+        return view('admin.residents.index', compact('residents'));
     }
 
     public function create()
     {
-        return view('admindashboard.create');
+        return view('admin.residents.create');
     }
 
     public function store(Request $request)
