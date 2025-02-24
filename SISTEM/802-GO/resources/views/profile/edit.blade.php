@@ -1,10 +1,30 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Profile') }}
-        </h2>
-    </x-slot>
+<x-app-layout :title="'802-GO: Profile'">
+    <!-- Custom Full-Width Header -->
+    <header class="bg-[#11468F] text-white py-4 px-6">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <!-- Logo on the Left -->
+            <div class="flex items-center">
+                <a href="{{ route('dashboard') }}">
+                    <img src="{{ asset('logo/802-GO-LOGO.png') }}" 
+                        alt="Logo" 
+                        style="height: 80px; width: auto; cursor: pointer;">
+                </a>
+            </div>
 
+            <!-- Logout Button on the Right -->
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <button type="submit" 
+                    style="color: white; padding: 8px 16px; border-radius: 6px; background-color: transparent; transition: background-color 0.3s, color 0.3s, font-weight 0.3s;"
+                    onmouseover="this.style.backgroundColor='white'; this.style.color='#11468F'; this.style.fontWeight='bold'" 
+                    onmouseout="this.style.backgroundColor='transparent'; this.style.color='white'; this.style.fontWeight='normal'">
+                    Logout
+                </button>
+            </form>
+        </div>
+    </header>
+
+    <!-- Profile Content -->
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
             <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">

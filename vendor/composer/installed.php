@@ -1,9 +1,12 @@
 <?php return array(
     'root' => array(
         'name' => '__root__',
-        'pretty_version' => 'dev-dev_joana',
-        'version' => 'dev-dev_joana',
-        'reference' => '66a7e506f2e86c3ef13294953d1be14ac75bcafb',
+        'pretty_version' => 'dev-News_MOLDEZ',
+        'version' => 'dev-News_MOLDEZ',
+        'reference' => 'b9df2fbccb7ef0850ea1278d3cbae0c8579154c1',
+        'pretty_version' => 'dev-valid-id',
+        'version' => 'dev-valid-id',
+        'reference' => '50d31e1e01dedb5c2fbc7b14a3f8ecb26443d730',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -11,9 +14,12 @@
     ),
     'versions' => array(
         '__root__' => array(
-            'pretty_version' => 'dev-dev_joana',
-            'version' => 'dev-dev_joana',
-            'reference' => '66a7e506f2e86c3ef13294953d1be14ac75bcafb',
+            'pretty_version' => 'dev-News_MOLDEZ',
+            'version' => 'dev-News_MOLDEZ',
+            'reference' => 'b9df2fbccb7ef0850ea1278d3cbae0c8579154c1',
+            'pretty_version' => 'dev-valid-id',
+            'version' => 'dev-valid-id',
+            'reference' => '50d31e1e01dedb5c2fbc7b14a3f8ecb26443d730',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

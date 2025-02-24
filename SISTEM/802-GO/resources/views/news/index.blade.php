@@ -1,30 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Barangay ID Request Form</title>
-    <link rel="icon" href="{{ asset('logo/802-GO-LOGO.png') }}" type="image/x-icon">
+        <title>802-GO: Barangay 802 Management System</title>
+        <link rel="icon" href="{{ asset('logo/802-GO-LOGO.png') }}" type="image/x-icon">
 
-    <script>
-    function toggleOtherPurpose() {
-        let selectElement = document.getElementById("purpose");
-        let otherPurposeField = document.getElementById("other_purpose");
-
-        if (selectElement.value === "Other") {
-            otherPurposeField.style.display = "block";
-            otherPurposeField.required = true;
-        } else {
-            otherPurposeField.style.display = "none";
-            otherPurposeField.required = false;
-        }
-    }
-</script>
-
-
-    @vite('resources/css/app.css')
-    <!-- Fonts -->
+        <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
@@ -160,6 +143,9 @@
                     display: block;
                 }
             }
+            .banner-overlay {
+                background: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
+            }
             .barangay-section {
                 width: 100%; /* Ensures full-width spanning */
                 padding-top: 2rem; /* Add space at the top */
@@ -184,155 +170,236 @@
                 font-size: 0.875rem;
                 color: #e0e0e0; /* Slightly lighter color for contrast */
             }
-        .form-container {
-            width: 100%;
-            max-width: 400px;
-            margin: 2rem auto;
-            padding: 1.5rem;
-            border-radius: 0.5rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            background-color: #ffffff;
-            overflow-y: auto;
-        }
+            #map {
+                height: 380px;
+                width: 100%;
+            }
+            .custom-popup {
+                max-width: 250px;
+                font-family: Arial, sans-serif;
+            }
+            .custom-popup img {
+                width: 100%;
+                border-radius: 8px;
+                margin-bottom: 8px;
+            }
+            .custom-popup h4 {
+                margin: 0;
+                font-size: 16px;
+                font-weight: bold;
+            }
+            .custom-popup p {
+                margin: 8px 0;
+                font-size: 14px;
+            }
+            .custom-popup a {
+                display: inline-block;
+                margin-top: 8px;
+                color: #11468F;
+                text-decoration: underline;
+            }
+            .back-to-top {
+                position: fixed;
+                bottom: 20px;
+                right: 20px; /* Adjusted to the right side */
+                padding: 10px 20px;
+                font-size: 14px;
+                background-color: #11468F;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+                z-index: 1000;
+                transition: background-color 0.3s ease;
+            }
+            .back-to-top:hover {
+                background-color: #092d5a;
+            }
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+                background-color: #f9f9f9;
+                color: #333;
+            }
+            .container {
+                display: flex;
+                flex-wrap: wrap; /* Allows items to wrap onto multiple lines */
+                justify-content: center; /* Distributes items with space around them */
+                margin: 20px 0;
+            }
+            .text-section {
+                background-image: url("{{ asset('background/header_brgy.png') }}");
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                width: 100%;
+                max-width: 1920px;
+                height: auto;
+                aspect-ratio: 1920 / 500;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                color: white;
+                text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+                font-weight: bold;
+                margin: 0 auto;
+                padding: 20px;
+                box-sizing: border-box;
+                text-align: center; /* Center text by default */
+            }
+            
+            .service {
+                background: #11468F; /* Changed from white to blue */
+                color: white; /* Changed from black to white */
+                padding: 15px;
+                margin: 10px;
+                border-radius: 8px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                flex: 1 1 calc(50% - 40px); /* Adjusts the width to 50% minus margin */
+                max-width: 400px; /* Prevents the service box from getting too wide */
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                height: 250px;
+                box-sizing: border-box; /* Ensures padding is included in the element's total width and height */
+            }
 
-        .form-container h1 {
-            margin-bottom: 1rem;
-            text-align: center;
-            color: #1E40AF; /* Updated blue color */
-            font-size: 1.5rem;
-            font-weight: bold;
-        }
+            .service:hover {
+                border-color: white; /* Changed from blue to white */
+                box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+            }
 
-        .form-container label {
-            font-size: 0.875rem;
-            font-weight: 600;
-            color: #1E40AF; /* Updated blue color */
-        }
+            .service h3 {
+                color: white; /* Changed from blue to white */
+                font-size: 1.4em;
+                margin-bottom: 10px;
+                font-weight: bold; /* Added to make the header bold */
+            }
 
-        .form-container input,
-        .form-container textarea {
-            margin-top: 0.25rem;
-            margin-bottom: 1rem;
-            padding: 0.5rem;
-            width: 100%;
-            border: 1px solid #d1d5db;
-            border-radius: 0.375rem;
-            box-sizing: border-box;
-        }
+            .service p {
+                margin-bottom: 15px;
+                font-size: 1em;
+                flex-grow: 1;
+            }
 
-        .form-container input:focus,
-        .form-container textarea:focus {
-            border-color: #1E40AF; /* Updated blue border on focus */
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.3); /* Soft blue glow */
-        }
+            .service a {
+                display: inline-block;
+                text-decoration: none;
+                background-color: white; /* Changed from blue to white */
+                color: #11468F; /* Changed from white to blue */
+                padding: 10px 20px;
+                font-size: 1em;
+                font-weight: bold;
+                border-radius: 5px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                transition: background-color 0.3s;
+                margin-top: 15px;
+                text-align: center;
+            }
 
-        .form-container button {
-            width: 100%;
-            padding: 0.75rem;
-            border: none;
-            border-radius: 0.375rem;
-            background-color: #1E40AF; /* Updated blue color */
-            color: #ffffff;
-            font-weight: bold;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .form-container button:hover {
-            background-color: #1E3A8A; /* Slightly darker blue for hover */
-        }
-
-        .form-container .g-recaptcha {
-            margin: 1rem 0;
-        }
-
-        .logo {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 1.5rem;
-        }
-
-/* Style for required field asterisks */
-.text-red-500 {
-    color: red;
-    font-weight: bold;
+            .service a:hover {
+                background-color: #f0f0f0; /* Changed from dark blue to light gray */
+            }
+            h1 {
+                color: #9dc0f1;
+                font-size: 3em;
+            }
+            p {
+                margin: 10px 0 30px;
+                font-size: 1.2em;
+            }
+            .container_1{
+    display: flex;
+    flex-direction: column;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 2px solid #ddd; /* Border added */
+    border-radius: 15px; /* Rounded corners */
+    background-color: #f9f9f9; /* Light background */
 }
 
-/* Style for form fields */
-.input-field {
-    display: block;
-    width: 100%;
-    padding: 8px;
-    margin-top: 5px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-/* Add spacing between stacked address fields */
-.mt-2 {
-    margin-top: 10px;
-}
-
-/* Proper spacing for the checkbox */
-.checkbox-container {
+.news-item {
     display: flex;
     align-items: center;
-    gap: 10px;
-    margin-top: 1.5rem; /* More space above */
-    margin-bottom: 1.5rem; /* More space below */
+    justify-content: space-between;
+    border-bottom: 1px solid #ccc;
+    padding: 20px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    border-radius: 12px; /* Rounded news items */
 }
 
-/* Checkbox size */
-.checkbox-container input[type="checkbox"] {
-    width: 16px;
-    height: 16px;
-    margin: 0;
-    vertical-align: middle;
+.news-item:hover {
+    background-color: #11468F; /* Hover effect */
+    color: white;
 }
 
-/* Submit button styling */
-button {
-    width: 100%;
-    padding: 0.75rem;
-    border: none;
-    border-radius: 0.375rem;
-    background-color: #1E40AF; /* Blue color */
-    color: #ffffff;
+.news-content {
+    flex: 1;
+    padding-right: 20px;
+}
+
+.news-content a {
+    text-decoration: none;
+    color: #000;
     font-weight: bold;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: background-color 0.3s;
+    font-size: 22px;
+    transition: color 0.3s ease;
 }
 
-button:hover {
-    background-color: #102A72;
+.news-item:hover .news-content a {
+    color: #fff; /* Text turns white on hover */
 }
 
-/* Dropdown Styling */
-.form-container select {
-    appearance: none;
-    background-color: #fff;
-    cursor: pointer;
-    font-size: 0.875rem;
-    padding-right: 2rem;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='black'><path d='M7 10l5 5 5-5z'/></svg>");
-    background-repeat: no-repeat;
-    background-position: right 10px center;
-    background-size: 16px;
+.news-meta {
+    font-size: 14px;
+    color: #666;
+    margin-top: 8px;
 }
 
-/* Hide "Other Purpose" by default */
-#other_purpose {
-    display: none;
+.news-item:hover .news-meta {
+    color: #ddd; /* Lighter text on hover */
 }
 
-    </style>
-</head>
-<body class="font-sans antialiased dark:bg-black dark:text-white/50">
-<div class="relative w-full">
+.news-author {
+    font-size: 16px;
+    color: #555;
+    margin-top: 5px;
+}
+
+.news-item:hover .news-author {
+    color: #ddd; /* Lighter author text on hover */
+}
+
+.news-item img {
+    width: 160px;
+    height: auto;
+    border-radius: 8px;
+}
+
+            /* Media query for screens smaller than 768px */
+            @media (max-width: 768px) {
+                .text-section {
+                    aspect-ratio: auto; /* Allow height to adjust based on content */
+                    height: auto; /* Adjust height for smaller screens */
+                    padding: 50px; /* Reduce padding for smaller screens */
+                }
+                .text-section h1 {
+                    font-size: 2.9rem; /* Larger heading size for mobile */
+                }
+                .service {
+                    flex: 1 1 100%; /* Adjusts the width to 100% on smaller screens */
+                    max-width: none;
+                }
+            }                
+        </style>
+    </head>
+
+    <body class="font-sans antialiased dark:bg-black dark:text-white/50">
+        <div class="relative w-full">
             <div class="menu-toggle left">
                 <div class="bar"></div>
                 <div class="bar"></div>
@@ -346,13 +413,13 @@ button:hover {
             <header class="header-grid">
                 <!-- Left-aligned Navigation Links -->
                 <nav class="left-section flex space-x-4">
-                    <a href="{{ route('welcome') }}" class="rounded-md px-3 py-2 text-white ring-1 ring-transparent transition hover:text-white/70 focus:outline-none focus-visible:ring-[#FF2D20]">
+                    <a href="{{ route('welcome') }}" class="rounded-md px-3 py-2 text-white bg-[#FF2D20] ring-1 ring-transparent transition hover:text-white/70 focus:outline-none focus-visible:ring-[#FF2D20] active">
                         Home
                     </a>
-                    <a href="{{ route('news-page') }}" class="rounded-md px-3 py-2 text-white ring-1 ring-transparent transition hover:text-white/70 focus:outline-none focus-visible:ring-[#FF2D20]">
+                    <a href="{{ route('news.index') }}" class="rounded-md px-3 py-2 text-white ring-1 ring-transparent transition hover:text-white/70 focus:outline-none focus-visible:ring-[#FF2D20]">
                         News
                     </a>
-                    <a href="{{ route('document-request') }}" class="rounded-md px-3 py-2 text-white bg-[#FF2D20] ring-1 ring-transparent transition hover:text-white/70 focus:outline-none focus-visible:ring-[#FF2D20] active">
+                    <a href="{{ route('document-request') }}" class="rounded-md px-3 py-2 text-white ring-1 ring-transparent transition hover:text-white/70 focus:outline-none focus-visible:ring-[#FF2D20]">
                         Document Request
                     </a>
                 </nav>
@@ -366,7 +433,7 @@ button:hover {
                     <!-- Right-aligned Authentication Links -->
                     <nav class="right-section flex space-x-4">
                     @auth
-                        <a href="{{ route('profile.edit') }}" class="rounded-md px-3 py-2 text-white ring-1 ring-transparent transition hover:text-white/70 focus:outline-none focus-visible:ring-[#FF2D20]">
+                        <a href="{{ url('/dashboard') }}" class="rounded-md px-3 py-2 text-white ring-1 ring-transparent transition hover:text-white/70 focus:outline-none focus-visible:ring-[#FF2D20]">
                             My Account
                         </a>
                     @else
@@ -403,98 +470,28 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 </script>
-
 <body>
-    <div class="form-container">
-        
-        <!-- Title -->
-        <h1>Barangay ID</h1>
 
-        <!-- Form -->
-        <form action="{{ route('submit-barangay-id') }}" method="POST" enctype="multipart/form-data">
-            @csrf
+<div class="text-section">
+    <h1>LATEST NEWS</h1>
+    <p>Keep up to date with the latest news about Barangay 802</p>
+</div>
 
-            <label class="form-label">Reference Number</label>
-            <input id="reference_number" type="text" value="{{ uniqid('BRGY-ID-') }}" readonly class="input-field bg-gray-200">
-
-            <label class="form-label">Full Name <span class="text-red-500">*</span></label>
-            <input id="first_name" name="first_name" type="text" placeholder="First Name" class="input-field required" required>
-            <input id="middle_name" name="middle_name" type="text" placeholder="Middle Name (Optional)" class="input-field">
-            <input id="last_name" name="last_name" type="text" placeholder="Last Name" class="input-field required" required>
-
-            <label class="form-label">Gender <span class="text-red-500">*</span></label>
-            <select id="gender" name="gender" class="input-field required" required>
-                <option value="">Select Gender</option>
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-                <option value="Other">Other</option>
-            </select>
-
-            <label class="form-label">Date of Birth <span class="text-red-500">*</span></label>
-            <input id="dob" name="dob" type="date" class="input-field required" required>
-
-            <label class="form-label">Civil Status <span class="text-red-500">*</span></label>
-            <select id="civil_status" name="civil_status" class="input-field required" required>
-                <option value="">Select Civil Status</option>
-                <option value="Single">Single</option>
-                <option value="Married">Married</option>
-                <option value="Widowed">Widowed</option>
-                <option value="Separated">Separated</option>
-            </select>
-
-            <!-- Address Fields -->
-            <label class="form-label">Address <span class="text-red-500">*</span></label>
-            <input id="street" name="street" type="text" placeholder="Block/Street" class="input-field required" required>
-
-            <label class="form-label">Barangay</label>
-            <input id="barangay" name="barangay" type="text" value="802" class="input-field bg-gray-200" readonly>
-
-            <label class="form-label">District</label>
-            <input id="district" name="district" type="text" value="Sta. Ana" class="input-field bg-gray-200" readonly>
-
-            <label class="form-label">City</label>
-            <input id="city" name="city" type="text" value="Manila" class="input-field bg-gray-200" readonly>
-
-            <label class="form-label">Contact Number <span class="text-red-500">*</span></label>
-            <input id="contact_number" name="contact_number" type="text" class="input-field required" required>
-
-            <label class="form-label">Purpose of Request <span class="text-red-500">*</span></label>
-            <select id="purpose" name="purpose" class="input-field required" required onchange="toggleOtherPurpose()">
-                <option value="">Select Purpose</option>
-                <option value="Personal Identification">Personal Identification</option>
-                <option value="Employment Requirement">Employment Requirement</option>
-                <option value="Government Transactions">Government Transactions</option>
-                <option value="Other">Other (Specify)</option>
-            </select>
-            <input id="other_purpose" name="other_purpose" type="text" class="input-field mt-2" placeholder="Specify Other Purpose" style="display: none;">
-
-            <label class="form-label">Valid ID (Upload) <span class="text-red-500">*</span></label>
-            <input id="valid_id" name="valid_id" type="file" accept="image/*" class="input-field required" required>
-
-            <label class="form-label">Recent Photo (Upload) <span class="text-red-500">*</span></label>
-            <input id="recent_photo" name="recent_photo" type="file" accept="image/*" class="input-field required" required>
-
-            <label class="form-label">Proof of Residency (Upload) <span class="text-red-500">*</span></label>
-            <input id="proof_of_residency" name="proof_of_residency" type="file" accept="image/*,application/pdf" class="input-field required" required>
-
-            <label class="form-label">Signature (Upload) <span class="text-red-500">*</span></label>
-            <input id="signature" name="signature" type="file" accept="image/*,application/pdf" class="input-field required" required>
-
-            <!-- Captcha -->
-            <div class="g-recaptcha" data-sitekey="{{ config('captcha.site_key') }}"></div>
-
-            <!-- Declaration Checkbox -->
-            <div class="checkbox-container">
-                <input type="checkbox" id="declaration" required>
-                <label for="declaration">I declare that the information provided is true and correct.</label>
+<div class="container_1">
+    @foreach ($news as $item)
+        <div class="news-item">
+            <div class="news-content">
+                <a href="{{ route('news.show', $item->id) }}">{{ $item->title }}</a>
+                <div class="news-author">By: {{ $item->author }}</div>
+                <div class="news-meta">Published {{ $item->created_at->diffForHumans() }}</div>
             </div>
-
-            <!-- Submit Button -->
-            <button type="submit">Submit</button>
-        </form>
-    </div>
-</body>
-
+            @if ($item->image)
+                <img src="{{ asset('storage/' . $item->image) }}" alt="{{ $item->title }}">
+            @endif
+        </div>
+    @endforeach
+</div>
+    
 <!-- Barangay Section -->
 <section class="barangay-section bg-[#11468F] text-white py-8 lg:py-12 px-4 lg:px-6">
     <div class="container mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 items-center">
@@ -530,10 +527,15 @@ document.addEventListener("DOMContentLoaded", function() {
     </div>
 </section>
 
+
 <footer style="text-align: center; padding: 30px; background-color: #f8f9fa; border-top: 1px solid #e9ecef; height: 100px; opacity: 0.5;">
     <p style="margin: 0; font-size: 12px;">Copyright &copy; {{ date('Y') }} Barangay 802, Manila City</p>
     <p style="margin: 0; font-size: 12px;">Designed by SISTEM</p>
 </footer>
 
-</body>
+                </div>
+            </div>
+        </div>
+        <script src="//code.tidio.co/h2325m3tkhvbkjk1prdnfsw0cihgt66j.js" async></script>
+    </body>
 </html>
