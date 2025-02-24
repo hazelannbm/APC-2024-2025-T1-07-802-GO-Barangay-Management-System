@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => '__root__',
-        'pretty_version' => 'dev-main',
-        'version' => 'dev-main',
-        'reference' => 'a9b711e0dff99f4e9156c36cd8d2ce79298152eb',
+        'pretty_version' => 'dev-News_MOLDEZ',
+        'version' => 'dev-News_MOLDEZ',
+        'reference' => 'b9df2fbccb7ef0850ea1278d3cbae0c8579154c1',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -11,9 +11,9 @@
     ),
     'versions' => array(
         '__root__' => array(
-            'pretty_version' => 'dev-main',
-            'version' => 'dev-main',
-            'reference' => 'a9b711e0dff99f4e9156c36cd8d2ce79298152eb',
+            'pretty_version' => 'dev-News_MOLDEZ',
+            'version' => 'dev-News_MOLDEZ',
+            'reference' => 'b9df2fbccb7ef0850ea1278d3cbae0c8579154c1',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

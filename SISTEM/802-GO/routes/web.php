@@ -1,10 +1,42 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\NewsController;
 use App\Http\Controllers\DocumentRequestController;
 use App\Http\Controllers\DocumentController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\URL;
+
+
+// Admin Routes
+// routes/web.php
+Route::prefix('admin')->group(function () {
+    // List all news (GET)
+    Route::get('/news', [\App\Http\Controllers\Admin\NewsController::class, 'index'])->name('admin.news.index');
+
+    // Show the create form (GET)
+    Route::get('/news/create', [\App\Http\Controllers\Admin\NewsController::class, 'create'])->name('admin.news.create');
+
+    // Store a new news article (POST)
+    Route::post('/news', [\App\Http\Controllers\Admin\NewsController::class, 'store'])->name('admin.news.store');
+
+    // Show a single news article (GET) - Optional (exclude if not needed)
+    Route::get('/news/{news}', [\App\Http\Controllers\Admin\NewsController::class, 'show'])->name('admin.news.show');
+
+    // Show the edit form (GET)
+    Route::get('/news/{news}/edit', [\App\Http\Controllers\Admin\NewsController::class, 'edit'])->name('admin.news.edit');
+
+    // Update a news article (PUT/PATCH)
+    Route::put('/news/{news}', [\App\Http\Controllers\Admin\NewsController::class, 'update'])->name('admin.news.update');
+    Route::patch('/news/{news}', [\App\Http\Controllers\Admin\NewsController::class, 'update']);
+
+    // Delete a news article (DELETE)
+    Route::delete('/news/{news}', [\App\Http\Controllers\Admin\NewsController::class, 'destroy'])->name('admin.news.destroy');
+});
+
+// User Routes
+Route::get('/index', [\App\Http\Controllers\NewsController::class, 'index'])->name('news.index');
+Route::get('/news/{news}', [\App\Http\Controllers\NewsController::class, 'show'])->name('news.show');
 
 Route::get('/document-request', [DocumentRequestController::class, 'index'])->name('document-request');
 
