@@ -365,8 +365,8 @@ button:hover {
                     <!-- Right-aligned Authentication Links -->
                     <nav class="right-section flex space-x-4">
                     @auth
-                        <a href="{{ route('profile.edit') }}" class="rounded-md px-3 py-2 text-white ring-1 ring-transparent transition hover:text-white/70 focus:outline-none focus-visible:ring-[#FF2D20]">
-                            My Account
+                        <a href="{{ url('/dashboard') }}" class="rounded-md px-3 py-2 text-white ring-1 ring-transparent transition hover:text-white/70 focus:outline-none focus-visible:ring-[#FF2D20]">
+                            {{ Auth::user()->name }}
                         </a>
                     @else
                         <a href="{{ route('login') }}" class="rounded-md px-3 py-2 text-white ring-1 ring-transparent transition hover:text-white/70 focus:outline-none focus-visible:ring-[#FF2D20]">
@@ -402,13 +402,13 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 </script>
-
 <div class="form-container">
 
     <h1>Barangay Indigency Certificate</h1>
 
-    <form action="{{ route('submit-indigency-certificate') }}" method="POST" enctype="multipart/form-data">
-        @csrf
+    <form action="{{ route('submit-document-request') }}" method="POST" enctype="multipart/form-data">
+    @csrf
+    <input type="hidden" name="document_type" value="indigency_certificate">
 
         <label class="form-label">Reference Number</label>
         <input id="reference_number" type="text" value="{{ uniqid('BRGY-') }}" readonly class="input-field bg-gray-200">
@@ -428,11 +428,11 @@ document.addEventListener("DOMContentLoaded", function() {
         </select>
 
         <label class="form-label">Date of Birth <span class="text-red-500">*</span></label>
-        <input id="dob" name="dob" type="date" class="input-field required" required>
+        <input id="dob" name="date_of_birth" type="date" class="input-field required" required>
 
         <!-- Address Fields -->
         <label class="form-label">Address <span class="text-red-500">*</span></label>
-        <input id="street" name="street" type="text" placeholder="Block/Street" class="input-field required" required>
+        <input id="block_street" name="block_street" type="text" placeholder="Block/Street" class="input-field required" required>
 
         <label class="form-label">Barangay</label>
         <input id="barangay" name="barangay" type="text" value="802" class="input-field bg-gray-200" readonly>

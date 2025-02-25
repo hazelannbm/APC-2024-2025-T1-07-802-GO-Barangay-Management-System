@@ -366,8 +366,8 @@ button:hover {
                     <!-- Right-aligned Authentication Links -->
                     <nav class="right-section flex space-x-4">
                     @auth
-                        <a href="{{ route('profile.edit') }}" class="rounded-md px-3 py-2 text-white ring-1 ring-transparent transition hover:text-white/70 focus:outline-none focus-visible:ring-[#FF2D20]">
-                            My Account
+                        <a href="{{ url('/dashboard') }}" class="rounded-md px-3 py-2 text-white ring-1 ring-transparent transition hover:text-white/70 focus:outline-none focus-visible:ring-[#FF2D20]">
+                            {{ Auth::user()->name }}
                         </a>
                     @else
                         <a href="{{ route('login') }}" class="rounded-md px-3 py-2 text-white ring-1 ring-transparent transition hover:text-white/70 focus:outline-none focus-visible:ring-[#FF2D20]">
@@ -405,81 +405,98 @@ document.addEventListener("DOMContentLoaded", function() {
 </script>
 
 <body>
-            <div class="form-container">
-    
-            <h1>Barangay Clearance</h1>
+    <div class="form-container">
+        <h1>Barangay Clearance</h1>
+        <form action="{{ route('submit-document-request') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            <input type="hidden" name="document_type" value="barangay_clearance">
 
-<form action="{{ route('submit-barangay-clearance') }}" method="POST" enctype="multipart/form-data">
-    @csrf
+            <!-- Name Fields -->
+            <label class="form-label">Full Name <span class="text-red-500">*</span></label>
+            <input id="first_name" name="first_name" type="text" placeholder="First Name" class="input-field required" required>
+            <input id="middle_name" name="middle_name" type="text" placeholder="Middle Name (Optional)" class="input-field">
+            <input id="last_name" name="last_name" type="text" placeholder="Last Name" class="input-field required" required>
 
-    <!-- Name Fields -->
-    <label class="form-label">Full Name <span class="text-red-500">*</span></label>
-        <input id="first_name" name="first_name" type="text" placeholder="First Name" class="input-field required" required>
-        <input id="middle_name" name="middle_name" type="text" placeholder="Middle Name (Optional)" class="input-field">
-        <input id="last_name" name="last_name" type="text" placeholder="Last Name" class="input-field required" required>
+            <label class="form-label">Gender <span class="text-red-500">*</span></label>
+            <select id="gender" name="gender" class="input-field required" required>
+                <option value="">Select Gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+            </select>
 
-    <label class="form-label">Gender <span class="text-red-500">*</span></label>
-    <select id="gender" name="gender" class="input-field required" required>
-        <option value="">Select Gender</option>
-        <option value="Male">Male</option>
-        <option value="Female">Female</option>
-        <option value="Other">Other</option>
-    </select>
+            <label class="form-label">Date of Birth <span class="text-red-500">*</span></label>
+            <input id="dob" name="date_of_birth" type="date" class="input-field required" required>
 
-    <label class="form-label">Date of Birth <span class="text-red-500">*</span></label>
-    <input id="dob" name="dob" type="date" class="input-field required" required>
+            <!-- Address Fields -->
+            <label class="form-label">Address <span class="text-red-500">*</span></label>
+            <input id="block_street" name="block_street" type="text" placeholder="Block/Street" class="input-field required" required>
 
-    <!-- Address Fields -->
-    <label class="form-label">Address <span class="text-red-500">*</span></label>
-    <input id="street" name="street" type="text" placeholder="Block/Street" class="input-field required" required>
+            <label class="form-label">Barangay</label>
+            <input id="barangay" name="barangay" type="text" value="802" class="input-field bg-gray-200" readonly>
 
-    <label class="form-label">Barangay</label>
-    <input id="barangay" name="barangay" type="text" value="802" class="input-field bg-gray-200" readonly>
+            <label class="form-label">District</label>
+            <input id="district" name="district" type="text" value="Sta. Ana" class="input-field bg-gray-200" readonly>
 
-    <label class="form-label">District</label>
-    <input id="district" name="district" type="text" value="Sta. Ana" class="input-field bg-gray-200" readonly>
+            <label class="form-label">City</label>
+            <input id="city" name="city" type="text" value="Manila" class="input-field bg-gray-200" readonly>
 
-    <label class="form-label">City</label>
-    <input id="city" name="city" type="text" value="Manila" class="input-field bg-gray-200" readonly>
+            <label class="form-label">Contact Number <span class="text-red-500">*</span></label>
+            <input id="contact_number" name="contact_number" type="text" class="input-field required" required>
 
-    <label class="form-label">Contact Number <span class="text-red-500">*</span></label>
-    <input id="contact_number" name="contact_number" type="text" class="input-field required" required>
+            <label class="form-label">Purpose of Request <span class="text-red-500">*</span></label>
+<select id="purpose" name="purpose" class="input-field required" required onchange="toggleOtherPurpose()">
+    <option value="">Select Purpose</option>
+    <option value="Employment">Employment</option>
+    <option value="Travel">Travel</option>
+    <option value="Identification Requirement">Identification Requirement</option>
+    <option value="Legal Matters">Legal Matters</option>
+    <option value="School Requirement">School Requirement</option>
+    <option value="Loan Application">Loan Application</option>
+    <option value="Other">Other (Specify)</option>
+</select>
+<input id="other_purpose" name="other_purpose" type="text" class="input-field mt-2" placeholder="Specify Other Purpose" style="display: none;">
 
-    <label class="form-label">Purpose of Request <span class="text-red-500">*</span></label>
-    <select id="purpose" name="purpose" class="input-field required" required onchange="toggleOtherPurpose()">
-        <option value="">Select Purpose</option>
-        <option value="Employment">Employment</option>
-        <option value="Travel">Travel</option>
-        <option value="Identification Requirement">Identification Requirement</option>
-        <option value="Legal Matters">Legal Matters</option>
-        <option value="School Requirement">School Requirement</option>
-        <option value="Loan Application">Loan Application</option>
-        <option value="Other">Other (Specify)</option>
-    </select>
-    <input id="other_purpose" name="other_purpose" type="text" class="input-field mt-2" placeholder="Specify Other Purpose" style="display: none;">
 
-    <label class="form-label">Valid ID (Upload) <span class="text-red-500">*</span></label>
-    <input id="valid_id" type="file" name="valid_id" accept="image/*" class="input-field required" required>
+            <label class="form-label">Valid ID (Upload) <span class="text-red-500">*</span></label>
+            <input id="valid_id" type="file" name="valid_id" accept="image/*" class="input-field required" required>
 
-    <label class="form-label">Proof of Residency (Upload) <span class="text-red-500">*</span></label>
-    <input id="proof_of_residency" type="file" name="proof_of_residency" accept="image/*,application/pdf" class="input-field required" required>
+            <label class="form-label">Proof of Residency (Upload) <span class="text-red-500">*</span></label>
+            <input id="proof_of_residency" type="file" name="proof_of_residency" accept="image/*,application/pdf" class="input-field required" required>
 
-    <label class="form-label">Recent Photo (Upload) <span class="text-red-500">*</span></label>
-    <input id="recent_photo" type="file" name="recent_photo" accept="image/*" class="input-field required" required>
+            <label class="form-label">Recent Photo (Upload) <span class="text-red-500">*</span></label>
+            <input id="recent_photo" type="file" name="recent_photo" accept="image/*" class="input-field required" required>
 
-    <label class="form-label">Signature (Upload) <span class="text-red-500">*</span></label>
-    <input id="signature" type="file" name="signature" accept="image/*,application/pdf" class="input-field required" required>
+            <label class="form-label">Signature (Upload) <span class="text-red-500">*</span></label>
+            <input id="signature" type="file" name="signature" accept="image/*,application/pdf" class="input-field required" required>
 
-    <div class="g-recaptcha" data-sitekey="your-site-key"></div>
+            <div class="g-recaptcha" data-sitekey="your-site-key"></div>
 
-    <!-- Declaration Checkbox -->
-    <div class="checkbox-container">
-        <input type="checkbox" id="declaration" required>
-        <label for="declaration">I declare that the information provided is true and correct.</label>
+            <!-- Declaration Checkbox -->
+            <div class="checkbox-container">
+                <input type="checkbox" id="declaration" required>
+                <label for="declaration">I declare that the information provided is true and correct.</label>
+            </div>
+
+            <button type="submit">Submit</button>
+        </form>
     </div>
 
-    <button type="submit">Submit</button>
-</form>
+    <script>
+        function toggleOtherPurpose() {
+            const purposeSelect = document.getElementById("purpose");
+            const otherPurposeInput = document.getElementById("other_purpose");
+            if (purposeSelect.value === "Other") {
+                otherPurposeInput.style.display = "block";
+                otherPurposeInput.setAttribute("required", "required");
+            } else {
+                otherPurposeInput.style.display = "none";
+                otherPurposeInput.removeAttribute("required");
+            }
+        }
+    </script>
+</body>
+
 
 
     </div>
