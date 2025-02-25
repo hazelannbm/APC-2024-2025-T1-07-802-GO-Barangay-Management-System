@@ -3,46 +3,98 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\DocumentRequest;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Log;
 
 class DocumentRequestController extends Controller
 {
     /**
      * Display the document request page.
-     *
-     * @return \Illuminate\View\View
      */
     public function index()
     {
-        return view('document-request'); // Updated path
+        return view('document-request');
     }
 
-    public function barangayClearance()
-    {
-        return view('document_forms.barangay-clearance'); // Updated path
-    }
+    /**
+     * Display individual document request forms.
+     */
+    public function barangayClearance() { return view('document_forms.barangay-clearance'); }
+    public function certificateOfResidency() { return view('document_forms.certificate-of-residency'); }
+    public function indigencyCertificate() { return view('document_forms.indigency-certificate'); }
+    public function barangayID() { return view('document_forms.barangay-id'); }
+    public function businessPermit() { return view('document_forms.business-permit'); }
+    public function cedula() { return view('document_forms.cedula'); }
 
-    public function certificateOfResidency()
+    /**
+     * Handle form submission and store the request in the database.
+     */
+    public function store(Request $request)
     {
-        return view('document_forms.certificate-of-residency'); // Updated path
-    }
+        // Log request data for debugging
+        Log::info('Form submitted:', $request->all());
 
-    public function indigencyCertificate()
-    {
-        return view('document_forms.indigency-certificate'); // Updated path
-    }
+        // Validate form input
+        $validated = $request->validate([
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'contact_number' => 'required|string|max:15',
+            'document_type' => 'required|string',
+            'block_street' => 'required|string|max:255',
+            'extra_data' => 'nullable|array',
+        ]);
 
-    public function barangayID()
-    {
-        return view('document_forms.barangay-id'); // Updated path
-    }
+        // Generate a unique reference number
+        $referenceNumber = 'BRGY-' . strtoupper(Str::random(8));
 
-    public function businessPermit()
-    {
-        return view('document_forms.business-permit'); // Updated path
-    }
+        // Prepare the data to be stored
+        $data = [
+            'user_id' => auth()->id() ?? null,
+            'document_type' => $validated['document_type'],
+            'reference_number' => $referenceNumber,
+            'first_name' => $validated['first_name'],
+            'middle_name' => $request->middle_name,
+            'last_name' => $validated['last_name'],
+            'gender' => $request->gender,
+            'date_of_birth' => $request->date_of_birth,
+            'place_of_birth' => $request->place_of_birth,
+            'citizenship' => $request->citizenship,
+            'civil_status' => $request->civil_status,
+            'occupation' => $request->occupation,
+            'annual_income' => $request->annual_income,
+            'contact_number' => $validated['contact_number'],
+            'block_street' => $validated['block_street'],
+            'barangay' => '802',
+            'district' => 'Sta. Ana',
+            'city' => 'Manila',
+            'purpose_of_request' => $request->purpose,
+            'purpose_of_cedula' => $request->purpose_of_cedula,
+            'business_name' => $request->business_name,
+            'business_address' => $request->block_street,
+            'nature_of_business' => $request->business_nature,
+            'tax_identification_number' => $request->tin,
+            'dti_sec_registration' => $request->dti_sec_registration,
+            'valid_id_owner' => $request->valid_id_owner,
+            'lease_contract' => $request->lease_contract,
+            'business_permit_application' => $request->business_application_form,
+            'proof_of_income' => $request->proof_of_income,
+            'recent_photo' => $request->recent_photo,
+            'valid_id' => $request->valid_id,
+            'proof_of_residency' => $request->proof_of_residency,
+            'signature' => $request->signature,
+            'extra_data' => json_encode($request->extra_data),
+            'status' => 'pending',
+        ];
 
-    public function cedula()
-    {
-        return view('document_forms.cedula'); // Updated path
+        // Log the data before saving
+        Log::info('Final data to be saved:', $data);
+
+        // Store request in the database
+        $documentRequest = DocumentRequest::create($data);
+
+        Log::info('Saved to database:', $documentRequest->toArray());
+
+        return redirect()->route('document-request')->with('success', 'Your request has been submitted! Your reference number is ' . $referenceNumber);
     }
 }

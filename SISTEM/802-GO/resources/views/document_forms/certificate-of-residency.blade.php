@@ -366,8 +366,8 @@ button:hover {
                     <!-- Right-aligned Authentication Links -->
                     <nav class="right-section flex space-x-4">
                     @auth
-                        <a href="{{ route('profile.edit') }}" class="rounded-md px-3 py-2 text-white ring-1 ring-transparent transition hover:text-white/70 focus:outline-none focus-visible:ring-[#FF2D20]">
-                            My Account
+                        <a href="{{ url('/dashboard') }}" class="rounded-md px-3 py-2 text-white ring-1 ring-transparent transition hover:text-white/70 focus:outline-none focus-visible:ring-[#FF2D20]">
+                            {{ Auth::user()->name }}
                         </a>
                     @else
                         <a href="{{ route('login') }}" class="rounded-md px-3 py-2 text-white ring-1 ring-transparent transition hover:text-white/70 focus:outline-none focus-visible:ring-[#FF2D20]">
@@ -407,8 +407,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
     <h1>Barangay Certificate of Residency</h1>
 
-    <form action="{{ route('submit-certificate-of-residency') }}" method="POST" enctype="multipart/form-data">
-        @csrf
+    <form action="{{ route('submit-document-request') }}" method="POST" enctype="multipart/form-data">
+    @csrf
+    <input type="hidden" name="document_type" value="certificate_of_residency">
 
         <label class="form-label">Reference Number</label>
         <input id="reference_number" type="text" value="{{ uniqid('BRGY-') }}" readonly class="input-field bg-gray-200">
@@ -428,11 +429,11 @@ document.addEventListener("DOMContentLoaded", function() {
         </select>
 
         <label class="form-label">Date of Birth <span class="text-red-500">*</span></label>
-        <input id="dob" type="date" name="dob" class="input-field required" required>
+        <input id="dob" type="date" name="date_of_birth" class="input-field required" required>
 
         <!-- Address Fields -->
         <label class="form-label">Address <span class="text-red-500">*</span></label>
-        <input id="street" name="street" type="text" placeholder="Block/Street" class="input-field required" required>
+        <input id="block_street" name="block_street" type="text" placeholder="Block/Street" class="input-field required" required>
 
         <label class="form-label">Barangay</label>
         <input id="barangay" name="barangay" type="text" value="802" class="input-field bg-gray-200" readonly>
@@ -480,7 +481,6 @@ document.addEventListener("DOMContentLoaded", function() {
         <button type="submit">Submit</button>
     </form>
 </div>
-
     
 <!-- Barangay Section -->
 <section class="barangay-section bg-[#11468F] text-white py-8 lg:py-12 px-4 lg:px-6">
