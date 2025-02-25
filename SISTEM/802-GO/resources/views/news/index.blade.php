@@ -311,6 +311,74 @@
                 margin: 10px 0 30px;
                 font-size: 1.2em;
             }
+            .container_1{
+    display: flex;
+    flex-direction: column;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 2px solid #ddd; /* Border added */
+    border-radius: 15px; /* Rounded corners */
+    background-color: #f9f9f9; /* Light background */
+}
+
+.news-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #ccc;
+    padding: 20px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    border-radius: 12px; /* Rounded news items */
+}
+
+.news-item:hover {
+    background-color: #11468F; /* Hover effect */
+    color: white;
+}
+
+.news-content {
+    flex: 1;
+    padding-right: 20px;
+}
+
+.news-content a {
+    text-decoration: none;
+    color: #000;
+    font-weight: bold;
+    font-size: 22px;
+    transition: color 0.3s ease;
+}
+
+.news-item:hover .news-content a {
+    color: #fff; /* Text turns white on hover */
+}
+
+.news-meta {
+    font-size: 14px;
+    color: #666;
+    margin-top: 8px;
+}
+
+.news-item:hover .news-meta {
+    color: #ddd; /* Lighter text on hover */
+}
+
+.news-author {
+    font-size: 16px;
+    color: #555;
+    margin-top: 5px;
+}
+
+.news-item:hover .news-author {
+    color: #ddd; /* Lighter author text on hover */
+}
+
+.news-item img {
+    width: 160px;
+    height: auto;
+    border-radius: 8px;
+}
 
             /* Media query for screens smaller than 768px */
             @media (max-width: 768px) {
@@ -326,9 +394,7 @@
                     flex: 1 1 100%; /* Adjusts the width to 100% on smaller screens */
                     max-width: none;
                 }
-            }   
-            
-            [x-cloak] { display: none !important; }
+            }                
         </style>
     </head>
 
@@ -358,12 +424,12 @@
                     </a>
                 </nav>
 
-    <!-- Centered Logo -->
-    <div class="center-section">
-        <img src="{{ asset('logo/802-GO-LOGO.png') }}" alt="Logo" class="h-16 w-auto">
-    </div>
+                <!-- Centered Logo -->
+                <div class="center-section">
+                    <img src="{{ asset('logo/802-GO-LOGO.png') }}" alt="Logo" class="h-16 w-auto">
+                </div>
 
-    @if (Route::has('login'))
+                @if (Route::has('login'))
                     <!-- Right-aligned Authentication Links -->
                     <nav class="right-section flex space-x-4">
                     @auth
@@ -383,7 +449,7 @@
                     @endauth
                 </nav>
             @endif
-</header>
+            </header>
         </div>
 
 <script>
@@ -404,155 +470,28 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 </script>
+<body>
 
-    <div class="text-section">
-        <h1>802-GO: Barangay Management System</h1>
-        <p>District 5, Sta. Ana Manila City, Metro Manila, Philippines</p>
-    </div>
- 
-    <div class="container">
-        <div class="service">
-            <h3>News Page</h3>
-            <p>A page where users can find the latest updates, announcements, and news related to the barangay.</p>
-            <a href="{{ route('news-page') }}">Click to View News</a>
+<div class="text-section">
+    <h1>LATEST NEWS</h1>
+    <p>Keep up to date with the latest news about Barangay 802</p>
+</div>
+
+<div class="container_1">
+    @foreach ($news as $item)
+        <div class="news-item">
+            <div class="news-content">
+                <a href="{{ route('news.show', $item->id) }}">{{ $item->title }}</a>
+                <div class="news-author">By: {{ $item->author }}</div>
+                <div class="news-meta">Published {{ $item->created_at->diffForHumans() }}</div>
+            </div>
+            @if ($item->image)
+                <img src="{{ asset('storage/' . $item->image) }}" alt="{{ $item->title }}">
+            @endif
         </div>
-
-        <div class="service">
-            <h3>Document Request Page</h3>
-            <p>This page allows users to request various official documents such as clearances and certificates.</p>
-            <a href="{{ route('document-request') }}">Click to Apply for Documents</a>
-        </div>
-    </div>
-
-<!-- News Title Section -->
-<section class="flex justify-center p-6">
-    <!-- Main Banner Card with "Latest News" Title -->
-    <div
-        style=" width: 100%; max-width: var(--max-screen-xl); display: flex; align-items: center; justify-content: center; overflow: hidden; border-radius: 0.5rem; background-color: white; padding: 1.5rem; box-shadow: 0px 14px 34px 0px rgba(0, 0, 0, 0.08); border: 2px solid rgba(255, 255, 255, 0.05); transition: border-color 0.3s, border-width 0.3s;" 
-        onmouseover="this.style.borderColor='#11468F'; this.style.borderWidth='4px';" 
-        onmouseout="this.style.borderColor='rgba(255, 255, 255, 0.05)'; this.style.borderWidth='2px';"
-    >
-        <h1 style="font-size: 30px; font-weight: bold;" class="text-8xl font-extrabold text-black dark:text-white">Barangay News</h1>
-    </div>
-</section>
-
-
-<!-- News Articles Section -->
-<section class="grid gap-6 lg:grid-cols-3 lg:gap-8 p-6">
-    <!-- News Article Card 1 -->
-    <a href="{{ route('sample-news-1') }}" class="flex flex-col items-start gap-6 overflow-hidden rounded-lg bg-white p-6 shadow-[0px_14px_34px_0px_rgba(0,0,0,0.08)] ring-1 ring-white/[0.05] transition duration-300 hover:text-black/70 hover:ring-black/20 focus:outline-none focus-visible:ring-[#FF2D20] dark:bg-zinc-900 dark:ring-zinc-800 dark:hover:text-white/70 dark:hover:ring-zinc-700 dark:focus-visible:ring-[#FF2D20]">
-        <div class="relative flex w-full items-stretch">
-            <img src="{{ asset('background/news-1.png') }}" alt="News Image 1" class="aspect-video w-full h-full object-cover rounded-[10px] drop-shadow-[0px_4px_34px_rgba(0,0,0,0.06)] dark:hidden">
-            <div class="absolute -bottom-16 -left-16 h-40 w-[calc(100%+8rem)] bg-gradient-to-b from-transparent via-white to-white dark:via-zinc-900 dark:to-zinc-900"></div>
-        </div>
-        <div class="relative">
-            <h2 class="text-xl font-semibold text-black dark:text-white">Community Health Outreach Brings Medical Assistance to Families</h2>
-            <p class="mt-2 text-sm/relaxed" style="margin-bottom: 8px;">Health workers provide free check-ups and medical assistance to families in underserved areas, focusing on young children and elderly residents...</p>
-        </div>
-        <div>
-        <button style="border: 2px solid #11468F; padding: 10px 20px; background-color: #11468F; color: white; border-radius: 5px;">Read More</button>
-        </div>
-    </a>
-
-    <!-- News Article Card 2 -->
-    <a href="{{ route('sample-news-2') }}" class="flex flex-col items-start gap-6 overflow-hidden rounded-lg bg-white p-6 shadow-[0px_14px_34px_0px_rgba(0,0,0,0.08)] ring-1 ring-white/[0.05] transition duration-300 hover:text-black/70 hover:ring-black/20 focus:outline-none focus-visible:ring-[#FF2D20] dark:bg-zinc-900 dark:ring-zinc-800 dark:hover:text-white/70 dark:hover:ring-zinc-700 dark:focus-visible:ring-[#FF2D20]">
-        <div class="relative flex w-full items-stretch">
-            <img src="{{ asset('background/news-2.png') }}" alt="News Image 2" class="aspect-video w-full h-full object-cover rounded-[10px] drop-shadow-[0px_4px_34px_rgba(0,0,0,0.06)] dark:hidden">
-            <div class="absolute -bottom-16 -left-16 h-40 w-[calc(100%+8rem)] bg-gradient-to-b from-transparent via-white to-white dark:via-zinc-900 dark:to-zinc-900"></div>
-        </div>
-        <div class="relative">
-            <h2 class="text-xl font-semibold text-black dark:text-white">Storytelling Session Inspires Young Minds in Local Outreach Program</h2>
-            <p class="mt-2 text-sm/relaxed" style="margin-bottom: 8px;">Volunteers engage children in an educational storytelling session, aiming to foster a love for reading and learning in a friendly outdoor setting...</p>
-        </div>
-        <div>
-        <button style="border: 2px solid #11468F; padding: 10px 20px; background-color: #11468F; color: white; border-radius: 5px;">Read More</button>
-        </div>
-    </a>
-
-    <!-- News Article Card 3 -->
-    <a href="{{ route('sample-news-3') }}" class="flex flex-col items-start gap-6 overflow-hidden rounded-lg bg-white p-6 shadow-[0px_14px_34px_0px_rgba(0,0,0,0.08)] ring-1 ring-white/[0.05] transition duration-300 hover:text-black/70 hover:ring-black/20 focus:outline-none focus-visible:ring-[#FF2D20] dark:bg-zinc-900 dark:ring-zinc-800 dark:hover:text-white/70 dark:hover:ring-zinc-700 dark:focus-visible:ring-[#FF2D20]">
-        <div class="relative flex w-full items-stretch">
-            <img src="{{ asset('background/news-3.png') }}" alt="News Image 3" class="aspect-video w-full h-full object-cover rounded-[10px] drop-shadow-[0px_4px_34px_rgba(0,0,0,0.06)] dark:hidden">
-            <div class="absolute -bottom-16 -left-16 h-40 w-[calc(100%+8rem)] bg-gradient-to-b from-transparent via-white to-white dark:via-zinc-900 dark:to-zinc-900"></div>
-        </div>
-        <div class="relative">
-            <h2 class="text-xl font-semibold text-black dark:text-white">Community Effort Enhances Road Safety with New Repairs </h2>
-            <p class="mt-2 text-sm/relaxed" style="margin-bottom: 8px;">Local workers join forces to repair and improve road infrastructure, enhancing safety for pedestrians and drivers in the community...</p>
-        </div>
-        <div>
-        <button style="border: 2px solid #11468F; padding: 10px 20px; background-color: #11468F; color: white; border-radius: 5px;">Read More</button>
-        </div>
-    </a>
-</section>
-
-
-<!-- About us Section -->
-<section class="flex justify-center py-10 px-6">
-    <!-- About Us Card centered on the screen -->
-    <div
-        class="w-full max-w-screen-xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6 overflow-hidden rounded-lg bg-white pt-16 pb-16 px-6 shadow-[0px_14px_34px_0px_rgba(0,0,0,0.08)] ring-1 ring-white/[0.05] transition duration-300 hover:text-black/70 hover:ring-black/20 focus:outline-none focus-visible:ring-[#FF2D20] lg:p-10 lg:pb-10 dark:bg-zinc-900 dark:ring-zinc-800 dark:hover:text-white/70 dark:hover:ring-zinc-700 dark:focus-visible:ring-[#FF2D20]"
-    >
-        <!-- About Us Content -->
-        <div class="flex flex-col gap-6 justify-center text-center lg:text-left pt-10"> <!-- Added pt-10 for padding-top -->
-            <h2 style="font-size: 35px; font-weight: bold;" class="text-2xl font-semibold text-black dark:text-white mt-4">About Us</h2> <!-- Added mt-4 for margin-top -->
-            <p style="font-size: 16px;" class="text-sm/relaxed text-gray-700 dark:text-gray-300 mt-4"> <!-- Added mt-4 for margin-top -->
-                Barangay 802, District 5, Sta. Ana, Manila City, Metro Manila, Philippines, is a peaceful, progressive, and highly-urbanized community. It consists of cooperative and morally upright residents, ambitious and responsive business owners and corporate managers, and committed and visionary leaders. Barangay 802 works hand in hand with its constituents to sustain a clean, green, safe, and healthy environment, fostering both physical and economic growth.
-            </p>
-            <a href="#"
-               class="mt-4 inline-block px-6 py-3 bg-green-500 text-white font-semibold rounded-md transition hover:bg-green-600">
-                Read More
-            </a>
-        </div>
-
-        <!-- About Us Image -->
-        <div class="relative flex items-center">
-            <img
-                src="{{ asset('background/brgy.jpg') }}"
-                alt="Barangay 802 Officials"
-                class="w-full h-full object-cover rounded-[10px] drop-shadow-[0px_4px_34px_rgba(0,0,0,0.06)]"
-            />
-            <div class="absolute inset-0 banner-overlay"></div>
-        </div>
-    </div>
-</section>
-
-
-<!-- Map Section -->
-<section class="flex justify-center py-5 ">
-    <div id="map"></div>
-    <!-- Back to Top Button -->
-    <button class="back-to-top" onclick="scrollToTop()">Back to Top</button>
-    <script>
-    // Initialize the map
-    const map = L.map('map').setView([14.572701489536044, 121.00241131326865], 100); // Latitude, Longitude, Zoom Level
-
-    // Add OpenStreetMap tiles
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '© OpenStreetMap contributors'
-    }).addTo(map);
-
-    // Add a marker with a custom popup
-    const popupContent = `
-      <div class="custom-popup">
-        <img src="{{ asset('images/map_brgy.jpg') }}" alt="Location Photo">
-        <h4>Barangay 802</h4>
-        <p>District 5, Sta. Ana Manila City, Metro Manila, Philippines</p>
-        <a href="https://www.google.com/maps/place/Barangay+802+Zone+87+District+V+Manila/@14.57304,120.9936437,16z/data=!4m10!1m2!2m1!1sBrgy.+802+District+5,+Sta.+Ana+Manila+City,+Metro+Manila,+Philippines!3m6!1s0x3397c99ba4d6d167:0x9ee46b591523041a!8m2!3d14.57304!4d121.0026559!15sCkVCcmd5LiA4MDIgRGlzdHJpY3QgNSwgU3RhLiBBbmEgTWFuaWxhIENpdHksIE1ldHJvIE1hbmlsYSwgUGhpbGlwcGluZXOSARpkaXN0cmljdF9nb3Zlcm5tZW50X29mZmljZeABAA!16s%2Fg%2F11bwny0638?entry=ttu&g_ep=EgoyMDI1MDEwOC4wIKXMDSoASAFQAw%3D%3D" target="_blank">Directions</a>
-      </div>
-    `;
-
-    L.marker([14.572701489536044, 121.00241131326865]).addTo(map)
-      .bindPopup(popupContent);
-    // Scroll to Top Function
-    function scrollToTop() {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-    }
-  </script>
-</section>
-
+    @endforeach
+</div>
+    
 <!-- Barangay Section -->
 <section class="barangay-section bg-[#11468F] text-white py-8 lg:py-12 px-4 lg:px-6">
     <div class="container mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 items-center">
@@ -598,6 +537,5 @@ document.addEventListener("DOMContentLoaded", function() {
             </div>
         </div>
         <script src="//code.tidio.co/h2325m3tkhvbkjk1prdnfsw0cihgt66j.js" async></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.13.8/cdn.min.js" defer></script>
     </body>
 </html>
